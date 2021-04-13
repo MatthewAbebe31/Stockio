@@ -8,8 +8,6 @@ xhrProfitability.responseType = 'json';
 xhrProfitability.addEventListener('load', handleLoadProfitability);
 
 function handleLoadProfitability(event) {
-console.log('xhrProfitability status: ', xhrProfitability.status);
-console.log('xhrProfitability response: ', xhrProfitability.response);
   // Variables for Profitability Measures
 
   // Return on Assests (ROA) TTM
@@ -43,9 +41,8 @@ xhrLiquidity.responseType = 'json';
 xhrLiquidity.addEventListener('load', handleLoadLiquidity);
 
 function handleLoadLiquidity(event) {
-  console.log('xhrLiquidity status: ', xhrLiquidity.status);
-  console.log('xhrLiquidity response: ', xhrLiquidity.response);
-
+  console.log('xhrLiquidity status: ', xhrLiquidity.status)
+  console.log('xhrLiquidity response: ', xhrLiquidity.response)
   // Variables for Liquidity Measures
 
   // Current Ratio
@@ -82,8 +79,6 @@ xhrSolvency.responseType = 'json';
 xhrSolvency.addEventListener('load', handleLoadSolvency);
 
 function handleLoadSolvency(event) {
-  console.log('xhrSolvency status: ', xhrSolvency.status);
-  console.log('xhrSolvency response: ', xhrSolvency.response);
 
   // Variables for Solvency Measures
 
@@ -114,8 +109,6 @@ xhrSolvencyTwo.responseType = 'json';
 xhrSolvencyTwo.addEventListener('load', handleLoadSolvencyTwo);
 
 function handleLoadSolvencyTwo(event) {
-  console.log('xhrSolvencyTwo status: ', xhrSolvencyTwo.status);
-  console.log('xhrSolvencyTwo response: ', xhrSolvencyTwo.response);
 
   // Variables for Solvency Measures
 
@@ -139,8 +132,6 @@ xhrValuation.responseType = 'json';
 xhrValuation.addEventListener('load', handleLoadValuation);
 
 function handleLoadValuation(event) {
-  console.log('xhrValuation status: ', xhrValuation.status);
-  console.log('xhrValuation response: ', xhrValuation.response);
   // Variables for valuation
 
   // P/E Ratio
@@ -175,8 +166,6 @@ xhrProfile.responseType = 'json';
 xhrProfile.addEventListener('load', handleLoadProfile);
 
 function handleLoadProfile(event) {
-  console.log('xhrProfile status: ', xhrProfile.status);
-  console.log('xhrProfile response: ', xhrProfile.response);
 
   // Variables for profile data
 
@@ -207,13 +196,11 @@ xhrQuote.responseType = 'json';
 xhrQuote.addEventListener('load', handleLoadQuote);
 
 function handleLoadQuote(event) {
-  console.log('xhrQuote status: ', xhrQuote.status);
-  console.log('xhrQuote response: ', xhrQuote.response);
 
-  // Variables for profile data
+  // Variables for quote data
 
-  // var quote = xhrProfile.response['Global Quoate']['05. price']
-  // console.log('Quote: ', quote)
+  var quote = xhrQuote.response['Global Quote']['05. price']
+  console.log('Quote: ', quote)
 
 }
 
@@ -227,14 +214,32 @@ xhrSearch.responseType = 'json';
 xhrSearch.addEventListener('load', handleLoadSearch);
 
 function handleLoadSearch(event) {
-  console.log('xhrSearch status: ', xhrSearch.status);
-  console.log('xhrSearch response: ', xhrSearch.response);
 
   // Variables for profile data
 
   // var search = xhrProfile.response['Global Quoate']['05. price']
   // console.log('Search: ', quote)
 
-  var bestMatchSymbol = xhrSearch.response.bestMatches[0]
-  console.log(bestMatchSymbol)
+  var bestMatches = xhrSearch.response.bestMatches
+  console.log(bestMatches)
+}
+
+var xhrDailyPrices = new XMLHttpRequest();
+
+xhrDailyPrices.open('GET', 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=IBM&apikey=demo');
+xhrDailyPrices.send();
+
+xhrDailyPrices.responseType = 'json';
+
+xhrDailyPrices.addEventListener('load', handleLoadDailyPrices);
+
+function handleLoadDailyPrices(event) {
+
+  // Variables for daily price data
+
+  // var search = xhrProfile.response['Global Quoate']['05. price']
+  // console.log('Search: ', quote)
+
+  var dailyPrices = xhrDailyPrices.response
+  console.log(dailyPrices)
 }
