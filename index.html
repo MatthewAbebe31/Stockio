@@ -35,7 +35,7 @@
     <div class="row">
       <div class="tabbed-views">
         <div class="tab-container hidden">
-          <div class="tab profile-tab">Profile</div>
+          <div class="tab">Profile</div>
           <div class="tab">Profitability</div>
           <div class="tab">Liquidity</div>
           <div class="tab">Solvency</div>
@@ -44,16 +44,29 @@
         </div>
       </div>
     </div>
+  </div>
 
     <div class="profile-container hidden" data-view="profile">
-      <div>
-      <h2>Profile</h2>
+      <div class="col-full">
+        <div class="row">
+          <h2>Profile</h2>
+        </div>
+        <div class="row">
+          <ul class="profile-data"></ul>
+        </div>
       </div>
-        <ul class="profile-data"></ul>
     </div>
 
-
-  </div>
+    <div class="profitability-container hidden" data-view="profitability">
+      <div class="col-full">
+        <div class="row">
+          <h2>Profitability</h2>
+        </div>
+        <div class="row">
+          <ul class="profitability-data"></ul>
+        </div>
+      </div>
+    </div>
 
   </main>
 

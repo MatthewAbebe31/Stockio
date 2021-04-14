@@ -1,3 +1,33 @@
+// handleInput and handleClick functions for homepage. Takes User to Profile page view. //
+
+var stockSearchInput = document.getElementById('stock-search-input');
+stockSearchInput.addEventListener('input', handleInput);
+var keyword;
+var symbol;
+
+function handleInput(event) {
+  symbol = event.target.value;
+  console.log(symbol)
+}
+
+var homeContainerEl = document.querySelector('.home-container')
+var tabContainerEl = document.querySelector('.tab-container')
+var profileContainerEl = document.querySelector('.profile-container')
+
+var findButton = document.querySelector('.find-button');
+findButton.addEventListener('click', handleFindClick)
+
+function handleFindClick(event) {
+  console.log('you clicked submit!')
+
+  homeContainerEl.classList.remove('view')
+  homeContainerEl.classList.add('hidden')
+  tabContainerEl.classList.remove('hidden')
+  tabContainerEl.classList.add('view')
+  profileContainerEl.classList.remove('hidden')
+  profileContainerEl.classList.add('view')
+}
+
 var xhrOverview = new XMLHttpRequest();
 
 xhrOverview.open('GET', `https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=HKX3MUJHRZLOUZ85`);
@@ -174,44 +204,7 @@ function handleLoadDailyPrices(event) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-// handleInput and handleClick functions for homepage. Takes User to Profile page view. //
-
-var stockSearchInput = document.getElementById('stock-search-input');
-stockSearchInput.addEventListener('input', handleInput);
-var keyword;
-var symbol;
-
-function handleInput(event) {
-  keyword = event.target.value;
-}
-
-var homeContainerEl = document.querySelector('.home-container')
-var tabContainerEl = document.querySelector('.tab-container')
-var profileContainerEl = document.querySelector('.profile-container')
-
-var findButton = document.querySelector('.find-button');
-findButton.addEventListener('click', handleFindClick)
-
-function handleFindClick(event) {
-  console.log('you clicked submit!')
-  symbol = keyword
-  console.log(symbol)
-
-  homeContainerEl.classList.remove('view')
-  homeContainerEl.classList.add('hidden')
-  tabContainerEl.classList.remove('hidden')
-  tabContainerEl.classList.add('view')
-  profileContainerEl.classList.remove('hidden')
-  profileContainerEl.classList.add('view')
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
 // Handle switching views with tabs
 
-var profileTabEl = document.querySelector('.profile-tab')
-profileTabEl.addEventListener('click', handleProfileClick)
-
-function handleProfileClick(event) {
-  console.log('go to profile view!')
-}
+var tabEl = document.querySelector('.tab-container')
+var tabElements = document.querySelectorAll('.tabs')

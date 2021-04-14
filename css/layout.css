@@ -5,3 +5,8 @@
 .row {
   width: 100%;
 }
+
+div.profile-container-view {
+  display: flex;
+  flex-flow: column wrap;
+}

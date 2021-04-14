@@ -8,10 +8,6 @@ h1 {
   font-weight: normal;
 }
 
-h2 {
-  display: block;
-}
-
 input#stock-search-input {
   position: fixed;
   top: 50%;
