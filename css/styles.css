@@ -8,6 +8,21 @@ h1 {
   font-weight: normal;
 }
 
+input#stock-search-input {
+  position: fixed;
+  top: 50%;
+  right: 43%;
+  text-align: center;
+}
+
+.find-button {
+  position: fixed;
+  bottom: 40%;
+  right: 43%;
+  text-align: center;
+  width: 100px
+}
+
 .tab {
   padding: 0.75rem 1.5rem 0.5rem;
   border: solid;
@@ -28,4 +43,12 @@ h1 {
   display: flex;
   position: relative;
   top: 1px;
+}
+
+.view {
+  display: flex;
+}
+
+.hidden {
+  display: none;
 }

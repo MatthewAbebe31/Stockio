@@ -21,10 +21,20 @@
 
   <main>
 
+  <div class="home-container view" data-view="home">
+    <div class="col-full">
+      <div class="row">
+        <input type="text" id="stock-search-input" placeholder="Search for a stock by symbol.">
+        <button class="find-button">Find</button>
+      </div>
+    </div>
+  </div>
+
+
   <div class="col-full">
     <div class="row">
       <div class="tabbed-views">
-        <div class="tab-container">
+        <div class="tab-container hidden">
           <div class="tab">Profile</div>
           <div class="tab">Profitability</div>
           <div class="tab">Liquidity</div>
@@ -34,17 +44,18 @@
         </div>
       </div>
     </div>
-    <div>
-      <h2>Profile</h2>
+
+    <div class="profile-container hidden" data-view="profile">
+        <h2>Profile</h2>
+        <ul class="profile-data">
+          <li><b>Symbol:</b></li>
+          <li><b>Name:</b></li>
+          <li><b>Exchange:</b></li>
+          <li><b>Sector:</b></li>
+        </ul>
     </div>
-    <div class="profile-container">
-      <ul>
-        <li><b>Symbol:</b></li>
-        <li><b>Name:</b></li>
-        <li><b>Exchange:</b></li>
-        <li><b>Sector:</b></li>
-      </ul>
-    </div>
+
+
   </div>
 
   </main>

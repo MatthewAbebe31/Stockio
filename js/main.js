@@ -1,6 +1,6 @@
 var xhrProfitability = new XMLHttpRequest();
 
-xhrProfitability.open('GET', 'https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=HKX3MUJHRZLOUZ85');
+xhrProfitability.open('GET', `https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=HKX3MUJHRZLOUZ85`);
 xhrProfitability.send();
 
 xhrProfitability.responseType = 'json';
@@ -158,7 +158,7 @@ function handleLoadValuation(event) {
 
 var xhrProfile = new XMLHttpRequest();
 
-xhrProfile.open('GET', 'https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=HKX3MUJHRZLOUZ85');
+xhrProfile.open('GET', `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${symbol}&apikey=HKX3MUJHRZLOUZ85`);
 xhrProfile.send();
 
 xhrProfile.responseType = 'json';
@@ -167,10 +167,15 @@ xhrProfile.addEventListener('load', handleLoadProfile);
 
 function handleLoadProfile(event) {
 
-  // Variables for profile data
+  var profileDataEl = document.querySelector('.profile-data')
 
   var symbol = xhrProfile.response.Symbol
   console.log(symbol)
+
+  var symbol = document.createElement('li')
+  symbol.className = 'symbol';
+  symbol.innerHTML = xhrProfile.response.Symbol
+  profileDataEl.appendChild(symbol)
 
   var stockName = xhrProfile.response.Name;
   console.log(stockName)
@@ -197,7 +202,6 @@ xhrQuote.addEventListener('load', handleLoadQuote);
 
 function handleLoadQuote(event) {
 
-  // Variables for quote data
 
   var quote = xhrQuote.response['Global Quote']['05. price']
   console.log('Quote: ', quote)
@@ -214,14 +218,7 @@ xhrSearch.responseType = 'json';
 xhrSearch.addEventListener('load', handleLoadSearch);
 
 function handleLoadSearch(event) {
-
-  // Variables for profile data
-
-  // var search = xhrProfile.response['Global Quoate']['05. price']
-  // console.log('Search: ', quote)
-
-  var bestMatches = xhrSearch.response.bestMatches
-  console.log(bestMatches)
+  console.log(xhrSearch.response)
 }
 
 var xhrDailyPrices = new XMLHttpRequest();
@@ -235,11 +232,39 @@ xhrDailyPrices.addEventListener('load', handleLoadDailyPrices);
 
 function handleLoadDailyPrices(event) {
 
-  // Variables for daily price data
-
-  // var search = xhrProfile.response['Global Quoate']['05. price']
-  // console.log('Search: ', quote)
-
   var dailyPrices = xhrDailyPrices.response
   console.log(dailyPrices)
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+// handleInput and handleClick functions for homepage. Takes User to Profile page view. //
+
+var stockSearchInput = document.getElementById('stock-search-input');
+stockSearchInput.addEventListener('input', handleInput);
+var keyword;
+var symbol;
+
+function handleInput(event) {
+  keyword = event.target.value;
+}
+
+var homeContainerEl = document.querySelector('.home-container')
+var tabContainerEl = document.querySelector('.tab-container')
+var profileContainerEl = document.querySelector('.profile-container')
+
+var findButton = document.querySelector('.find-button');
+findButton.addEventListener('click', handleClick)
+
+function handleClick(event) {
+  console.log('you clicked submit!')
+  symbol = keyword
+  console.log(symbol)
+
+  homeContainerEl.classList.remove('view')
+  homeContainerEl.classList.add('hidden')
+  tabContainerEl.classList.remove('hidden')
+  tabContainerEl.classList.add('view')
+  profileContainerEl.classList.remove('hidden')
+  profileContainerEl.classList.add('view')
 }
