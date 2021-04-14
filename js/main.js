@@ -1,193 +1,129 @@
-var xhrProfitability = new XMLHttpRequest();
+var xhrOverview = new XMLHttpRequest();
 
-xhrProfitability.open('GET', `https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=HKX3MUJHRZLOUZ85`);
-xhrProfitability.send();
+xhrOverview.open('GET', `https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=HKX3MUJHRZLOUZ85`);
+xhrOverview.send();
 
-xhrProfitability.responseType = 'json';
+xhrOverview.responseType = 'json';
 
-xhrProfitability.addEventListener('load', handleLoadProfitability);
+xhrOverview.addEventListener('load', handleLoadOverview);
 
-function handleLoadProfitability(event) {
-  // Variables for Profitability Measures
+function handleLoadOverview(event) {
 
-  // Return on Assests (ROA) TTM
-  var returnOnAssetsTTM = xhrProfitability.response.ReturnOnAssetsTTM;
+  var profileDataEl = document.querySelector('.profile-data')
+
+  var symbolEl = document.createElement('li');
+  symbolEl.className = 'symbol';
+  symbolEl.innerHTML = 'Symbol: ' + xhrOverview.response.Symbol
+  profileDataEl.appendChild(symbolEl)
+
+  var stockNameEl = document.createElement('li');
+  stockNameEl.className = 'stock-name';
+  stockNameEl.innerHTML = 'Name: ' + xhrOverview.response.Name
+  profileDataEl.appendChild(stockNameEl)
+
+  var exchangeNameEl = document.createElement('li')
+  exchangeNameEl.className = 'exchange-name'
+  exchangeNameEl.innerHTML = 'Exchange: ' + xhrOverview.response.Exchange
+  profileDataEl.appendChild(exchangeNameEl)
+
+  var sectorNameEl = document.createElement('li');
+  sectorNameEl.className = 'sector-name'
+  sectorNameEl.innerHTML = 'Sector: ' + xhrOverview.response.Sector
+  profileDataEl.appendChild(sectorNameEl)
+
+  var address = xhrOverview.response.Address;
+  console.log(address)
+
+  var returnOnAssetsTTM = xhrOverview.response.ReturnOnAssetsTTM;
 
   console.log('Return-on-Assets-TTM: ', returnOnAssetsTTM);
 
-  // Return on Equity (ROE) TTM
-  var returnOnEquityTTM = xhrProfitability.response.ReturnOnEquityTTM;
+  var returnOnEquityTTM = xhrOverview.response.ReturnOnEquityTTM;
 
   console.log('Return-on-Equity-TTM: ', returnOnEquityTTM);
 
-  // Operating Margin TTM
-  var operatingMarginTTM = xhrProfitability.response.OperatingMarginTTM;
+  var operatingMarginTTM = xhrOverview.response.OperatingMarginTTM;
 
   console.log('Operating Margin: ', operatingMarginTTM);
 
-  // Profit Margin
-  var profitMargin = xhrProfitability.response.ProfitMargin;
+  var profitMargin = xhrOverview.response.ProfitMargin;
   console.log('Profit Margin: ', profitMargin);
+
+  var peRatio = xhrOverview.response.PERatio;
+
+  console.log('PE Ratio: ', peRatio)
+
+  var pegRatio = xhrOverview.response.PEGRatio
+
+  console.log('PEG Ratio: ', pegRatio)
+
+  var pbRatio = xhrOverview.response.PriceToBookRatio;
+
+  console.log('P/B Ratio: ', pbRatio)
+
+  var psRatio = xhrOverview.response.PriceToSalesRatioTTM;
+
+  console.log('P/S Ratio: ', psRatio)
 }
 
-var xhrLiquidity = new XMLHttpRequest();
+var xhrBalanceSheet = new XMLHttpRequest();
 
-// Request from BALANCE SHEETS
-xhrLiquidity.open('GET', 'https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=IBM&apikey=HKX3MUJHRZLOUZ85');
-xhrLiquidity.send();
+xhrBalanceSheet.open('GET', 'https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=IBM&apikey=HKX3MUJHRZLOUZ85');
+xhrBalanceSheet.send();
 
-xhrLiquidity.responseType = 'json';
+xhrBalanceSheet.responseType = 'json';
 
-xhrLiquidity.addEventListener('load', handleLoadLiquidity);
+xhrBalanceSheet.addEventListener('load', handleLoadBalanceSheet);
 
-function handleLoadLiquidity(event) {
-  console.log('xhrLiquidity status: ', xhrLiquidity.status)
-  console.log('xhrLiquidity response: ', xhrLiquidity.response)
-  // Variables for Liquidity Measures
+function handleLoadBalanceSheet(event) {
+  console.log('xhrBalanceSheet status: ', xhrBalanceSheet.status)
+  console.log('xhrBalanceSheet response: ', xhrBalanceSheet.response)
 
-  // Current Ratio
-  var totalCurrentAssests = xhrLiquidity.response.annualReports[0].totalCurrentAssets;
-  var totalCurrentLiabilities = xhrLiquidity.response.annualReports[0].totalCurrentLiabilities;
+  var totalCurrentAssests = xhrBalanceSheet.response.annualReports[0].totalCurrentAssets;
+  var totalCurrentLiabilities = xhrBalanceSheet.response.annualReports[0].totalCurrentLiabilities;
   var currentRatio = totalCurrentAssests / totalCurrentLiabilities;
 
   console.log('Current Ratio: ', currentRatio);
 
-  // Quick Ratio
-  var inventory = xhrLiquidity.response.annualReports[0].inventory;
+  var inventory = xhrBalanceSheet.response.annualReports[0].inventory;
   var quickRatio = (totalCurrentAssests - inventory) / totalCurrentLiabilities;
 
   console.log('Quick ratio: ', quickRatio);
 
-  // Cash Ratio
-  var cashAndCashEquivalents = xhrLiquidity.response.annualReports[0].cashAndCashEquivalentsAtCarryingValue
+  var cashAndCashEquivalents = xhrBalanceSheet.response.annualReports[0].cashAndCashEquivalentsAtCarryingValue
   var cashRatio = cashAndCashEquivalents / totalCurrentLiabilities
 
   console.log('Cash Ratio: ', cashRatio)
 
-  //
-}
+  var totalAssets = xhrBalanceSheet.response.annualReports[0].totalAssets;
 
-
-var xhrSolvency = new XMLHttpRequest();
-
-// Request from BALANCE SHEETS
-xhrSolvency.open('GET', 'https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=IBM&apikey=HKX3MUJHRZLOUZ85');
-xhrSolvency.send();
-
-xhrSolvency.responseType = 'json';
-
-xhrSolvency.addEventListener('load', handleLoadSolvency);
-
-function handleLoadSolvency(event) {
-
-  // Variables for Solvency Measures
-
-  // Equity ratio
-  var totalAssets = xhrSolvency.response.annualReports[0].totalAssets;
-
-  // Debt-to-Equity-Ratio
-  var totalLiabilities = xhrSolvency.response.annualReports[0].totalLiabilities;
-  var totalShareholderEquity = xhrSolvency.response.annualReports[0].totalShareholderEquity;
+  var totalLiabilities = xhrBalanceSheet.response.annualReports[0].totalLiabilities;
+  var totalShareholderEquity = xhrBalanceSheet.response.annualReports[0].totalShareholderEquity;
   var debtToEquityRatio = totalLiabilities / totalShareholderEquity;
 
   console.log('Debt-to-Equity-Ratio: ', debtToEquityRatio);
 
-  // Debt-to-Assets-Ratio
   var DebtToAssests = totalLiabilities / totalAssets;
 
   console.log('Total-Debt-to-Total-Assets: ', DebtToAssests);
 }
 
-var xhrSolvencyTwo = new XMLHttpRequest();
+var xhrIncomeStatement = new XMLHttpRequest();
 
-// Request from BALANCE SHEETS
-xhrSolvencyTwo.open('GET', 'https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=IBM&apikey=HKX3MUJHRZLOUZ85');
-xhrSolvencyTwo.send();
+xhrIncomeStatement.open('GET', 'https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=IBM&apikey=HKX3MUJHRZLOUZ85');
+xhrIncomeStatement.send();
 
-xhrSolvencyTwo.responseType = 'json';
+xhrIncomeStatement.responseType = 'json';
 
-xhrSolvencyTwo.addEventListener('load', handleLoadSolvencyTwo);
+xhrIncomeStatement.addEventListener('load', handleLoadIncomeStatement);
 
-function handleLoadSolvencyTwo(event) {
+function handleLoadIncomeStatement(event) {
 
-  // Variables for Solvency Measures
-
-  // Interest Coverage Ratio
-  var ebit = xhrSolvencyTwo.response.annualReports[0].ebit;
-  var interestExpense = xhrSolvencyTwo.response.annualReports[0].interestExpense
+  var ebit = xhrIncomeStatement.response.annualReports[0].ebit;
+  var interestExpense = xhrIncomeStatement.response.annualReports[0].interestExpense
   var interestCoverageRatio = ebit / interestExpense
 
   console.log('Interest Coverage Ratio: ', interestCoverageRatio)
-
-
-}
-
-var xhrValuation = new XMLHttpRequest();
-
-xhrValuation.open('GET', 'https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=HKX3MUJHRZLOUZ85');
-xhrValuation.send();
-
-xhrValuation.responseType = 'json';
-
-xhrValuation.addEventListener('load', handleLoadValuation);
-
-function handleLoadValuation(event) {
-  // Variables for valuation
-
-  // P/E Ratio
-  var peRatio = xhrValuation.response.PERatio;
-
-  console.log('PE Ratio: ', peRatio)
-
-  // PEG Ratio
-  var pegRatio = xhrValuation.response.PEGRatio
-
-  console.log('PEG Ratio: ', pegRatio)
-
-  // P/B Ratio
-  var pbRatio = xhrValuation.response.PriceToBookRatio;
-
-  console.log('P/B Ratio: ', pbRatio)
-
-  // PS Ratio
-  var psRatio = xhrValuation.response.PriceToSalesRatioTTM;
-
-  console.log('P/S Ratio: ', psRatio)
-
-}
-
-var xhrProfile = new XMLHttpRequest();
-
-xhrProfile.open('GET', `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${symbol}&apikey=HKX3MUJHRZLOUZ85`);
-xhrProfile.send();
-
-xhrProfile.responseType = 'json';
-
-xhrProfile.addEventListener('load', handleLoadProfile);
-
-function handleLoadProfile(event) {
-
-  var profileDataEl = document.querySelector('.profile-data')
-
-  var symbol = xhrProfile.response.Symbol
-  console.log(symbol)
-
-  var symbol = document.createElement('li')
-  symbol.className = 'symbol';
-  symbol.innerHTML = xhrProfile.response.Symbol
-  profileDataEl.appendChild(symbol)
-
-  var stockName = xhrProfile.response.Name;
-  console.log(stockName)
-
-  var exchange = xhrProfile.response.Exchange;
-  console.log(exchange)
-
-  var sector = xhrProfile.response.Sector;
-  console.log(sector)
-
-  var address = xhrProfile.response.Address;
-  console.log(address)
 
 }
 
@@ -254,9 +190,9 @@ var tabContainerEl = document.querySelector('.tab-container')
 var profileContainerEl = document.querySelector('.profile-container')
 
 var findButton = document.querySelector('.find-button');
-findButton.addEventListener('click', handleClick)
+findButton.addEventListener('click', handleFindClick)
 
-function handleClick(event) {
+function handleFindClick(event) {
   console.log('you clicked submit!')
   symbol = keyword
   console.log(symbol)
@@ -267,4 +203,15 @@ function handleClick(event) {
   tabContainerEl.classList.add('view')
   profileContainerEl.classList.remove('hidden')
   profileContainerEl.classList.add('view')
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+// Handle switching views with tabs
+
+var profileTabEl = document.querySelector('.profile-tab')
+profileTabEl.addEventListener('click', handleProfileClick)
+
+function handleProfileClick(event) {
+  console.log('go to profile view!')
 }
