@@ -8,6 +8,19 @@ h1 {
   font-weight: normal;
 }
 
+h2 {
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+  justify-content: center;
+}
+
+.profile-data {
+  text-align: center;
+}
+
 input#stock-search-input {
   position: fixed;
   top: 50%;
@@ -15,12 +28,19 @@ input#stock-search-input {
   text-align: center;
 }
 
+canvas#dailyPriceChart {
+  display: block;
+  box-sizing: border-box;
+  height: 400px;
+  width: 400px;
+}
+
 .find-button {
   position: fixed;
   bottom: 40%;
   right: 43%;
   text-align: center;
-  width: 100px
+  width: 100px;
 }
 
 .tab {
@@ -45,9 +65,9 @@ input#stock-search-input {
   top: 1px;
 }
 
-.view {
+/* .view {
   display: flex;
-}
+} */
 
 .hidden {
   display: none;

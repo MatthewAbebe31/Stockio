@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
 
   <header>
@@ -21,56 +23,70 @@
 
   <main>
 
-  <div class="home-container view" data-view="home">
-    <div class="col-full">
-      <div class="row">
-        <input type="text" id="stock-search-input" placeholder="Search for a stock by symbol.">
-        <button class="find-button">Find</button>
-      </div>
-    </div>
-  </div>
 
-
-  <div class="col-full">
-    <div class="row">
-      <div class="tabbed-views">
-        <div class="tab-container hidden">
-          <div class="tab">Profile</div>
-          <div class="tab">Profitability</div>
-          <div class="tab">Liquidity</div>
-          <div class="tab">Solvency</div>
-          <div class="tab">Valuation</div>
-          <div class="tab">Home</div>
+    <div class="home-container view" data-view="home">
+      <div class="col-full">
+        <div class="row">
+          <form id="symbol-form">
+            <input type="text" id="stock-search-input" placeholder="Search for a stock by symbol.">
+            <button class="find-button">Find</button>
+          </form>
         </div>
       </div>
     </div>
-  </div>
+
+    <!-- <div class="col-full">
+      <div class="row">
+        <div>
+          <canvas id="dailyPriceChart" height="400" width="400"></canvas>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="col-full">
+      <div class="row">
+        <div class="tabbed-views">
+          <div class="tab-container hidden">
+            <div class="tab">Profile</div>
+            <div class="tab">Profitability</div>
+            <div class="tab">Liquidity</div>
+            <div class="tab">Solvency</div>
+            <div class="tab">Valuation</div>
+            <div class="tab">Home</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="profile-container hidden" data-view="profile">
+      <div class="col-full">
+        <div class="row">
+          <div>
+            <canvas id="dailyPriceChart"></canvas>
+          </div>
+        </div>
+      </div>
+
       <div class="col-full">
         <div class="row">
           <h2>Profile</h2>
         </div>
         <div class="row">
+          <div class="profile-data-list">
           <ul class="profile-data"></ul>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="profitability-container hidden" data-view="profitability">
-      <div class="col-full">
-        <div class="row">
-          <h2>Profitability</h2>
-        </div>
-        <div class="row">
-          <ul class="profitability-data"></ul>
-        </div>
-      </div>
-    </div>
 
   </main>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.0/chart.min.js"
+    integrity="sha512-RGbSeD/jDcZBWNsI1VCvdjcDULuSfWTtIva2ek5FtteXeSjLfXac4kqkDRHVGf1TwsXCAqPTF7/EYITD0/CTqw=="
+    crossorigin="anonymous"></script>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>
+
 </html>

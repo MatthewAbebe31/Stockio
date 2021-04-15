@@ -1,210 +1,112 @@
-// handleInput and handleClick functions for homepage. Takes User to Profile page view. //
+var stockSearchForm = document.querySelector('#symbol-form');
+stockSearchForm.addEventListener('submit', handleSubmit); // sumbit
 
-var stockSearchInput = document.getElementById('stock-search-input');
-stockSearchInput.addEventListener('input', handleInput);
-var keyword;
-var symbol;
-
-function handleInput(event) {
-  symbol = event.target.value;
-  console.log(symbol)
+function handleSubmit(event) {
+  event.preventDefault();
+  var symbol = event.target.querySelector('#stock-search-input').value;
+  // console.log(symbol);
+  // call some function
+  getOverviewData(symbol);
+  getDailyPrices(symbol);
+  getQuoteData(symbol);
 }
 
-var homeContainerEl = document.querySelector('.home-container')
-var tabContainerEl = document.querySelector('.tab-container')
-var profileContainerEl = document.querySelector('.profile-container')
+var homeContainerEl = document.querySelector('.home-container');
+var tabContainerEl = document.querySelector('.tab-container');
+var profileContainerEl = document.querySelector('.profile-container');
 
 var findButton = document.querySelector('.find-button');
-findButton.addEventListener('click', handleFindClick)
+findButton.addEventListener('click', handleFindClick);
 
 function handleFindClick(event) {
-  console.log('you clicked submit!')
 
-  homeContainerEl.classList.remove('view')
-  homeContainerEl.classList.add('hidden')
-  tabContainerEl.classList.remove('hidden')
-  tabContainerEl.classList.add('view')
-  profileContainerEl.classList.remove('hidden')
-  profileContainerEl.classList.add('view')
+  homeContainerEl.classList.remove('view');
+  homeContainerEl.classList.add('hidden');
+  tabContainerEl.classList.remove('hidden');
+  tabContainerEl.classList.add('view');
+  profileContainerEl.classList.remove('hidden');
+  profileContainerEl.classList.add('view');
 }
 
-var xhrOverview = new XMLHttpRequest();
+function getOverviewData(symbol) {
+  var xhrOverview = new XMLHttpRequest();
+  xhrOverview.open('GET', `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${symbol}&apikey=EBZ2O8GQQ9CA3ECX`);
+  xhrOverview.responseType = 'json';
+  xhrOverview.addEventListener('load', function () {
+    var profileDataEl = document.querySelector('.profile-data');
+    var symbolEl = document.createElement('li');
+    symbolEl.className = 'symbol';
+    symbolEl.innerHTML = 'Symbol: ' + xhrOverview.response.Symbol;
+    profileDataEl.appendChild(symbolEl);
 
-xhrOverview.open('GET', `https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=HKX3MUJHRZLOUZ85`);
-xhrOverview.send();
+    var stockNameEl = document.createElement('li');
+    stockNameEl.className = 'stock-name';
+    stockNameEl.innerHTML = 'Name: ' + xhrOverview.response.Name;
+    profileDataEl.appendChild(stockNameEl);
 
-xhrOverview.responseType = 'json';
+    var exchangeNameEl = document.createElement('li');
+    exchangeNameEl.className = 'exchange-name';
+    exchangeNameEl.innerHTML = 'Exchange: ' + xhrOverview.response.Exchange;
+    profileDataEl.appendChild(exchangeNameEl);
 
-xhrOverview.addEventListener('load', handleLoadOverview);
+    var sectorNameEl = document.createElement('li');
+    sectorNameEl.className = 'sector-name';
+    sectorNameEl.innerHTML = 'Sector: ' + xhrOverview.response.Sector;
+    profileDataEl.appendChild(sectorNameEl);
 
-function handleLoadOverview(event) {
-
-  var profileDataEl = document.querySelector('.profile-data')
-
-  var symbolEl = document.createElement('li');
-  symbolEl.className = 'symbol';
-  symbolEl.innerHTML = 'Symbol: ' + xhrOverview.response.Symbol
-  profileDataEl.appendChild(symbolEl)
-
-  var stockNameEl = document.createElement('li');
-  stockNameEl.className = 'stock-name';
-  stockNameEl.innerHTML = 'Name: ' + xhrOverview.response.Name
-  profileDataEl.appendChild(stockNameEl)
-
-  var exchangeNameEl = document.createElement('li')
-  exchangeNameEl.className = 'exchange-name'
-  exchangeNameEl.innerHTML = 'Exchange: ' + xhrOverview.response.Exchange
-  profileDataEl.appendChild(exchangeNameEl)
-
-  var sectorNameEl = document.createElement('li');
-  sectorNameEl.className = 'sector-name'
-  sectorNameEl.innerHTML = 'Sector: ' + xhrOverview.response.Sector
-  profileDataEl.appendChild(sectorNameEl)
-
-  var address = xhrOverview.response.Address;
-  console.log(address)
-
-  var returnOnAssetsTTM = xhrOverview.response.ReturnOnAssetsTTM;
-
-  console.log('Return-on-Assets-TTM: ', returnOnAssetsTTM);
-
-  var returnOnEquityTTM = xhrOverview.response.ReturnOnEquityTTM;
-
-  console.log('Return-on-Equity-TTM: ', returnOnEquityTTM);
-
-  var operatingMarginTTM = xhrOverview.response.OperatingMarginTTM;
-
-  console.log('Operating Margin: ', operatingMarginTTM);
-
-  var profitMargin = xhrOverview.response.ProfitMargin;
-  console.log('Profit Margin: ', profitMargin);
-
-  var peRatio = xhrOverview.response.PERatio;
-
-  console.log('PE Ratio: ', peRatio)
-
-  var pegRatio = xhrOverview.response.PEGRatio
-
-  console.log('PEG Ratio: ', pegRatio)
-
-  var pbRatio = xhrOverview.response.PriceToBookRatio;
-
-  console.log('P/B Ratio: ', pbRatio)
-
-  var psRatio = xhrOverview.response.PriceToSalesRatioTTM;
-
-  console.log('P/S Ratio: ', psRatio)
+    // var address = xhrOverview.response.Address;
+  });
+  xhrOverview.send();
 }
 
-var xhrBalanceSheet = new XMLHttpRequest();
+function getQuoteData(symbol) {
+  var xhrQuote = new XMLHttpRequest();
+  xhrQuote.open('GET', `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=EBZ2O8GQQ9CA3ECX`);
+  xhrQuote.responseType = 'json';
+  xhrQuote.addEventListener('load', function () {
 
-xhrBalanceSheet.open('GET', 'https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=IBM&apikey=HKX3MUJHRZLOUZ85');
-xhrBalanceSheet.send();
+    var profileDataEl = document.querySelector('.profile-data');
+    var quoteEl = document.createElement('li');
+    quoteEl.className = 'quote';
+    quoteEl.innerHTML = 'Quote: ' + xhrQuote.response['Global Quote']['05. price'];
+    profileDataEl.appendChild(quoteEl);
 
-xhrBalanceSheet.responseType = 'json';
-
-xhrBalanceSheet.addEventListener('load', handleLoadBalanceSheet);
-
-function handleLoadBalanceSheet(event) {
-  console.log('xhrBalanceSheet status: ', xhrBalanceSheet.status)
-  console.log('xhrBalanceSheet response: ', xhrBalanceSheet.response)
-
-  var totalCurrentAssests = xhrBalanceSheet.response.annualReports[0].totalCurrentAssets;
-  var totalCurrentLiabilities = xhrBalanceSheet.response.annualReports[0].totalCurrentLiabilities;
-  var currentRatio = totalCurrentAssests / totalCurrentLiabilities;
-
-  console.log('Current Ratio: ', currentRatio);
-
-  var inventory = xhrBalanceSheet.response.annualReports[0].inventory;
-  var quickRatio = (totalCurrentAssests - inventory) / totalCurrentLiabilities;
-
-  console.log('Quick ratio: ', quickRatio);
-
-  var cashAndCashEquivalents = xhrBalanceSheet.response.annualReports[0].cashAndCashEquivalentsAtCarryingValue
-  var cashRatio = cashAndCashEquivalents / totalCurrentLiabilities
-
-  console.log('Cash Ratio: ', cashRatio)
-
-  var totalAssets = xhrBalanceSheet.response.annualReports[0].totalAssets;
-
-  var totalLiabilities = xhrBalanceSheet.response.annualReports[0].totalLiabilities;
-  var totalShareholderEquity = xhrBalanceSheet.response.annualReports[0].totalShareholderEquity;
-  var debtToEquityRatio = totalLiabilities / totalShareholderEquity;
-
-  console.log('Debt-to-Equity-Ratio: ', debtToEquityRatio);
-
-  var DebtToAssests = totalLiabilities / totalAssets;
-
-  console.log('Total-Debt-to-Total-Assets: ', DebtToAssests);
+  });
+  xhrQuote.send();
 }
 
-var xhrIncomeStatement = new XMLHttpRequest();
+function getDailyPrices(symbol) {
+  var xhrDailyPrices = new XMLHttpRequest();
+  xhrDailyPrices.open('GET', `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${symbol}&apikey=EBZ2O8GQQ9CA3ECX`);
+  xhrDailyPrices.responseType = 'json';
+  xhrDailyPrices.addEventListener('load', function () {
+    var dailyPrices = xhrDailyPrices.response['Time Series (Daily)'];
+    var dailyPriceData = [];
+    dailyPriceData.push(dailyPrices);
 
-xhrIncomeStatement.open('GET', 'https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=IBM&apikey=HKX3MUJHRZLOUZ85');
-xhrIncomeStatement.send();
+    var closePrices = [];
+    var chartLabels = [];
+    var stockData = dailyPriceData[0];
+    for (var key in stockData) {
+      closePrices.push(stockData[key]['4. close']);
+      chartLabels.push(key);
+    }
 
-xhrIncomeStatement.responseType = 'json';
+    var chart = document.getElementById('dailyPriceChart');
 
-xhrIncomeStatement.addEventListener('load', handleLoadIncomeStatement);
-
-function handleLoadIncomeStatement(event) {
-
-  var ebit = xhrIncomeStatement.response.annualReports[0].ebit;
-  var interestExpense = xhrIncomeStatement.response.annualReports[0].interestExpense
-  var interestCoverageRatio = ebit / interestExpense
-
-  console.log('Interest Coverage Ratio: ', interestCoverageRatio)
-
+    var dailyPriceChart = new Chart(chart, {
+      type: 'line',
+      data: {
+        labels: chartLabels,
+        datasets: [{
+          label: 'Close Price by Day',
+          data: closePrices,
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1
+        }]
+      }
+    });
+  });
+  xhrDailyPrices.send();
 }
-
-var xhrQuote = new XMLHttpRequest();
-
-xhrQuote.open('GET', 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey=HKX3MUJHRZLOUZ85');
-xhrQuote.send();
-
-xhrQuote.responseType = 'json';
-
-xhrQuote.addEventListener('load', handleLoadQuote);
-
-function handleLoadQuote(event) {
-
-
-  var quote = xhrQuote.response['Global Quote']['05. price']
-  console.log('Quote: ', quote)
-
-}
-
-var xhrSearch = new XMLHttpRequest();
-
-xhrSearch.open('GET', 'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=tesco&apikey=HKX3MUJHRZLOUZ85');
-xhrSearch.send();
-
-xhrSearch.responseType = 'json';
-
-xhrSearch.addEventListener('load', handleLoadSearch);
-
-function handleLoadSearch(event) {
-  console.log(xhrSearch.response)
-}
-
-var xhrDailyPrices = new XMLHttpRequest();
-
-xhrDailyPrices.open('GET', 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=IBM&apikey=demo');
-xhrDailyPrices.send();
-
-xhrDailyPrices.responseType = 'json';
-
-xhrDailyPrices.addEventListener('load', handleLoadDailyPrices);
-
-function handleLoadDailyPrices(event) {
-
-  var dailyPrices = xhrDailyPrices.response
-  console.log(dailyPrices)
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-// Handle switching views with tabs
-
-var tabEl = document.querySelector('.tab-container')
-var tabElements = document.querySelectorAll('.tabs')
