@@ -136,6 +136,8 @@ $tabContainer.addEventListener('click', function () {
   for (var k = 0; k < $viewElements.length; k++) {
     if ($viewElements[k].getAttribute('data-view') === dataView) {
       $viewElements[k].className = 'view';
+    } else if (dataView === 'home') {
+      location.reload();
     } else {
       $viewElements[k].className = 'view hidden';
     }
