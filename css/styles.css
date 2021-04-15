@@ -55,19 +55,22 @@ canvas#dailyPriceChart {
 }
 
 .tabbed-views {
-  max-width: 680px;
+  width: 100%;
   margin: 0 auto;
+  display: flex;
 }
 
 .tab-container {
   display: flex;
+  justify-content: center;
   position: relative;
   top: 1px;
+  margin: 0 auto;
 }
 
-/* .view {
+.view {
   display: flex;
-} */
+}
 
 .hidden {
   display: none;

@@ -14,6 +14,7 @@ function handleSubmit(event) {
 var homeContainerEl = document.querySelector('.home-container');
 var tabContainerEl = document.querySelector('.tab-container');
 var profileContainerEl = document.querySelector('.profile-container');
+var chartContainerEl = document.querySelector('.chart-container');
 
 var findButton = document.querySelector('.find-button');
 findButton.addEventListener('click', handleFindClick);
@@ -26,6 +27,8 @@ function handleFindClick(event) {
   tabContainerEl.classList.add('view');
   profileContainerEl.classList.remove('hidden');
   profileContainerEl.classList.add('view');
+  chartContainerEl.classList.remove('hidden');
+  chartContainerEl.classList.add('view');
 }
 
 function getOverviewData(symbol) {
@@ -110,3 +113,31 @@ function getDailyPrices(symbol) {
   });
   xhrDailyPrices.send();
 }
+
+var $tabContainer = document.querySelector('.tab-container');
+var $tabElements = document.querySelectorAll('.tab');
+var $viewElements = document.querySelectorAll('.view');
+
+$tabContainer.addEventListener('click', function () {
+  if (!event.target.matches('.tab')) {
+    return;
+  }
+
+  for (var i = 0; i < $tabElements.length; i++) {
+    if ($tabElements[i] === event.target) {
+      $tabElements[i].className = 'tab active';
+    } else {
+      $tabElements[i].className = 'tab';
+    }
+  }
+
+  var dataView = event.target.getAttribute('data-view');
+
+  for (var k = 0; k < $viewElements.length; k++) {
+    if ($viewElements[k].getAttribute('data-view') === dataView) {
+      $viewElements[k].className = 'view';
+    } else {
+      $viewElements[k].className = 'view hidden';
+    }
+  }
+});

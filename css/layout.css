@@ -1,5 +1,6 @@
 .col-full {
   width: 100%;
+  display: block;
 }
 
 .row {
