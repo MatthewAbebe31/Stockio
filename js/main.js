@@ -49,6 +49,14 @@ var exchangeStr = 'Exchange: ';
 var exchangeString = exchangeStr.bold();
 var sectorStr = 'Sector: ';
 var sectorString = sectorStr.bold();
+var roaStr = 'Return on Assets TTM: ';
+var roaString = roaStr.bold();
+var roeStr = 'Return on Equity TTM: ';
+var roeString = roeStr.bold();
+var operatingMarginStr = 'Operating Margin TTM: ';
+var operatingMarginString = operatingMarginStr.bold();
+var profitMarginStr = 'Profit Margin: ';
+var profitMarginString = profitMarginStr.bold();
 
 function getOverviewData(symbol) {
   var xhrOverview = new XMLHttpRequest();
@@ -56,6 +64,7 @@ function getOverviewData(symbol) {
   xhrOverview.responseType = 'json';
   xhrOverview.addEventListener('load', function () {
     var profileDataEl = document.querySelector('.profile-data');
+
     var symbolEl = document.createElement('li');
     symbolEl.className = 'symbol';
     symbolEl.innerHTML = symbolString + xhrOverview.response.Symbol;
@@ -75,6 +84,30 @@ function getOverviewData(symbol) {
     sectorNameEl.className = 'sector-name';
     sectorNameEl.innerHTML = sectorString + xhrOverview.response.Sector;
     profileDataEl.appendChild(sectorNameEl);
+
+    var profitabilityDataEl = document.querySelector('.profitability-data');
+
+    var returnOnAssetsEl = document.createElement('li');
+    returnOnAssetsEl.className = 'return-on-assets';
+    returnOnAssetsEl.innerHTML = roaString + xhrOverview.response.ReturnOnAssetsTTM;
+    profitabilityDataEl.appendChild(returnOnAssetsEl);
+
+    var returnOnEquityEl = document.createElement('li');
+    returnOnEquityEl.className = 'return-on-equity';
+    returnOnEquityEl.innerHTML = roeString + xhrOverview.response.ReturnOnEquityTTM;
+    profitabilityDataEl.appendChild(returnOnEquityEl);
+
+    var operatingMarginEl = document.createElement('li');
+    operatingMarginEl.className = 'operating-margin';
+    operatingMarginEl.innerHTML = operatingMarginString + xhrOverview.response.OperatingMarginTTM;
+    profitabilityDataEl.appendChild(operatingMarginEl);
+
+    var profitMarginEl = document.createElement('li');
+    profitMarginEl.className = 'profit-margin';
+    profitMarginEl.innerHTML = profitMarginString + xhrOverview.response.ProfitMargin;
+    profitabilityDataEl.appendChild(profitMarginEl);
+
+    // var profitMargin = xhrOverview.response.ProfitMargin;
 
     // var address = xhrOverview.response.Address;
   });

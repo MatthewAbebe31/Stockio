@@ -34,6 +34,13 @@ ul {
   margin-right: 40px;
 }
 
+.profitability-data {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  margin-right: 40px;
+}
+
 input#stock-search-input {
   position: fixed;
   top: 50%;
