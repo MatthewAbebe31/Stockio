@@ -39,77 +39,49 @@ function handleFindClick(event) {
   chartContainerEl.classList.add('view');
 }
 
-var symbolStr = 'Symbol: ';
-var symbolString = symbolStr.bold();
-var nameStr = 'Name: ';
-var nameString = nameStr.bold();
-var quoteStr = 'Quote: ';
-var quoteString = quoteStr.bold();
-var exchangeStr = 'Exchange: ';
-var exchangeString = exchangeStr.bold();
-var sectorStr = 'Sector: ';
-var sectorString = sectorStr.bold();
-var roaStr = 'Return on Assets TTM: ';
-var roaString = roaStr.bold();
-var roeStr = 'Return on Equity TTM: ';
-var roeString = roeStr.bold();
-var operatingMarginStr = 'Operating Margin TTM: ';
-var operatingMarginString = operatingMarginStr.bold();
-var profitMarginStr = 'Profit Margin: ';
-var profitMarginString = profitMarginStr.bold();
-
 function getOverviewData(symbol) {
   var xhrOverview = new XMLHttpRequest();
   xhrOverview.open('GET', `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${symbol}&apikey=EBZ2O8GQQ9CA3ECX`);
   xhrOverview.responseType = 'json';
   xhrOverview.addEventListener('load', function () {
+
     var profileDataEl = document.querySelector('.profile-data');
 
     var symbolEl = document.createElement('li');
-    symbolEl.className = 'symbol';
-    symbolEl.innerHTML = symbolString + xhrOverview.response.Symbol;
+    var symbolLabel = document.createElement('strong');
+    var symbolData = document.createElement('span');
     profileDataEl.appendChild(symbolEl);
+    symbolEl.appendChild(symbolLabel);
+    symbolEl.appendChild(symbolData);
+    symbolLabel.textContent = 'Symbol: ';
+    symbolData.textContent = xhrOverview.response.Symbol;
 
     var stockNameEl = document.createElement('li');
-    stockNameEl.className = 'stock-name';
-    stockNameEl.innerHTML = nameString + xhrOverview.response.Name;
+    var stockNameLabel = document.createElement('strong');
+    var stockNameData = document.createElement('span');
     profileDataEl.appendChild(stockNameEl);
+    stockNameEl.appendChild(stockNameLabel);
+    stockNameEl.appendChild(stockNameData);
+    stockNameLabel.textContent = 'Name: ';
+    stockNameData.textContent = xhrOverview.response.Name;
 
     var exchangeNameEl = document.createElement('li');
-    exchangeNameEl.className = 'exchange-name';
-    exchangeNameEl.innerHTML = exchangeString + xhrOverview.response.Exchange;
+    var exchangeNameLabel = document.createElement('strong');
+    var exchangeNameData = document.createElement('span');
     profileDataEl.appendChild(exchangeNameEl);
+    exchangeNameEl.appendChild(exchangeNameLabel);
+    exchangeNameEl.appendChild(exchangeNameData);
+    exchangeNameLabel.textContent = 'Exchange: ';
+    exchangeNameData.textContent = xhrOverview.response.Exchange;
 
     var sectorNameEl = document.createElement('li');
-    sectorNameEl.className = 'sector-name';
-    sectorNameEl.innerHTML = sectorString + xhrOverview.response.Sector;
+    var sectorNameLabel = document.createElement('strong');
+    var sectorNameData = document.createElement('span');
     profileDataEl.appendChild(sectorNameEl);
-
-    var profitabilityDataEl = document.querySelector('.profitability-data');
-
-    var returnOnAssetsEl = document.createElement('li');
-    returnOnAssetsEl.className = 'return-on-assets';
-    returnOnAssetsEl.innerHTML = roaString + xhrOverview.response.ReturnOnAssetsTTM;
-    profitabilityDataEl.appendChild(returnOnAssetsEl);
-
-    var returnOnEquityEl = document.createElement('li');
-    returnOnEquityEl.className = 'return-on-equity';
-    returnOnEquityEl.innerHTML = roeString + xhrOverview.response.ReturnOnEquityTTM;
-    profitabilityDataEl.appendChild(returnOnEquityEl);
-
-    var operatingMarginEl = document.createElement('li');
-    operatingMarginEl.className = 'operating-margin';
-    operatingMarginEl.innerHTML = operatingMarginString + xhrOverview.response.OperatingMarginTTM;
-    profitabilityDataEl.appendChild(operatingMarginEl);
-
-    var profitMarginEl = document.createElement('li');
-    profitMarginEl.className = 'profit-margin';
-    profitMarginEl.innerHTML = profitMarginString + xhrOverview.response.ProfitMargin;
-    profitabilityDataEl.appendChild(profitMarginEl);
-
-    // var profitMargin = xhrOverview.response.ProfitMargin;
-
-    // var address = xhrOverview.response.Address;
+    sectorNameEl.appendChild(sectorNameLabel);
+    sectorNameEl.appendChild(sectorNameData);
+    sectorNameLabel.textContent = 'Sector: ';
+    sectorNameData.textContent = xhrOverview.response.Sector;
   });
   xhrOverview.send();
 }
@@ -121,11 +93,15 @@ function getQuoteData(symbol) {
   xhrQuote.addEventListener('load', function () {
 
     var profileDataEl = document.querySelector('.profile-data');
-    var quoteEl = document.createElement('li');
-    quoteEl.className = 'quote';
-    quoteEl.innerHTML = quoteString + xhrQuote.response['Global Quote']['05. price'];
-    profileDataEl.appendChild(quoteEl);
 
+    var quoteEl = document.createElement('li');
+    var quoteLabel = document.createElement('strong');
+    var quoteData = document.createElement('span');
+    profileDataEl.appendChild(quoteEl);
+    quoteEl.appendChild(quoteLabel);
+    quoteEl.appendChild(quoteData);
+    quoteLabel.textContent = 'Quote: ';
+    quoteData.textContent = xhrQuote.response['Global Quote']['05. price'];
   });
   xhrQuote.send();
 }
