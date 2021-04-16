@@ -63,14 +63,15 @@ input#stock-search-input {
   text-align: center;
   margin: 0 auto;
   width: 200px;
+  height: 30px;
 }
 
 canvas#dailyPriceChart {
   display: block;
   box-sizing: border-box;
   margin: 0 auto;
-  height: 500px;
-  width: 500px;
+  height: 350px;
+  width: 350px;
 }
 
 .find-button {
@@ -79,9 +80,10 @@ canvas#dailyPriceChart {
   right: 47%;
   text-align: center;
   width: 100px;
-  height: 20px;
+  height: 30px;
   background-color: navy;
   color: white;
+  cursor: pointer;
 }
 
 .tab {
@@ -97,6 +99,7 @@ canvas#dailyPriceChart {
 }
 
 .tabbed-views {
+  display: flex;
   width: 100%;
   margin: 0 auto;
   margin-top: 40px;

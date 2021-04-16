@@ -7,13 +7,11 @@ function handleHeaderClick() {
 }
 
 var stockSearchForm = document.querySelector('#symbol-form');
-stockSearchForm.addEventListener('submit', handleSubmit); // sumbit
+stockSearchForm.addEventListener('submit', handleSubmit);
 
 function handleSubmit(event) {
   event.preventDefault();
   var symbol = event.target.querySelector('#stock-search-input').value;
-  // console.log(symbol);
-  // call some function
   getOverviewData(symbol);
   getDailyPrices(symbol);
   getQuoteData(symbol);
@@ -149,8 +147,11 @@ function getBalanceSheetData(symbol) {
   xhrBalanceSheet.open('GET', `https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=${symbol}&apikey=EBZ2O8GQQ9CA3ECX`);
   xhrBalanceSheet.responseType = 'json';
   xhrBalanceSheet.addEventListener('load', function () {
+<<<<<<< HEAD
     console.log('xhrBalanceSheet status: ', xhrBalanceSheet.status);
     console.log('xhrBalanceSheet response: ', xhrBalanceSheet.response);
+=======
+>>>>>>> 0cb8544d470ce5fc1354d14c21f4aa646dcfec3f
 
     var profitabilityDataEl = document.querySelector('.profitability-data');
 
@@ -222,33 +223,39 @@ function getIncomeStatementData(symbol) {
   xhrIncomeStatement.send();
 }
 
+<<<<<<< HEAD
 var $tabContainer = document.querySelector('.tab-container');
 var $tabElements = document.querySelectorAll('.tab');
 var $viewElements = document.querySelectorAll('.view');
+=======
+var tabContainer = document.querySelector('.tab-container');
+var tabElements = document.querySelectorAll('.tab');
+var viewElements = document.querySelectorAll('.view');
+>>>>>>> 0cb8544d470ce5fc1354d14c21f4aa646dcfec3f
 
-$tabContainer.addEventListener('click', function () {
+tabContainer.addEventListener('click', function () {
   if (!event.target.matches('.tab')) {
     return;
   }
 
-  for (var i = 0; i < $tabElements.length; i++) {
-    if ($tabElements[i] === event.target) {
-      $tabElements[i].className = 'tab active';
+  for (var i = 0; i < tabElements.length; i++) {
+    if (tabElements[i] === event.target) {
+      tabElements[i].className = 'tab active';
     } else {
-      $tabElements[i].className = 'tab';
+      tabElements[i].className = 'tab';
     }
   }
 
   var dataView = event.target.getAttribute('data-view');
 
-  for (var k = 0; k < $viewElements.length; k++) {
-    if ($viewElements[k].getAttribute('data-view') === dataView) {
-      $viewElements[k].className = 'view';
+  for (var k = 0; k < viewElements.length; k++) {
+    if (viewElements[k].getAttribute('data-view') === dataView) {
+      viewElements[k].className = 'view';
     } else if (dataView === 'home') {
       location.reload();
       return false;
     } else {
-      $viewElements[k].className = 'view hidden';
+      viewElements[k].className = 'view hidden';
     }
   }
 });
