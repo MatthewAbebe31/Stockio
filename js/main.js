@@ -17,6 +17,8 @@ function handleSubmit(event) {
   getOverviewData(symbol);
   getDailyPrices(symbol);
   getQuoteData(symbol);
+  getBalanceSheetData(symbol);
+  getIncomeStatementData(symbol);
 }
 
 var homeContainerEl = document.querySelector('.home-container');
@@ -140,6 +142,84 @@ function getDailyPrices(symbol) {
     });
   });
   xhrDailyPrices.send();
+}
+
+function getBalanceSheetData(symbol) {
+  var xhrBalanceSheet = new XMLHttpRequest();
+  xhrBalanceSheet.open('GET', `https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=${symbol}&apikey=EBZ2O8GQQ9CA3ECX`);
+  xhrBalanceSheet.responseType = 'json';
+  xhrBalanceSheet.addEventListener('load', function () {
+    console.log('xhrBalanceSheet status: ', xhrBalanceSheet.status);
+    console.log('xhrBalanceSheet response: ', xhrBalanceSheet.response);
+
+    var profitabilityDataEl = document.querySelector('.profitability-data');
+
+    var totalCurrentAssests = xhrBalanceSheet.response.annualReports[0].totalCurrentAssets;
+    var totalCurrentLiabilities = xhrBalanceSheet.response.annualReports[0].totalCurrentLiabilities;
+    var currentRatioFormula = totalCurrentAssests / totalCurrentLiabilities;
+    var currentRatio = currentRatioFormula.toFixed(2);
+
+    var currentRatioEl = document.createElement('li');
+    var currentRatioLabel = document.createElement('strong');
+    var currentRatioData = document.createElement('span');
+    profitabilityDataEl.appendChild(currentRatioEl);
+    currentRatioEl.appendChild(currentRatioLabel);
+    currentRatioEl.appendChild(currentRatioData);
+    currentRatioLabel.textContent = 'Current Ratio: ';
+    currentRatioData.textContent = currentRatio;
+
+    var inventory = xhrBalanceSheet.response.annualReports[0].inventory;
+    var quickRatioFormula = (totalCurrentAssests - inventory) / totalCurrentLiabilities;
+    var quickRatio = quickRatioFormula.toFixed(2);
+
+    var quickRatioEl = document.createElement('li');
+    var quickRatioLabel = document.createElement('strong');
+    var quickRatioData = document.createElement('span');
+    profitabilityDataEl.appendChild(quickRatioEl);
+    quickRatioEl.appendChild(quickRatioLabel);
+    quickRatioEl.appendChild(quickRatioData);
+    quickRatioLabel.textContent = 'Quick Ratio: ';
+    quickRatioData.textContent = quickRatio;
+
+    var cashAndCashEquivalents = xhrBalanceSheet.response.annualReports[0].cashAndCashEquivalentsAtCarryingValue;
+    var cashRatioFormula = cashAndCashEquivalents / totalCurrentLiabilities;
+    var cashRatio = cashRatioFormula.toFixed(2);
+
+    var cashRatioEl = document.createElement('li');
+    var cashRatioLabel = document.createElement('strong');
+    var cashRatioData = document.createElement('span');
+    profitabilityDataEl.appendChild(cashRatioEl);
+    cashRatioEl.appendChild(cashRatioLabel);
+    cashRatioEl.appendChild(cashRatioData);
+    cashRatioLabel.textContent = 'Cash Ratio: ';
+    cashRatioData.textContent = cashRatio;
+  });
+  xhrBalanceSheet.send();
+}
+
+function getIncomeStatementData(symbol) {
+  var xhrIncomeStatement = new XMLHttpRequest();
+  xhrIncomeStatement.open('GET', `https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=${symbol}&apikey=EBZ2O8GQQ9CA3ECX`);
+  xhrIncomeStatement.responseType = 'json';
+  xhrIncomeStatement.addEventListener('load', function () {
+
+    var profitabilityDataEl = document.querySelector('.profitability-data');
+
+    var ebit = xhrIncomeStatement.response.annualReports[0].ebit;
+    var interestExpense = xhrIncomeStatement.response.annualReports[0].interestExpense;
+    var interestCoverageRatioFormula = ebit / interestExpense;
+    var interestCoverageRatio = interestCoverageRatioFormula.toFixed(2);
+
+    var interestCoverageRatioEl = document.createElement('li');
+    var interestCoverageRatioLabel = document.createElement('strong');
+    var interestCoverageRatioData = document.createElement('span');
+    profitabilityDataEl.appendChild(interestCoverageRatioEl);
+    interestCoverageRatioEl.appendChild(interestCoverageRatioLabel);
+    interestCoverageRatioEl.appendChild(interestCoverageRatioData);
+    interestCoverageRatioLabel.textContent = 'Interest Coverage Ratio: ';
+    interestCoverageRatioData.textContent = interestCoverageRatio;
+  });
+  xhrIncomeStatement.send();
 }
 
 var $tabContainer = document.querySelector('.tab-container');
