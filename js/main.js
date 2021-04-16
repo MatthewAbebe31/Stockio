@@ -1,3 +1,11 @@
+var headerButton = document.querySelector('.header-button');
+
+headerButton.addEventListener('click', handleHeaderClick);
+
+function handleHeaderClick() {
+  location.reload();
+}
+
 var stockSearchForm = document.querySelector('#symbol-form');
 stockSearchForm.addEventListener('submit', handleSubmit); // sumbit
 
@@ -31,6 +39,17 @@ function handleFindClick(event) {
   chartContainerEl.classList.add('view');
 }
 
+var symbolStr = 'Symbol: ';
+var symbolString = symbolStr.bold();
+var nameStr = 'Name: ';
+var nameString = nameStr.bold();
+var quoteStr = 'Quote: ';
+var quoteString = quoteStr.bold();
+var exchangeStr = 'Exchange: ';
+var exchangeString = exchangeStr.bold();
+var sectorStr = 'Sector: ';
+var sectorString = sectorStr.bold();
+
 function getOverviewData(symbol) {
   var xhrOverview = new XMLHttpRequest();
   xhrOverview.open('GET', `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${symbol}&apikey=EBZ2O8GQQ9CA3ECX`);
@@ -39,22 +58,22 @@ function getOverviewData(symbol) {
     var profileDataEl = document.querySelector('.profile-data');
     var symbolEl = document.createElement('li');
     symbolEl.className = 'symbol';
-    symbolEl.innerHTML = 'Symbol: ' + xhrOverview.response.Symbol;
+    symbolEl.innerHTML = symbolString + xhrOverview.response.Symbol;
     profileDataEl.appendChild(symbolEl);
 
     var stockNameEl = document.createElement('li');
     stockNameEl.className = 'stock-name';
-    stockNameEl.innerHTML = 'Name: ' + xhrOverview.response.Name;
+    stockNameEl.innerHTML = nameString + xhrOverview.response.Name;
     profileDataEl.appendChild(stockNameEl);
 
     var exchangeNameEl = document.createElement('li');
     exchangeNameEl.className = 'exchange-name';
-    exchangeNameEl.innerHTML = 'Exchange: ' + xhrOverview.response.Exchange;
+    exchangeNameEl.innerHTML = exchangeString + xhrOverview.response.Exchange;
     profileDataEl.appendChild(exchangeNameEl);
 
     var sectorNameEl = document.createElement('li');
     sectorNameEl.className = 'sector-name';
-    sectorNameEl.innerHTML = 'Sector: ' + xhrOverview.response.Sector;
+    sectorNameEl.innerHTML = sectorString + xhrOverview.response.Sector;
     profileDataEl.appendChild(sectorNameEl);
 
     // var address = xhrOverview.response.Address;
@@ -71,7 +90,7 @@ function getQuoteData(symbol) {
     var profileDataEl = document.querySelector('.profile-data');
     var quoteEl = document.createElement('li');
     quoteEl.className = 'quote';
-    quoteEl.innerHTML = 'Quote: ' + xhrQuote.response['Global Quote']['05. price'];
+    quoteEl.innerHTML = quoteString + xhrQuote.response['Global Quote']['05. price'];
     profileDataEl.appendChild(quoteEl);
 
   });
@@ -102,7 +121,7 @@ function getDailyPrices(symbol) {
       data: {
         labels: chartLabels,
         datasets: [{
-          label: 'Close Price by Day',
+          label: 'Close Price by Day' + ' ' + `${symbol}`,
           data: closePrices,
           backgroundColor: 'rgba(255, 99, 132, 0.2)',
           borderColor: 'rgba(255, 99, 132, 1)',
@@ -138,6 +157,7 @@ $tabContainer.addEventListener('click', function () {
       $viewElements[k].className = 'view';
     } else if (dataView === 'home') {
       location.reload();
+      return false;
     } else {
       $viewElements[k].className = 'view hidden';
     }
