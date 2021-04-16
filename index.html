@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,12 +10,130 @@
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
+
   <header>
+    <div class="col-full">
+      <div class="row">
+        <button class="header-button"><h1>Stockio</h1></button>
+      </div>
+    </div>
   </header>
+
   <main>
+
+
+    <div class="home-container view" data-view="home">
+      <div class="col-full">
+        <div class="row">
+          <form id="symbol-form">
+            <input type="text" id="stock-search-input" placeholder="Search for a stock by symbol.">
+            <button class="find-button">Find</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-container hidden">
+    <div class="col-full">
+      <div class="row">
+        <div>
+          <canvas id="dailyPriceChart" height="400" width="400"></canvas>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+    <div class="col-full">
+      <div class="row">
+        <div class="tabbed-views">
+          <div class="tab-container hidden">
+            <div class="tab" data-view="profile">Profile</div>
+            <div class="tab" data-view="profitability">Profitability</div>
+            <div class="tab" data-view="liquidity">Liquidity</div>
+            <div class="tab" data-view="solvency">Solvency</div>
+            <div class="tab" data-view="valuation">Valuation</div>
+            <div class="tab" data-view="home">Home</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <div class= "profile-container view hidden" data-view="profile">
+      <div class="col-full">
+        <div class="row">
+          <h2>Profile</h2>
+        </div>
+        <div class="row">
+          <div class="profile-data-list">
+            <ul class="profile-data"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="profitability-container view hidden" data-view="profitability">
+      <div class="col-full">
+        <div class="row">
+          <h2>Profitability</h2>
+        </div>
+        <div class="row">
+          <div class="profitability-data-list">
+            <ul class="profitability-data"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="liquidity-container view hidden" data-view="liquidity">
+      <div class="col-full">
+        <div class="row">
+          <h2>Liquidity</h2>
+        </div>
+        <div class="row">
+          <div class="liquidity-data-list">
+            <ul class="liquidity-data"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="solvency-container view hidden" data-view="solvency">
+      <div class="col-full">
+        <div class="row">
+          <h2>Solvency</h2>
+        </div>
+        <div class="row">
+          <div class="solvency-data-list">
+            <ul class="solvency-data"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="valuation-container view hidden" data-view="valuation">
+      <div class="col-full">
+        <div class="row">
+          <h2>Valuation</h2>
+        </div>
+        <div class="row">
+          <div class="valuation-data-list">
+            <ul class="valuation-data"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
   </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.0/chart.min.js"
+    integrity="sha512-RGbSeD/jDcZBWNsI1VCvdjcDULuSfWTtIva2ek5FtteXeSjLfXac4kqkDRHVGf1TwsXCAqPTF7/EYITD0/CTqw=="
+    crossorigin="anonymous"></script>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>
+
 </html>
