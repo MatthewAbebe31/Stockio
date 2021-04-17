@@ -82,6 +82,61 @@ function getOverviewData(symbol) {
     sectorNameEl.appendChild(sectorNameData);
     sectorNameLabel.textContent = 'Sector: ';
     sectorNameData.textContent = xhrOverview.response.Sector;
+
+    var profitabilityDataEl = document.querySelector('.profitability-data');
+
+    var profitMargin = xhrOverview.response.ProfitMargin;
+    var prftMargin = parseFloat(profitMargin).toFixed(2);
+
+    var profitMarginEl = document.createElement('li');
+    var profitMarginLabel = document.createElement('strong');
+    var profitMarginData = document.createElement('span');
+    profitabilityDataEl.appendChild(profitMarginEl);
+    profitMarginEl.appendChild(profitMarginLabel);
+    profitMarginEl.appendChild(profitMarginData);
+    profitMarginLabel.textContent = 'Profit Margin: ';
+    profitMarginData.textContent = prftMargin;
+
+    var returnOnAssetsTTM = xhrOverview.response.ReturnOnAssetsTTM;
+    var roaTTM = parseFloat(returnOnAssetsTTM).toFixed(2);
+
+    var returnOnAssetsEl = document.createElement('li');
+    var returnOnAssetsLabel = document.createElement('strong');
+    var returnOnAssetsData = document.createElement('span');
+    profitabilityDataEl.appendChild(returnOnAssetsEl);
+    returnOnAssetsEl.appendChild(returnOnAssetsLabel);
+    returnOnAssetsEl.appendChild(returnOnAssetsData);
+    returnOnAssetsLabel.textContent = 'Return On Assets (TTM): ';
+    returnOnAssetsData.textContent = roaTTM;
+
+    var returnOnEquityTTM = xhrOverview.response.ReturnOnEquityTTM;
+    var roeTTM = parseFloat(returnOnEquityTTM).toFixed(2);
+
+    var returnOnEquityEl = document.createElement('li');
+    var returnOnEquityLabel = document.createElement('strong');
+    var returnOnEquityData = document.createElement('span');
+    profitabilityDataEl.appendChild(returnOnEquityEl);
+    returnOnEquityEl.appendChild(returnOnEquityLabel);
+    returnOnEquityEl.appendChild(returnOnEquityData);
+    returnOnEquityLabel.textContent = 'Return on Equity (TTM): ';
+    returnOnEquityData.textContent = roeTTM;
+
+    var operatingMarginTTM = xhrOverview.response.OperatingMarginTTM;
+    var omTTM = parseFloat(operatingMarginTTM).toFixed(2);
+
+    var operatingMarginEl = document.createElement('li');
+    var operatingMarginLabel = document.createElement('strong');
+    var operatingMarginData = document.createElement('span');
+    profitabilityDataEl.appendChild(operatingMarginEl);
+    operatingMarginEl.appendChild(operatingMarginLabel);
+    operatingMarginEl.appendChild(operatingMarginData);
+    operatingMarginLabel.textContent = 'Operating Margin (TTM): ';
+    operatingMarginData.textContent = omTTM;
+
+    // var peRatio = xhrOverview.response.PERatio;
+    // var pegRatio = xhrOverview.response.PEGRatio;
+    // var pbRatio = xhrOverview.response.PriceToBookRatio;
+    // var psRatio = xhrOverview.response.PriceToSalesRatioTTM;
   });
   xhrOverview.send();
 }
@@ -132,8 +187,8 @@ function getDailyPrices(symbol) {
         datasets: [{
           label: 'Close Price by Day' + ' ' + `${symbol}`,
           data: closePrices,
-          backgroundColor: 'rgba(255, 99, 132, 0.2)',
-          borderColor: 'rgba(255, 99, 132, 1)',
+          backgroundColor: 'rgba(44, 130, 201, 1)',
+          borderColor: 'rgba(44, 130, 201, 1)',
           borderWidth: 1
         }]
       }
@@ -147,13 +202,10 @@ function getBalanceSheetData(symbol) {
   xhrBalanceSheet.open('GET', `https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=${symbol}&apikey=EBZ2O8GQQ9CA3ECX`);
   xhrBalanceSheet.responseType = 'json';
   xhrBalanceSheet.addEventListener('load', function () {
-<<<<<<< HEAD
     console.log('xhrBalanceSheet status: ', xhrBalanceSheet.status);
     console.log('xhrBalanceSheet response: ', xhrBalanceSheet.response);
-=======
->>>>>>> 0cb8544d470ce5fc1354d14c21f4aa646dcfec3f
 
-    var profitabilityDataEl = document.querySelector('.profitability-data');
+    var liquidityDataEl = document.querySelector('.liquidity-data');
 
     var totalCurrentAssests = xhrBalanceSheet.response.annualReports[0].totalCurrentAssets;
     var totalCurrentLiabilities = xhrBalanceSheet.response.annualReports[0].totalCurrentLiabilities;
@@ -163,7 +215,7 @@ function getBalanceSheetData(symbol) {
     var currentRatioEl = document.createElement('li');
     var currentRatioLabel = document.createElement('strong');
     var currentRatioData = document.createElement('span');
-    profitabilityDataEl.appendChild(currentRatioEl);
+    liquidityDataEl.appendChild(currentRatioEl);
     currentRatioEl.appendChild(currentRatioLabel);
     currentRatioEl.appendChild(currentRatioData);
     currentRatioLabel.textContent = 'Current Ratio: ';
@@ -176,7 +228,7 @@ function getBalanceSheetData(symbol) {
     var quickRatioEl = document.createElement('li');
     var quickRatioLabel = document.createElement('strong');
     var quickRatioData = document.createElement('span');
-    profitabilityDataEl.appendChild(quickRatioEl);
+    liquidityDataEl.appendChild(quickRatioEl);
     quickRatioEl.appendChild(quickRatioLabel);
     quickRatioEl.appendChild(quickRatioData);
     quickRatioLabel.textContent = 'Quick Ratio: ';
@@ -189,11 +241,43 @@ function getBalanceSheetData(symbol) {
     var cashRatioEl = document.createElement('li');
     var cashRatioLabel = document.createElement('strong');
     var cashRatioData = document.createElement('span');
-    profitabilityDataEl.appendChild(cashRatioEl);
+    liquidityDataEl.appendChild(cashRatioEl);
     cashRatioEl.appendChild(cashRatioLabel);
     cashRatioEl.appendChild(cashRatioData);
     cashRatioLabel.textContent = 'Cash Ratio: ';
     cashRatioData.textContent = cashRatio;
+
+    var solvencyDataEl = document.querySelector('.solvency-data');
+
+    var totalAssets = xhrBalanceSheet.response.annualReports[0].totalAssets;
+    var totalLiabilities = xhrBalanceSheet.response.annualReports[0].totalLiabilities;
+    var totalShareholderEquity = xhrBalanceSheet.response.annualReports[0].totalShareholderEquity;
+
+    var DebtToAssests = totalLiabilities / totalAssets;
+    var doaRatio = parseFloat(DebtToAssests).toFixed(2);
+
+    var debtToAssetsEl = document.createElement('li');
+    var debtToAssetsLabel = document.createElement('strong');
+    var debtToAssetsData = document.createElement('span');
+    solvencyDataEl.appendChild(debtToAssetsEl);
+    debtToAssetsEl.appendChild(debtToAssetsLabel);
+    debtToAssetsEl.appendChild(debtToAssetsData);
+    debtToAssetsLabel.textContent = 'Debt to Assets: ';
+    debtToAssetsData.textContent = doaRatio;
+
+    console.log('Total-Debt-to-Total-Assets: ', DebtToAssests);
+
+    var debtToEquityRatio = totalLiabilities / totalShareholderEquity;
+    var doeRatio = parseFloat(debtToEquityRatio).toFixed(2);
+
+    var debtToEquityRatioEl = document.createElement('li');
+    var debtToEquityRatioLabel = document.createElement('strong');
+    var debtToEquityRatioData = document.createElement('span');
+    solvencyDataEl.appendChild(debtToEquityRatioEl);
+    debtToEquityRatioEl.appendChild(debtToEquityRatioLabel);
+    debtToEquityRatioEl.appendChild(debtToEquityRatioData);
+    debtToEquityRatioLabel.textContent = 'Debt to Equity: ';
+    debtToEquityRatioData.textContent = doeRatio;
   });
   xhrBalanceSheet.send();
 }
@@ -204,7 +288,7 @@ function getIncomeStatementData(symbol) {
   xhrIncomeStatement.responseType = 'json';
   xhrIncomeStatement.addEventListener('load', function () {
 
-    var profitabilityDataEl = document.querySelector('.profitability-data');
+    var solvencyDataEl = document.querySelector('.solvency-data');
 
     var ebit = xhrIncomeStatement.response.annualReports[0].ebit;
     var interestExpense = xhrIncomeStatement.response.annualReports[0].interestExpense;
@@ -214,7 +298,7 @@ function getIncomeStatementData(symbol) {
     var interestCoverageRatioEl = document.createElement('li');
     var interestCoverageRatioLabel = document.createElement('strong');
     var interestCoverageRatioData = document.createElement('span');
-    profitabilityDataEl.appendChild(interestCoverageRatioEl);
+    solvencyDataEl.appendChild(interestCoverageRatioEl);
     interestCoverageRatioEl.appendChild(interestCoverageRatioLabel);
     interestCoverageRatioEl.appendChild(interestCoverageRatioData);
     interestCoverageRatioLabel.textContent = 'Interest Coverage Ratio: ';
@@ -223,15 +307,9 @@ function getIncomeStatementData(symbol) {
   xhrIncomeStatement.send();
 }
 
-<<<<<<< HEAD
-var $tabContainer = document.querySelector('.tab-container');
-var $tabElements = document.querySelectorAll('.tab');
-var $viewElements = document.querySelectorAll('.view');
-=======
 var tabContainer = document.querySelector('.tab-container');
 var tabElements = document.querySelectorAll('.tab');
 var viewElements = document.querySelectorAll('.view');
->>>>>>> 0cb8544d470ce5fc1354d14c21f4aa646dcfec3f
 
 tabContainer.addEventListener('click', function () {
   if (!event.target.matches('.tab')) {

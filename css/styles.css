@@ -42,14 +42,11 @@ li {
   display: inline;
 }
 
-.profile-data {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  margin-right: 40px;
-}
-
-.profitability-data {
+.profile-data,
+.profitability-data,
+.liquidity-data,
+.solvency-data,
+.valuation-data {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
