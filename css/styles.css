@@ -111,6 +111,13 @@ canvas#dailyPriceChart {
   margin: 0 auto;
 }
 
+/* Need this to work for mobile view */
+@media only screen and (min-width: 575px) {
+  .tabbed-views {
+    flex-basis: 50%;
+  }
+}
+
 .view {
   display: flex;
 }

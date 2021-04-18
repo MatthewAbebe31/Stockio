@@ -311,8 +311,6 @@ function getBalanceSheetData(symbol) {
     debtToAssetsLabel.textContent = 'Debt to Assets: ';
     debtToAssetsData.textContent = doaRatio;
 
-    console.log('Total-Debt-to-Total-Assets: ', DebtToAssests);
-
     var debtToEquityRatio = totalLiabilities / totalShareholderEquity;
     var doeRatio = parseFloat(debtToEquityRatio).toFixed(2);
 
