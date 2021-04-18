@@ -133,10 +133,55 @@ function getOverviewData(symbol) {
     operatingMarginLabel.textContent = 'Operating Margin (TTM): ';
     operatingMarginData.textContent = omTTM;
 
-    // var peRatio = xhrOverview.response.PERatio;
-    // var pegRatio = xhrOverview.response.PEGRatio;
-    // var pbRatio = xhrOverview.response.PriceToBookRatio;
-    // var psRatio = xhrOverview.response.PriceToSalesRatioTTM;
+    var valuationDataEl = document.querySelector('.valuation-data');
+
+    var priceEarningsRatio = xhrOverview.response.PERatio;
+    var peRatio = parseFloat(priceEarningsRatio).toFixed(2);
+
+    var peRatioEl = document.createElement('li');
+    var peRatioLabel = document.createElement('strong');
+    var peRatioData = document.createElement('span');
+    valuationDataEl.appendChild(peRatioEl);
+    peRatioEl.appendChild(peRatioLabel);
+    peRatioEl.appendChild(peRatioData);
+    peRatioLabel.textContent = 'P/E Ratio: ';
+    peRatioData.textContent = peRatio;
+
+    var priceEarningsToGrowthRatio = xhrOverview.response.PEGRatio;
+    var pegRatio = parseFloat(priceEarningsToGrowthRatio).toFixed(2);
+
+    var pegRatioEl = document.createElement('li');
+    var pegRatioLabel = document.createElement('strong');
+    var pegRatioData = document.createElement('span');
+    valuationDataEl.appendChild(pegRatioEl);
+    pegRatioEl.appendChild(pegRatioLabel);
+    pegRatioEl.appendChild(pegRatioData);
+    pegRatioLabel.textContent = 'PEG Ratio: ';
+    pegRatioData.textContent = pegRatio;
+
+    var priceToBookRatio = xhrOverview.response.PriceToBookRatio;
+    var pbRatio = parseFloat(priceToBookRatio).toFixed(2);
+
+    var pbRatioEl = document.createElement('li');
+    var pbRatioLabel = document.createElement('strong');
+    var pbRatioData = document.createElement('span');
+    valuationDataEl.appendChild(pbRatioEl);
+    pbRatioEl.appendChild(pbRatioLabel);
+    pbRatioEl.appendChild(pbRatioData);
+    pbRatioLabel.textContent = 'P/B Ratio: ';
+    pbRatioData.textContent = pbRatio;
+
+    var priceToSalesRatio = xhrOverview.response.PriceToSalesRatioTTM;
+    var psRatio = parseFloat(priceToSalesRatio).toFixed(2);
+
+    var psRatioEl = document.createElement('li');
+    var psRatioLabel = document.createElement('strong');
+    var psRatioData = document.createElement('span');
+    valuationDataEl.appendChild(psRatioEl);
+    psRatioEl.appendChild(psRatioLabel);
+    psRatioEl.appendChild(psRatioData);
+    psRatioLabel.textContent = 'P/S Ratio: ';
+    psRatioData.textContent = psRatio;
   });
   xhrOverview.send();
 }
