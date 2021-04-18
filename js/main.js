@@ -336,6 +336,18 @@ function getBalanceSheetData(symbol) {
     operatingCashFlowEl.appendChild(operatingCashFlowData);
     operatingCashFlowLabel.textContent = 'Operating Cashflow Ratio: ';
     operatingCashFlowData.textContent = operatingCfRatio;
+
+    var totalShareholderEquityRatio = totalShareholderEquity / totalAssets;
+    var totalSERatio = parseFloat(totalShareholderEquityRatio).toFixed(2);
+
+    var totalSERatioEl = document.createElement('li');
+    var totalSERatioLabel = document.createElement('strong');
+    var totalSERatioData = document.createElement('span');
+    solvencyDataEl.appendChild(totalSERatioEl);
+    totalSERatioEl.appendChild(totalSERatioLabel);
+    totalSERatioEl.appendChild(totalSERatioData);
+    totalSERatioLabel.textContent = 'Total Shareholder Equity Ratio: ';
+    totalSERatioData.textContent = totalSERatio;
   });
   xhrBalanceSheet.send();
 }
@@ -345,12 +357,13 @@ function getIncomeStatementData(symbol) {
   xhrIncomeStatement.open('GET', `https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=${symbol}&apikey=EBZ2O8GQQ9CA3ECX`);
   xhrIncomeStatement.responseType = 'json';
   xhrIncomeStatement.addEventListener('load', function () {
+    console.log('xhrIncomeStatement: ', xhrIncomeStatement.response);
 
     var solvencyDataEl = document.querySelector('.solvency-data');
 
-    var ebit = xhrIncomeStatement.response.annualReports[0].ebit;
+    var ebitda = xhrIncomeStatement.response.annualReports[0].ebitda;
     var interestExpense = xhrIncomeStatement.response.annualReports[0].interestExpense;
-    var interestCoverageRatioFormula = ebit / interestExpense;
+    var interestCoverageRatioFormula = ebitda / interestExpense;
     var interestCoverageRatio = interestCoverageRatioFormula.toFixed(2);
 
     var interestCoverageRatioEl = document.createElement('li');
