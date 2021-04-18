@@ -17,6 +17,7 @@ function handleSubmit(event) {
   getQuoteData(symbol);
   getBalanceSheetData(symbol);
   getIncomeStatementData(symbol);
+  getCashFlowData(symbol);
 }
 
 var homeContainerEl = document.querySelector('.home-container');
@@ -323,6 +324,18 @@ function getBalanceSheetData(symbol) {
     debtToEquityRatioEl.appendChild(debtToEquityRatioData);
     debtToEquityRatioLabel.textContent = 'Debt to Equity: ';
     debtToEquityRatioData.textContent = doeRatio;
+
+    var operatingCashFlowRatio = operatingCashFlow / totalCurrentLiabilities;
+    var operatingCfRatio = parseFloat(operatingCashFlowRatio).toFixed(2);
+
+    var operatingCashFlowEl = document.createElement('li');
+    var operatingCashFlowLabel = document.createElement('strong');
+    var operatingCashFlowData = document.createElement('span');
+    liquidityDataEl.appendChild(operatingCashFlowEl);
+    operatingCashFlowEl.appendChild(operatingCashFlowLabel);
+    operatingCashFlowEl.appendChild(operatingCashFlowData);
+    operatingCashFlowLabel.textContent = 'Operating Cashflow Ratio: ';
+    operatingCashFlowData.textContent = operatingCfRatio;
   });
   xhrBalanceSheet.send();
 }
@@ -350,6 +363,22 @@ function getIncomeStatementData(symbol) {
     interestCoverageRatioData.textContent = interestCoverageRatio;
   });
   xhrIncomeStatement.send();
+}
+
+var operatingCashFlow;
+
+function getCashFlowData(symbol) {
+  var xhrCashFlow = new XMLHttpRequest();
+  xhrCashFlow.open('GET', `https://www.alphavantage.co/query?function=CASH_FLOW&symbol=${symbol}&apikey=EBZ2O8GQQ9CA3ECX`);
+  xhrCashFlow.responseType = 'json';
+  xhrCashFlow.addEventListener('load', function () {
+
+    console.log(xhrCashFlow.response.annualReports[0].operatingCashflow);
+    operatingCashFlow = xhrCashFlow.response.annualReports[0].operatingCashflow;
+    // var liquidityDataEl = document.querySelector('.liquidity-data');
+    return operatingCashFlow;
+  });
+  xhrCashFlow.send();
 }
 
 var tabContainer = document.querySelector('.tab-container');
