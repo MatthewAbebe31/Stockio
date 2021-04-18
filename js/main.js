@@ -13,11 +13,11 @@ function handleSubmit(event) {
   event.preventDefault();
   var symbol = event.target.querySelector('#stock-search-input').value;
   getOverviewData(symbol);
-  getDailyPrices(symbol);
-  getQuoteData(symbol);
   getBalanceSheetData(symbol);
   getIncomeStatementData(symbol);
   getCashFlowData(symbol);
+  getQuoteData(symbol);
+  getDailyPrices(symbol);
 }
 
 var homeContainerEl = document.querySelector('.home-container');
@@ -269,7 +269,7 @@ function getBalanceSheetData(symbol) {
 
     var inventory = xhrBalanceSheet.response.annualReports[0].inventory;
     var quickRatioFormula = (totalCurrentAssests - inventory) / totalCurrentLiabilities;
-    var quickRatio = quickRatioFormula.toFixed(2);
+    var quickRatio = parseFloat(quickRatioFormula).toFixed(2);
 
     var quickRatioEl = document.createElement('li');
     var quickRatioLabel = document.createElement('strong');
@@ -312,7 +312,7 @@ function getBalanceSheetData(symbol) {
     debtToAssetsData.textContent = doaRatio;
 
     var debtToEquityRatio = totalLiabilities / totalShareholderEquity;
-    var doeRatio = parseFloat(debtToEquityRatio).toFixed(2);
+    var doeRatio = debtToEquityRatio.toFixed(2);
 
     var debtToEquityRatioEl = document.createElement('li');
     var debtToEquityRatioLabel = document.createElement('strong');
@@ -325,6 +325,7 @@ function getBalanceSheetData(symbol) {
 
     var operatingCashFlowRatio = operatingCashFlow / totalCurrentLiabilities;
     var operatingCfRatio = parseFloat(operatingCashFlowRatio).toFixed(2);
+    console.log(typeof operatingCfRatio);
 
     var operatingCashFlowEl = document.createElement('li');
     var operatingCashFlowLabel = document.createElement('strong');
@@ -362,7 +363,8 @@ function getIncomeStatementData(symbol) {
     var ebitda = xhrIncomeStatement.response.annualReports[0].ebitda;
     var interestExpense = xhrIncomeStatement.response.annualReports[0].interestExpense;
     var interestCoverageRatioFormula = ebitda / interestExpense;
-    var interestCoverageRatio = interestCoverageRatioFormula.toFixed(2);
+    var interestCoverageRatio = parseFloat(interestCoverageRatioFormula).toFixed(2);
+    console.log(typeof interestCoverageRatio);
 
     var interestCoverageRatioEl = document.createElement('li');
     var interestCoverageRatioLabel = document.createElement('strong');
