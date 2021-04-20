@@ -199,12 +199,12 @@ function getQuoteData(symbol) {
 
     var quoteEl = document.createElement('li');
     var quoteLabel = document.createElement('strong');
-    var quoteData = document.createElement('span');
+    var quoteDataEl = document.createElement('span');
     profileDataEl.appendChild(quoteEl);
     quoteEl.appendChild(quoteLabel);
-    quoteEl.appendChild(quoteData);
+    quoteEl.appendChild(quoteDataEl);
     quoteLabel.textContent = 'Quote: ';
-    quoteData.textContent = quote;
+    quoteDataEl.textContent = quote;
   });
   xhrQuote.send();
 }
@@ -226,7 +226,7 @@ function getDailyPrices(symbol) {
       chartLabels.push(key);
     }
 
-    var chart = document.getElementById('dailyPriceChart');
+    var chart = document.getElementById('priceChart');
 
     var dailyPriceChart = new Chart(chart, {
       type: 'line',
@@ -241,6 +241,7 @@ function getDailyPrices(symbol) {
         }]
       }
     });
+    dailyPriceChart.className = 'dailyPriceChart';
   });
   xhrDailyPrices.send();
 }

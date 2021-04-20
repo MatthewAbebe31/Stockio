@@ -31,6 +31,7 @@ h1 {
 h2 {
   text-align: center;
   margin-top: 40px;
+  font-family: Robotp, arial, sans-serif;
 }
 
 ul {
@@ -40,6 +41,7 @@ ul {
 
 li {
   display: inline;
+  font-family: Robotp, arial, sans-serif;
 }
 
 .profile-data,
@@ -63,7 +65,7 @@ input#stock-search-input {
   height: 30px;
 }
 
-canvas#dailyPriceChart {
+canvas#priceChart {
   display: block;
   box-sizing: border-box;
   margin: 0 auto;
@@ -81,6 +83,7 @@ canvas#dailyPriceChart {
   background-color: navy;
   color: white;
   cursor: pointer;
+  font-family: Robotp, arial, sans-serif;
 }
 
 .tab {
