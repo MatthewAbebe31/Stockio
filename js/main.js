@@ -251,8 +251,6 @@ function getBalanceSheetData(symbol) {
   xhrBalanceSheet.open('GET', `https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=${symbol}&apikey=EBZ2O8GQQ9CA3ECX`);
   xhrBalanceSheet.responseType = 'json';
   xhrBalanceSheet.addEventListener('load', function () {
-    console.log('xhrBalanceSheet status: ', xhrBalanceSheet.status);
-    console.log('xhrBalanceSheet response: ', xhrBalanceSheet.response);
 
     var liquidityDataEl = document.querySelector('.liquidity-data');
 
@@ -328,7 +326,6 @@ function getBalanceSheetData(symbol) {
 
     var operatingCashFlowRatio = operatingCashFlow / totalCurrentLiabilities;
     var operatingCfRatio = parseFloat(operatingCashFlowRatio).toFixed(2);
-    console.log(typeof operatingCfRatio);
 
     var operatingCashFlowEl = document.createElement('li');
     var operatingCashFlowLabel = document.createElement('strong');
@@ -359,7 +356,6 @@ function getIncomeStatementData(symbol) {
   xhrIncomeStatement.open('GET', `https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=${symbol}&apikey=EBZ2O8GQQ9CA3ECX`);
   xhrIncomeStatement.responseType = 'json';
   xhrIncomeStatement.addEventListener('load', function () {
-    console.log('xhrIncomeStatement: ', xhrIncomeStatement.response);
 
     var solvencyDataEl = document.querySelector('.solvency-data');
 
@@ -367,7 +363,6 @@ function getIncomeStatementData(symbol) {
     var interestExpense = xhrIncomeStatement.response.annualReports[0].interestExpense;
     var interestCoverageRatioFormula = ebitda / interestExpense;
     var interestCoverageRatio = parseFloat(interestCoverageRatioFormula).toFixed(2);
-    console.log(typeof interestCoverageRatio);
 
     var interestCoverageRatioEl = document.createElement('li');
     var interestCoverageRatioLabel = document.createElement('strong');
@@ -389,7 +384,6 @@ function getCashFlowData(symbol) {
   xhrCashFlow.responseType = 'json';
   xhrCashFlow.addEventListener('load', function () {
 
-    console.log(xhrCashFlow.response.annualReports[0].operatingCashflow);
     operatingCashFlow = xhrCashFlow.response.annualReports[0].operatingCashflow;
     // var liquidityDataEl = document.querySelector('.liquidity-data');
     return operatingCashFlow;
