@@ -194,6 +194,8 @@ function getQuoteData(symbol) {
   xhrQuote.addEventListener('load', function () {
 
     var profileDataEl = document.querySelector('.profile-data');
+    var quoteData = xhrQuote.response['Global Quote']['05. price'];
+    var quote = parseFloat(quoteData).toFixed(2);
 
     var quoteEl = document.createElement('li');
     var quoteLabel = document.createElement('strong');
@@ -202,7 +204,7 @@ function getQuoteData(symbol) {
     quoteEl.appendChild(quoteLabel);
     quoteEl.appendChild(quoteData);
     quoteLabel.textContent = 'Quote: ';
-    quoteData.textContent = xhrQuote.response['Global Quote']['05. price'];
+    quoteData.textContent = quote;
   });
   xhrQuote.send();
 }
