@@ -66,18 +66,34 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="dropdown-container">
+        <label for="stock-data-select">Choose Stock Data:</label>
+        <select name="stock-data-select" id="stock-data-select">
+          <option value="">--Please choose an option--</option>
+          <option value="profile" class="option" data-view="profile">Profile</option>
+          <option value="profitability" class="option" data-view="profitability">Profitability</option>
+          <option value="liquidity" class="option" data-view="liquidity">Liquidity</option>
+          <option value="solvency" class="option" data-view="solvency">Solvency</option>
+          <option value="valuation" class="option" data-view="valuation">Valuation</option>
+          <option value="home" class="option" data-view="home">Home</option>
+        </select>
+      </div>
+    </div>
+
       <div class= "profile-container view hidden" data-view="profile">
-      <div class="col-full">
+        <div class="col-full">
         <div class="row">
           <h2>Profile</h2>
         </div>
+      </div>
+
         <div class="row">
           <div class="profile-data-list">
             <ul class="profile-data"></ul>
           </div>
         </div>
       </div>
-    </div>
 
     <div class="profitability-container view hidden" data-view="profitability">
       <div class="col-full">

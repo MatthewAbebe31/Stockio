@@ -400,14 +400,6 @@ tabContainer.addEventListener('click', function () {
     return;
   }
 
-  for (var i = 0; i < tabElements.length; i++) {
-    if (tabElements[i] === event.target) {
-      tabElements[i].className = 'tab active';
-    } else {
-      tabElements[i].className = 'tab';
-    }
-  }
-
   var dataView = event.target.getAttribute('data-view');
 
   for (var k = 0; k < viewElements.length; k++) {
@@ -418,6 +410,26 @@ tabContainer.addEventListener('click', function () {
       return false;
     } else {
       viewElements[k].className = 'view hidden';
+    }
+  }
+});
+
+var selectStockDataView = document.querySelector('#stock-data-select');
+var optionElements = document.querySelectorAll('.option');
+
+selectStockDataView.addEventListener('click', function (event) {
+  console.log(event.target.value);
+
+  if (!event.target.matches('.option')) {
+    return;
+  }
+
+  for (var i = 0; i < optionElements.length; i++) {
+    console.log(optionElements[i]);
+    if (optionElements[i] === event.target.value) {
+      optionElements[i].className = 'option active';
+    } else {
+      optionElements[i].className = 'option';
     }
   }
 });

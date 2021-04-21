@@ -1,9 +1,10 @@
 .col-full {
   width: 100%;
-  display: block;
+  display: flex;
 }
 
 .row {
+  display: block;
   width: 100%;
 }
 
