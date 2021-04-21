@@ -129,9 +129,11 @@ canvas#priceChart {
   .tabbed-views {
     display: none;
   }
+}
 
+@media only screen and (min-width: 805px) {
   .dropdown-container {
-    display: flex;
+    display: none;
   }
 }
 

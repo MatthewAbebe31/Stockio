@@ -22,6 +22,7 @@ function handleSubmit(event) {
 
 var homeContainerEl = document.querySelector('.home-container');
 var tabContainerEl = document.querySelector('.tab-container');
+var dropdownContainerEl = document.querySelector('.dropdown-container');
 var profileContainerEl = document.querySelector('.profile-container');
 var chartContainerEl = document.querySelector('.chart-container');
 
@@ -34,6 +35,8 @@ function handleFindClick(event) {
   homeContainerEl.classList.add('hidden');
   tabContainerEl.classList.remove('hidden');
   tabContainerEl.classList.add('view');
+  dropdownContainerEl.classList.remove('hidden');
+  dropdownContainerEl.classList.add('view');
   profileContainerEl.classList.remove('hidden');
   profileContainerEl.classList.add('view');
   chartContainerEl.classList.remove('hidden');
@@ -391,23 +394,12 @@ function getCashFlowData(symbol) {
   xhrCashFlow.send();
 }
 
-var tabContainer = document.querySelector('.tab-container');
-var viewElements = document.querySelectorAll('.view');
-
-tabContainer.addEventListener('click', function (event) {
-  console.log('clicked');
-  changeViews(event);
-});
-
-function changeViews(event) {
-  console.log('in change views', event.target);
-
-  var dataView = event.target.getAttribute('data-view');
+function changeViews(viewName) {
 
   for (var k = 0; k < viewElements.length; k++) {
-    if (viewElements[k].getAttribute('data-view') === dataView) {
+    if (viewElements[k].getAttribute('data-view') === viewName) {
       viewElements[k].className = 'view';
-    } else if (dataView === 'home') {
+    } else if (viewName === 'home') {
       location.reload();
       return false;
     } else {
@@ -416,12 +408,57 @@ function changeViews(event) {
   }
 }
 
-var selectStockDataView = document.querySelector('#stock-data-select');
+function handleTabClick(event) {
+  console.log(event);
+  var dataViewTab = event.target.getAttribute('data-view');
+  changeViews(dataViewTab);
+}
 
-selectStockDataView.addEventListener('change', function (event) {
-  console.log('in selectStockDataView event listener', event.target.value);
+handleTabClick();
 
-  changeViews(event);
-});
+function handleSelectChange() {
 
-// Event listener maybe looking at wrong thing.
+  var dataViewOption = event.target.querySelector(':selected').getAttribute('data-view');
+  changeViews(dataViewOption);
+}
+
+handleSelectChange();
+
+var tabContainer = document.querySelector('.tab-container');
+var viewElements = document.querySelectorAll('.view');
+
+tabContainer.addEventListener('click', changeViews(event));
+
+// var selectStockDataView = document.querySelector('#stock-data-select');
+var selectStockDataView = document.querySelectorAll('option');
+
+function loopOverOptions() {
+
+  for (var i = 0; i < selectStockDataView.length; i++) {
+    console.log(selectStockDataView[i]);
+    selectStockDataView[i].addEventListener('click', changeViews);
+  }
+}
+
+loopOverOptions();
+
+// selectStockDataView.addEventListener('click', function (event) {
+//   console.log(selectStockDataView);
+//   console.log('in selectStockDataView event listener', event.target.value);
+
+//   changeViews(event);
+// });
+
+// var lwidth = window.screen.width;
+
+// function showDropdown() {
+//   var dropdownMenu = document.querySelector('.dropdown-container');
+//   if (lwidth <= 805) {
+//     dropdownMenu.classList.remove('hidden');
+//     dropdownMenu.classList.add('view');
+//   }
+// }
+
+// showDropdown();
+
+// Callback function changeViews is not working. Event listener maybe looking at wrong thing.
