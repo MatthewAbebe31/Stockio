@@ -392,13 +392,15 @@ function getCashFlowData(symbol) {
 }
 
 var tabContainer = document.querySelector('.tab-container');
-var tabElements = document.querySelectorAll('.tab');
 var viewElements = document.querySelectorAll('.view');
 
-tabContainer.addEventListener('click', function () {
-  if (!event.target.matches('.tab')) {
-    return;
-  }
+tabContainer.addEventListener('click', function (event) {
+  console.log('clicked');
+  changeViews(event);
+});
+
+function changeViews(event) {
+  console.log('in change views', event.target);
 
   var dataView = event.target.getAttribute('data-view');
 
@@ -412,24 +414,14 @@ tabContainer.addEventListener('click', function () {
       viewElements[k].className = 'view hidden';
     }
   }
-});
+}
 
 var selectStockDataView = document.querySelector('#stock-data-select');
-var optionElements = document.querySelectorAll('.option');
 
-selectStockDataView.addEventListener('click', function (event) {
-  console.log(event.target.value);
+selectStockDataView.addEventListener('change', function (event) {
+  console.log('in selectStockDataView event listener', event.target.value);
 
-  if (!event.target.matches('.option')) {
-    return;
-  }
-
-  for (var i = 0; i < optionElements.length; i++) {
-    console.log(optionElements[i]);
-    if (optionElements[i] === event.target.value) {
-      optionElements[i].className = 'option active';
-    } else {
-      optionElements[i].className = 'option';
-    }
-  }
+  changeViews(event);
 });
+
+// Event listener maybe looking at wrong thing.
