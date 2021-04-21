@@ -125,7 +125,6 @@ canvas#priceChart {
   margin-top: 20px;
 }
 
-/* Need this to work for mobile view */
 @media only screen and (max-width: 805px) {
   .tabbed-views {
     display: none;
