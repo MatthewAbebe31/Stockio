@@ -388,11 +388,14 @@ function getCashFlowData(symbol) {
   xhrCashFlow.addEventListener('load', function () {
 
     operatingCashFlow = xhrCashFlow.response.annualReports[0].operatingCashflow;
-    // var liquidityDataEl = document.querySelector('.liquidity-data');
     return operatingCashFlow;
   });
   xhrCashFlow.send();
 }
+
+var tabContainer = document.querySelector('.tab-container');
+var selectStockDataView = document.querySelector('select');
+var viewElements = document.querySelectorAll('.view');
 
 function changeViews(viewName) {
 
@@ -409,56 +412,28 @@ function changeViews(viewName) {
 }
 
 function handleTabClick(event) {
-  console.log(event);
+
   var dataViewTab = event.target.getAttribute('data-view');
   changeViews(dataViewTab);
 }
 
-handleTabClick();
+tabContainer.addEventListener('click', handleTabClick);
 
-function handleSelectChange() {
+function handleSelectChange(event) {
+  console.log(event.target.selectedOptions);
 
-  var dataViewOption = event.target.querySelector(':selected').getAttribute('data-view');
+  var dataViewOption = event.target.selectedOptions[0].getAttribute('data-view');
   changeViews(dataViewOption);
+
 }
 
-handleSelectChange();
-
-var tabContainer = document.querySelector('.tab-container');
-var viewElements = document.querySelectorAll('.view');
-
-tabContainer.addEventListener('click', changeViews(event));
-
-// var selectStockDataView = document.querySelector('#stock-data-select');
-var selectStockDataView = document.querySelectorAll('option');
+selectStockDataView.addEventListener('change', handleSelectChange);
 
 function loopOverOptions() {
 
   for (var i = 0; i < selectStockDataView.length; i++) {
-    console.log(selectStockDataView[i]);
     selectStockDataView[i].addEventListener('click', changeViews);
   }
 }
 
 loopOverOptions();
-
-// selectStockDataView.addEventListener('click', function (event) {
-//   console.log(selectStockDataView);
-//   console.log('in selectStockDataView event listener', event.target.value);
-
-//   changeViews(event);
-// });
-
-// var lwidth = window.screen.width;
-
-// function showDropdown() {
-//   var dropdownMenu = document.querySelector('.dropdown-container');
-//   if (lwidth <= 805) {
-//     dropdownMenu.classList.remove('hidden');
-//     dropdownMenu.classList.add('view');
-//   }
-// }
-
-// showDropdown();
-
-// Callback function changeViews is not working. Event listener maybe looking at wrong thing.
