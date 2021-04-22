@@ -22,7 +22,7 @@ function handleSubmit(event) {
 
 var homeContainerEl = document.querySelector('.home-container');
 var tabContainerEl = document.querySelector('.tab-container');
-var dropdownContainerEl = document.querySelector('.dropdown-container');
+// var dropdownContainerEl = document.querySelector('.dropdown-container');
 var profileContainerEl = document.querySelector('.profile-container');
 var chartContainerEl = document.querySelector('.chart-container');
 
@@ -35,8 +35,8 @@ function handleFindClick(event) {
   homeContainerEl.classList.add('hidden');
   tabContainerEl.classList.remove('hidden');
   tabContainerEl.classList.add('view');
-  dropdownContainerEl.classList.remove('hidden');
-  dropdownContainerEl.classList.add('view');
+  // dropdownContainerEl.classList.remove('hidden');
+  // dropdownContainerEl.classList.add('view');
   profileContainerEl.classList.remove('hidden');
   profileContainerEl.classList.add('view');
   chartContainerEl.classList.remove('hidden');
