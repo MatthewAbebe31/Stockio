@@ -10,15 +10,16 @@ header {
   font: inherit;
   cursor: pointer;
   outline: inherit;
+  justify-content: flex-start;
 }
 
 img {
-  margin: 0 auto;
   position: absolute;
   height: 300px;
   width: 300px;
-  left: 40%;
   top: 25%;
+  justify-content: center;
+  align-items: center;
 }
 
 h1 {
@@ -26,6 +27,7 @@ h1 {
   font-family: Roboto, arial, sans-serif;
   font-weight: normal;
   margin-left: 10px;
+  align-items: flex-start;
 }
 
 h2 {
@@ -54,7 +56,10 @@ li {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  margin-right: 40px;
+
+  /* margin-right: 40px; */
+  justify-content: center;
+  margin: 0 auto;
 }
 
 input#stock-search-input {
@@ -68,7 +73,9 @@ input#stock-search-input {
 }
 
 canvas#priceChart {
-  display: block;
+  /* display: block; */
+  justify-content: center;
+  align-items: center;
   box-sizing: border-box;
   margin: 0 auto;
   height: 350px;
@@ -113,15 +120,15 @@ canvas#priceChart {
   display: flex;
   justify-content: center;
   position: relative;
-  top: 1px;
   margin: 0 auto;
-  width: 100%;
+  width: 1536px;
 }
 
 .dropdown-container {
-  display: block;
   text-align: center;
   justify-content: center;
+  display: block;
+  margin: 0 auto;
   margin-top: 20px;
 }
 
@@ -137,17 +144,12 @@ canvas#priceChart {
   }
 }
 
-.view {
-  display: flex;
-}
-
-.home-container {
-  display: flex;
-  flex-flow: column nowrap;
-}
-
 form#symbol-form {
   justify-content: center;
+}
+
+.view {
+  display: flex;
 }
 
 .hidden {

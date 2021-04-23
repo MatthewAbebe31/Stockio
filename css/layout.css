@@ -3,11 +3,16 @@
 }
 
 .row {
-  display: block;
   width: 100%;
+  display: flex;
 }
 
-div.profile-container-view {
+.home-container,
+.profile-container,
+.profitability-container,
+.liquidity-container,
+.solvency-container,
+.valuation-container {
   display: flex;
-  flex-flow: column wrap;
+  flex-wrap: wrap;
 }

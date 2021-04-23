@@ -13,16 +13,14 @@ function handleSubmit(event) {
   event.preventDefault();
   var symbol = event.target.querySelector('#stock-search-input').value;
   getOverviewData(symbol);
+  getDailyPrices(symbol);
+  getQuoteData(symbol);
   getBalanceSheetData(symbol);
   getIncomeStatementData(symbol);
-  getCashFlowData(symbol);
-  getQuoteData(symbol);
-  getDailyPrices(symbol);
 }
 
 var homeContainerEl = document.querySelector('.home-container');
 var tabContainerEl = document.querySelector('.tab-container');
-// var dropdownContainerEl = document.querySelector('.dropdown-container');
 var profileContainerEl = document.querySelector('.profile-container');
 var chartContainerEl = document.querySelector('.chart-container');
 
@@ -35,8 +33,6 @@ function handleFindClick(event) {
   homeContainerEl.classList.add('hidden');
   tabContainerEl.classList.remove('hidden');
   tabContainerEl.classList.add('view');
-  // dropdownContainerEl.classList.remove('hidden');
-  // dropdownContainerEl.classList.add('view');
   profileContainerEl.classList.remove('hidden');
   profileContainerEl.classList.add('view');
   chartContainerEl.classList.remove('hidden');
@@ -137,55 +133,10 @@ function getOverviewData(symbol) {
     operatingMarginLabel.textContent = 'Operating Margin (TTM): ';
     operatingMarginData.textContent = omTTM;
 
-    var valuationDataEl = document.querySelector('.valuation-data');
-
-    var priceEarningsRatio = xhrOverview.response.PERatio;
-    var peRatio = parseFloat(priceEarningsRatio).toFixed(2);
-
-    var peRatioEl = document.createElement('li');
-    var peRatioLabel = document.createElement('strong');
-    var peRatioData = document.createElement('span');
-    valuationDataEl.appendChild(peRatioEl);
-    peRatioEl.appendChild(peRatioLabel);
-    peRatioEl.appendChild(peRatioData);
-    peRatioLabel.textContent = 'P/E Ratio: ';
-    peRatioData.textContent = peRatio;
-
-    var priceEarningsToGrowthRatio = xhrOverview.response.PEGRatio;
-    var pegRatio = parseFloat(priceEarningsToGrowthRatio).toFixed(2);
-
-    var pegRatioEl = document.createElement('li');
-    var pegRatioLabel = document.createElement('strong');
-    var pegRatioData = document.createElement('span');
-    valuationDataEl.appendChild(pegRatioEl);
-    pegRatioEl.appendChild(pegRatioLabel);
-    pegRatioEl.appendChild(pegRatioData);
-    pegRatioLabel.textContent = 'PEG Ratio: ';
-    pegRatioData.textContent = pegRatio;
-
-    var priceToBookRatio = xhrOverview.response.PriceToBookRatio;
-    var pbRatio = parseFloat(priceToBookRatio).toFixed(2);
-
-    var pbRatioEl = document.createElement('li');
-    var pbRatioLabel = document.createElement('strong');
-    var pbRatioData = document.createElement('span');
-    valuationDataEl.appendChild(pbRatioEl);
-    pbRatioEl.appendChild(pbRatioLabel);
-    pbRatioEl.appendChild(pbRatioData);
-    pbRatioLabel.textContent = 'P/B Ratio: ';
-    pbRatioData.textContent = pbRatio;
-
-    var priceToSalesRatio = xhrOverview.response.PriceToSalesRatioTTM;
-    var psRatio = parseFloat(priceToSalesRatio).toFixed(2);
-
-    var psRatioEl = document.createElement('li');
-    var psRatioLabel = document.createElement('strong');
-    var psRatioData = document.createElement('span');
-    valuationDataEl.appendChild(psRatioEl);
-    psRatioEl.appendChild(psRatioLabel);
-    psRatioEl.appendChild(psRatioData);
-    psRatioLabel.textContent = 'P/S Ratio: ';
-    psRatioData.textContent = psRatio;
+    // var peRatio = xhrOverview.response.PERatio;
+    // var pegRatio = xhrOverview.response.PEGRatio;
+    // var pbRatio = xhrOverview.response.PriceToBookRatio;
+    // var psRatio = xhrOverview.response.PriceToSalesRatioTTM;
   });
   xhrOverview.send();
 }
@@ -197,17 +148,15 @@ function getQuoteData(symbol) {
   xhrQuote.addEventListener('load', function () {
 
     var profileDataEl = document.querySelector('.profile-data');
-    var quoteData = xhrQuote.response['Global Quote']['05. price'];
-    var quote = parseFloat(quoteData).toFixed(2);
 
     var quoteEl = document.createElement('li');
     var quoteLabel = document.createElement('strong');
-    var quoteDataEl = document.createElement('span');
+    var quoteData = document.createElement('span');
     profileDataEl.appendChild(quoteEl);
     quoteEl.appendChild(quoteLabel);
-    quoteEl.appendChild(quoteDataEl);
+    quoteEl.appendChild(quoteData);
     quoteLabel.textContent = 'Quote: ';
-    quoteDataEl.textContent = quote;
+    quoteData.textContent = xhrQuote.response['Global Quote']['05. price'];
   });
   xhrQuote.send();
 }
@@ -229,7 +178,7 @@ function getDailyPrices(symbol) {
       chartLabels.push(key);
     }
 
-    var chart = document.getElementById('priceChart');
+    var chart = document.getElementById('dailyPriceChart');
 
     var dailyPriceChart = new Chart(chart, {
       type: 'line',
@@ -244,7 +193,6 @@ function getDailyPrices(symbol) {
         }]
       }
     });
-    dailyPriceChart.className = 'dailyPriceChart';
   });
   xhrDailyPrices.send();
 }
@@ -254,6 +202,8 @@ function getBalanceSheetData(symbol) {
   xhrBalanceSheet.open('GET', `https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=${symbol}&apikey=EBZ2O8GQQ9CA3ECX`);
   xhrBalanceSheet.responseType = 'json';
   xhrBalanceSheet.addEventListener('load', function () {
+    console.log('xhrBalanceSheet status: ', xhrBalanceSheet.status);
+    console.log('xhrBalanceSheet response: ', xhrBalanceSheet.response);
 
     var liquidityDataEl = document.querySelector('.liquidity-data');
 
@@ -273,7 +223,7 @@ function getBalanceSheetData(symbol) {
 
     var inventory = xhrBalanceSheet.response.annualReports[0].inventory;
     var quickRatioFormula = (totalCurrentAssests - inventory) / totalCurrentLiabilities;
-    var quickRatio = parseFloat(quickRatioFormula).toFixed(2);
+    var quickRatio = quickRatioFormula.toFixed(2);
 
     var quickRatioEl = document.createElement('li');
     var quickRatioLabel = document.createElement('strong');
@@ -315,8 +265,10 @@ function getBalanceSheetData(symbol) {
     debtToAssetsLabel.textContent = 'Debt to Assets: ';
     debtToAssetsData.textContent = doaRatio;
 
+    console.log('Total-Debt-to-Total-Assets: ', DebtToAssests);
+
     var debtToEquityRatio = totalLiabilities / totalShareholderEquity;
-    var doeRatio = debtToEquityRatio.toFixed(2);
+    var doeRatio = parseFloat(debtToEquityRatio).toFixed(2);
 
     var debtToEquityRatioEl = document.createElement('li');
     var debtToEquityRatioLabel = document.createElement('strong');
@@ -326,30 +278,6 @@ function getBalanceSheetData(symbol) {
     debtToEquityRatioEl.appendChild(debtToEquityRatioData);
     debtToEquityRatioLabel.textContent = 'Debt to Equity: ';
     debtToEquityRatioData.textContent = doeRatio;
-
-    var operatingCashFlowRatio = operatingCashFlow / totalCurrentLiabilities;
-    var operatingCfRatio = parseFloat(operatingCashFlowRatio).toFixed(2);
-
-    var operatingCashFlowEl = document.createElement('li');
-    var operatingCashFlowLabel = document.createElement('strong');
-    var operatingCashFlowData = document.createElement('span');
-    liquidityDataEl.appendChild(operatingCashFlowEl);
-    operatingCashFlowEl.appendChild(operatingCashFlowLabel);
-    operatingCashFlowEl.appendChild(operatingCashFlowData);
-    operatingCashFlowLabel.textContent = 'Operating Cashflow Ratio: ';
-    operatingCashFlowData.textContent = operatingCfRatio;
-
-    var totalShareholderEquityRatio = totalShareholderEquity / totalAssets;
-    var totalSERatio = parseFloat(totalShareholderEquityRatio).toFixed(2);
-
-    var totalSERatioEl = document.createElement('li');
-    var totalSERatioLabel = document.createElement('strong');
-    var totalSERatioData = document.createElement('span');
-    solvencyDataEl.appendChild(totalSERatioEl);
-    totalSERatioEl.appendChild(totalSERatioLabel);
-    totalSERatioEl.appendChild(totalSERatioData);
-    totalSERatioLabel.textContent = 'Total Shareholder Equity Ratio: ';
-    totalSERatioData.textContent = totalSERatio;
   });
   xhrBalanceSheet.send();
 }
@@ -362,10 +290,10 @@ function getIncomeStatementData(symbol) {
 
     var solvencyDataEl = document.querySelector('.solvency-data');
 
-    var ebitda = xhrIncomeStatement.response.annualReports[0].ebitda;
+    var ebit = xhrIncomeStatement.response.annualReports[0].ebit;
     var interestExpense = xhrIncomeStatement.response.annualReports[0].interestExpense;
-    var interestCoverageRatioFormula = ebitda / interestExpense;
-    var interestCoverageRatio = parseFloat(interestCoverageRatioFormula).toFixed(2);
+    var interestCoverageRatioFormula = ebit / interestExpense;
+    var interestCoverageRatio = interestCoverageRatioFormula.toFixed(2);
 
     var interestCoverageRatioEl = document.createElement('li');
     var interestCoverageRatioLabel = document.createElement('strong');
@@ -379,61 +307,33 @@ function getIncomeStatementData(symbol) {
   xhrIncomeStatement.send();
 }
 
-var operatingCashFlow;
-
-function getCashFlowData(symbol) {
-  var xhrCashFlow = new XMLHttpRequest();
-  xhrCashFlow.open('GET', `https://www.alphavantage.co/query?function=CASH_FLOW&symbol=${symbol}&apikey=EBZ2O8GQQ9CA3ECX`);
-  xhrCashFlow.responseType = 'json';
-  xhrCashFlow.addEventListener('load', function () {
-
-    operatingCashFlow = xhrCashFlow.response.annualReports[0].operatingCashflow;
-    return operatingCashFlow;
-  });
-  xhrCashFlow.send();
-}
-
 var tabContainer = document.querySelector('.tab-container');
-var selectStockDataView = document.querySelector('select');
+var tabElements = document.querySelectorAll('.tab');
 var viewElements = document.querySelectorAll('.view');
 
-function changeViews(viewName) {
+tabContainer.addEventListener('click', function () {
+  if (!event.target.matches('.tab')) {
+    return;
+  }
+
+  for (var i = 0; i < tabElements.length; i++) {
+    if (tabElements[i] === event.target) {
+      tabElements[i].className = 'tab active';
+    } else {
+      tabElements[i].className = 'tab';
+    }
+  }
+
+  var dataView = event.target.getAttribute('data-view');
 
   for (var k = 0; k < viewElements.length; k++) {
-    if (viewElements[k].getAttribute('data-view') === viewName) {
+    if (viewElements[k].getAttribute('data-view') === dataView) {
       viewElements[k].className = 'view';
-    } else if (viewName === 'home') {
+    } else if (dataView === 'home') {
       location.reload();
       return false;
     } else {
       viewElements[k].className = 'view hidden';
     }
   }
-}
-
-function handleTabClick(event) {
-
-  var dataViewTab = event.target.getAttribute('data-view');
-  changeViews(dataViewTab);
-}
-
-tabContainer.addEventListener('click', handleTabClick);
-
-function handleSelectChange(event) {
-  console.log(event.target.selectedOptions);
-
-  var dataViewOption = event.target.selectedOptions[0].getAttribute('data-view');
-  changeViews(dataViewOption);
-
-}
-
-selectStockDataView.addEventListener('change', handleSelectChange);
-
-function loopOverOptions() {
-
-  for (var i = 0; i < selectStockDataView.length; i++) {
-    selectStockDataView[i].addEventListener('click', changeViews);
-  }
-}
-
-loopOverOptions();
+});
