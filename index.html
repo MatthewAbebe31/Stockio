@@ -14,8 +14,8 @@
 <body>
 
   <header>
-    <div class="col-full">
-      <div class="row">
+    <div class="row">
+      <div class="col-full">
         <button class="header-button"><h1>Stockio</h1></button>
       </div>
     </div>
@@ -24,93 +24,83 @@
   <main>
 
     <div class="home-container view" data-view="home">
-      <div class="col-full">
-        <div class="row">
-          <img src="images/threedimensional_arrow_vector_291838.jpg" alt="arrow-vector">
-        </div>
-      </div>
-      <div class="col-full">
-        <div class="row">
-          <form id="symbol-form">
-            <input type="text" id="stock-search-input" placeholder="Search for a stock symbol.">
-            <button class="find-button">Find</button>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <div class="chart-container hidden">
-    <div class="col-full">
       <div class="row">
-        <div>
-          <canvas id="priceChart" height="400" width="400"></canvas>
+        <div class="col-full">
+          <div class="vector-image">
+            <img src="images/threedimensional_arrow_vector_291838.jpg" alt="arrow-vector">
+          </div>
         </div>
-      </div>
-    </div>
-    </div>
-
-    <div id="choose-views-container">
-    <div class="col-full">
-      <div class="row">
-        <div class="tabbed-views">
-          <div class="tab-container">
-            <div class="tab" data-view="profile">Profile</div>
-            <div class="tab" data-view="profitability">Profitability</div>
-            <div class="tab" data-view="liquidity">Liquidity</div>
-            <div class="tab" data-view="solvency">Solvency</div>
-            <div class="tab" data-view="valuation">Valuation</div>
-            <div class="tab" data-view="home">Home</div>
+        <div class="col-full">
+          <div>
+            <form id="symbol-form">
+              <input type="text" id="stock-search-input" placeholder="Search for a stock symbol.">
+              <button class="find-button">Find</button>
+            </form>
           </div>
         </div>
       </div>
     </div>
-
-    <div class="row">
-      <div class="dropdown-container">
-        <label for="stock-data-select">Choose Stock Data:</label>
-        <select name="stock-data-select" id="stock-data-select">
-          <option value="">--Please choose an option--</option>
-          <option value="profile" class="option" data-view="profile">Profile</option>
-          <option value="profitability" class="option" data-view="profitability">Profitability</option>
-          <option value="liquidity" class="option" data-view="liquidity">Liquidity</option>
-          <option value="solvency" class="option" data-view="solvency">Solvency</option>
-          <option value="valuation" class="option" data-view="valuation">Valuation</option>
-          <option value="home" class="option" data-view="home">Home</option>
-        </select>
+    <div class="chart-container hidden">
+      <div class="row">
+        <div class="col-full">
+          <div>
+            <canvas id="priceChart" height="400" width="400"></canvas>
+          </div>
+        </div>
       </div>
     </div>
+    <div class="choose-views-container hidden">
+      <div class="row">
+        <div class="col-full">
+          <div class="tabbed-views">
+            <div class="tab-container">
+              <div class="tab" data-view="profile">Profile</div>
+              <div class="tab" data-view="profitability">Profitability</div>
+              <div class="tab" data-view="liquidity">Liquidity</div>
+              <div class="tab" data-view="solvency">Solvency</div>
+              <div class="tab" data-view="valuation">Valuation</div>
+            </div>
+        </div>
+        <div class="dropdown-container">
+          <label for="stock-data-select">Choose Stock Data:</label>
+          <select name="stock-data-select" id="stock-data-select">
+            <option value="">--Please choose an option--</option>
+            <option value="profile" class="option" data-view="profile">Profile</option>
+            <option value="profitability" class="option" data-view="profitability">Profitability</option>
+            <option value="liquidity" class="option" data-view="liquidity">Liquidity</option>
+            <option value="solvency" class="option" data-view="solvency">Solvency</option>
+            <option value="valuation" class="option" data-view="valuation">Valuation</option>
+          </select>
+        </div>
+
+      </div>
+      </div>
     </div>
 
-      <div class= "profile-container view hidden" data-view="profile">
-        <div class="col-full">
-
+    <div class= "profile-container view hidden" data-view="profile">
+      <div class="col-full">
         <div class="row">
           <h2>Profile</h2>
         </div>
-
         <div class="row">
           <div class="profile-data-list">
             <ul class="profile-data"></ul>
           </div>
         </div>
       </div>
-      </div>
-
+    </div>
     <div class="profitability-container view hidden" data-view="profitability">
       <div class="col-full">
-
         <div class="row">
           <h2>Profitability</h2>
         </div>
-
         <div class="row">
           <div class="profitability-data-list">
             <ul class="profitability-data"></ul>
           </div>
         </div>
       </div>
-      </div>
-
+    </div>
     <div class="liquidity-container view hidden" data-view="liquidity">
       <div class="col-full">
         <div class="row">
@@ -123,7 +113,6 @@
         </div>
       </div>
     </div>
-
     <div class="solvency-container view hidden" data-view="solvency">
       <div class="col-full">
         <div class="row">
@@ -136,7 +125,6 @@
         </div>
       </div>
     </div>
-
     <div class="valuation-container view hidden" data-view="valuation">
       <div class="col-full">
         <div class="row">
@@ -149,7 +137,6 @@
         </div>
       </div>
     </div>
-
 
   </main>
 
