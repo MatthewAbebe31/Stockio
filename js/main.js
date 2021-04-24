@@ -6,7 +6,7 @@ function handleHeaderClick() {
   location.reload();
 }
 
-var stockSearchForm = document.querySelector('#symbol-form');
+var stockSearchForm = document.querySelector('#stock-symbol-form');
 stockSearchForm.addEventListener('submit', handleSubmit);
 
 function handleSubmit(event) {
