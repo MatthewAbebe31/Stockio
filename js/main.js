@@ -231,7 +231,7 @@ function getDailyPrices(symbol) {
 
     var chart = document.getElementById('priceChart');
 
-    window.dailyPriceChart = new Chart(chart, {
+    var dailyPriceChart = new Chart(chart, {
       type: 'line',
       data: {
         labels: chartLabels,
@@ -247,13 +247,6 @@ function getDailyPrices(symbol) {
     dailyPriceChart.className = 'dailyPriceChart';
   });
   xhrDailyPrices.send();
-}
-
-function destroyChart() {
-
-  if (window.dailyPriceChart != null) {
-    window.dailyPriceChart.destroy();
-  }
 }
 
 function getBalanceSheetData(symbol) {
