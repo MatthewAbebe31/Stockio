@@ -273,6 +273,9 @@ function getBalanceSheetData(symbol) {
 
     var inventory = xhrBalanceSheet.response.annualReports[0].inventory;
     var quickRatioFormula = (totalCurrentAssests - inventory) / totalCurrentLiabilities;
+    console.log('total current assets: ', totalCurrentAssests);
+    console.log('inventory: ', inventory);
+    console.log('total current liabilities: ', totalCurrentLiabilities);
     var quickRatio = parseFloat(quickRatioFormula).toFixed(2);
 
     var quickRatioEl = document.createElement('li');
@@ -282,7 +285,13 @@ function getBalanceSheetData(symbol) {
     quickRatioEl.appendChild(quickRatioLabel);
     quickRatioEl.appendChild(quickRatioData);
     quickRatioLabel.textContent = 'Quick Ratio: ';
-    quickRatioData.textContent = quickRatio;
+    // quickRatioData.textContent = quickRatio;
+
+    if (inventory === 'None') {
+      quickRatioData.textContent = 'N/A';
+    } else {
+      quickRatioData.textContent = quickRatio;
+    }
 
     var cashAndCashEquivalents = xhrBalanceSheet.response.annualReports[0].cashAndCashEquivalentsAtCarryingValue;
     var cashRatioFormula = cashAndCashEquivalents / totalCurrentLiabilities;
