@@ -257,9 +257,9 @@ function getBalanceSheetData(symbol) {
 
     var liquidityDataEl = document.querySelector('.liquidity-data');
 
-    var totalCurrentAssests = xhrBalanceSheet.response.annualReports[0].totalCurrentAssets;
+    var totalCurrentAssets = xhrBalanceSheet.response.annualReports[0].totalCurrentAssets;
     var totalCurrentLiabilities = xhrBalanceSheet.response.annualReports[0].totalCurrentLiabilities;
-    var currentRatioFormula = totalCurrentAssests / totalCurrentLiabilities;
+    var currentRatioFormula = totalCurrentAssets / totalCurrentLiabilities;
     var currentRatio = currentRatioFormula.toFixed(2);
 
     var currentRatioEl = document.createElement('li');
@@ -272,8 +272,8 @@ function getBalanceSheetData(symbol) {
     currentRatioData.textContent = currentRatio;
 
     var inventory = xhrBalanceSheet.response.annualReports[0].inventory;
-    var quickRatioFormula = (totalCurrentAssests - inventory) / totalCurrentLiabilities;
-    console.log('total current assets: ', totalCurrentAssests);
+    var quickRatioFormula = (totalCurrentAssets - inventory) / totalCurrentLiabilities;
+    console.log('total current assets: ', totalCurrentAssets);
     console.log('inventory: ', inventory);
     console.log('total current liabilities: ', totalCurrentLiabilities);
     var quickRatio = parseFloat(quickRatioFormula).toFixed(2);
@@ -285,7 +285,6 @@ function getBalanceSheetData(symbol) {
     quickRatioEl.appendChild(quickRatioLabel);
     quickRatioEl.appendChild(quickRatioData);
     quickRatioLabel.textContent = 'Quick Ratio: ';
-    // quickRatioData.textContent = quickRatio;
 
     if (inventory === 'None') {
       quickRatioData.textContent = 'N/A';
@@ -336,7 +335,10 @@ function getBalanceSheetData(symbol) {
     debtToEquityRatioLabel.textContent = 'Debt to Equity: ';
     debtToEquityRatioData.textContent = doeRatio;
 
-    var operatingCashFlowRatio = operatingCashFlow / totalCurrentLiabilities;
+    var ocf = operatingCashFlow;
+    var operatingCashFlowRatio = ocf / totalCurrentLiabilities;
+    console.log(ocf);
+    console.log(totalCurrentLiabilities);
     var operatingCfRatio = parseFloat(operatingCashFlowRatio).toFixed(2);
 
     var operatingCashFlowEl = document.createElement('li');
@@ -347,6 +349,12 @@ function getBalanceSheetData(symbol) {
     operatingCashFlowEl.appendChild(operatingCashFlowData);
     operatingCashFlowLabel.textContent = 'Operating Cashflow Ratio: ';
     operatingCashFlowData.textContent = operatingCfRatio;
+
+    if (operatingCashFlow === undefined) {
+      operatingCashFlowData.textContent = 'N/A';
+    } else {
+      operatingCashFlowData.textContent = operatingCfRatio;
+    }
 
     var totalShareholderEquityRatio = totalShareholderEquity / totalAssets;
     var totalSERatio = parseFloat(totalShareholderEquityRatio).toFixed(2);
@@ -395,7 +403,7 @@ function getCashFlowData(symbol) {
   xhrCashFlow.open('GET', `https://www.alphavantage.co/query?function=CASH_FLOW&symbol=${symbol}&apikey=EBZ2O8GQQ9CA3ECX`);
   xhrCashFlow.responseType = 'json';
   xhrCashFlow.addEventListener('load', function () {
-
+    console.log(xhrCashFlow.response);
     operatingCashFlow = xhrCashFlow.response.annualReports[0].operatingCashflow;
     return operatingCashFlow;
   });
