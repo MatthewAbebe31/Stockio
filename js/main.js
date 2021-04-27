@@ -335,10 +335,9 @@ function getBalanceSheetData(symbol) {
     debtToEquityRatioLabel.textContent = 'Debt to Equity: ';
     debtToEquityRatioData.textContent = doeRatio;
 
-    var ocf = operatingCashFlow;
-    var operatingCashFlowRatio = ocf / totalCurrentLiabilities;
-    console.log(ocf);
-    console.log(totalCurrentLiabilities);
+    console.log(operatingCashFlow); // Why is this undefined?
+
+    var operatingCashFlowRatio = operatingCashFlow / totalCurrentLiabilities;
     var operatingCfRatio = parseFloat(operatingCashFlowRatio).toFixed(2);
 
     var operatingCashFlowEl = document.createElement('li');
@@ -405,6 +404,7 @@ function getCashFlowData(symbol) {
   xhrCashFlow.addEventListener('load', function () {
     console.log(xhrCashFlow.response);
     operatingCashFlow = xhrCashFlow.response.annualReports[0].operatingCashflow;
+    console.log(operatingCashFlow);
     return operatingCashFlow;
   });
   xhrCashFlow.send();
