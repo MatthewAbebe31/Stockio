@@ -335,24 +335,24 @@ function getBalanceSheetData(symbol) {
     debtToEquityRatioLabel.textContent = 'Debt to Equity: ';
     debtToEquityRatioData.textContent = doeRatio;
 
-    console.log(operatingCashFlow); // Why is this undefined?
+    console.log(operatingCashflow);
 
-    var operatingCashFlowRatio = operatingCashFlow / totalCurrentLiabilities;
-    var operatingCfRatio = parseFloat(operatingCashFlowRatio).toFixed(2);
+    var operatingCashflowRatio = operatingCashflow / totalCurrentLiabilities;
+    var operatingCfRatio = parseFloat(operatingCashflowRatio).toFixed(2);
 
-    var operatingCashFlowEl = document.createElement('li');
-    var operatingCashFlowLabel = document.createElement('strong');
-    var operatingCashFlowData = document.createElement('span');
-    liquidityDataEl.appendChild(operatingCashFlowEl);
-    operatingCashFlowEl.appendChild(operatingCashFlowLabel);
-    operatingCashFlowEl.appendChild(operatingCashFlowData);
-    operatingCashFlowLabel.textContent = 'Operating Cashflow Ratio: ';
-    operatingCashFlowData.textContent = operatingCfRatio;
+    var operatingCashflowEl = document.createElement('li');
+    var operatingCashflowLabel = document.createElement('strong');
+    var operatingCashflowData = document.createElement('span');
+    liquidityDataEl.appendChild(operatingCashflowEl);
+    operatingCashflowEl.appendChild(operatingCashflowLabel);
+    operatingCashflowEl.appendChild(operatingCashflowData);
+    operatingCashflowLabel.textContent = 'Operating Cashflow Ratio: ';
+    operatingCashflowData.textContent = operatingCfRatio;
 
-    if (operatingCashFlow === undefined) {
-      operatingCashFlowData.textContent = 'N/A';
+    if (operatingCashflow === undefined) {
+      operatingCashflowData.textContent = 'N/A';
     } else {
-      operatingCashFlowData.textContent = operatingCfRatio;
+      operatingCashflowData.textContent = operatingCfRatio;
     }
 
     var totalShareholderEquityRatio = totalShareholderEquity / totalAssets;
@@ -395,7 +395,7 @@ function getIncomeStatementData(symbol) {
   xhrIncomeStatement.send();
 }
 
-var operatingCashFlow;
+var operatingCashflow;
 
 function getCashFlowData(symbol) {
   var xhrCashFlow = new XMLHttpRequest();
@@ -403,9 +403,8 @@ function getCashFlowData(symbol) {
   xhrCashFlow.responseType = 'json';
   xhrCashFlow.addEventListener('load', function () {
     console.log(xhrCashFlow.response);
-    operatingCashFlow = xhrCashFlow.response.annualReports[0].operatingCashflow;
-    console.log(operatingCashFlow);
-    return operatingCashFlow;
+    operatingCashflow = xhrCashFlow.response.annualReports[0].operatingCashflow;
+    return operatingCashflow;
   });
   xhrCashFlow.send();
 }
