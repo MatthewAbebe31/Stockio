@@ -133,17 +133,6 @@ canvas#priceChart {
   }
 }
 
-/* .footer-container {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  height: 39.44px;
-  width: 100%;
-  background-color: navy;
-  color: white;
-  text-align: center;
-} */
-
 .hidden {
   display: none;
 }

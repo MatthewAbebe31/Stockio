@@ -273,9 +273,6 @@ function getBalanceSheetData(symbol) {
 
     var inventory = xhrBalanceSheet.response.annualReports[0].inventory;
     var quickRatioFormula = (totalCurrentAssets - inventory) / totalCurrentLiabilities;
-    console.log('total current assets: ', totalCurrentAssets);
-    console.log('inventory: ', inventory);
-    console.log('total current liabilities: ', totalCurrentLiabilities);
     var quickRatio = parseFloat(quickRatioFormula).toFixed(2);
 
     var quickRatioEl = document.createElement('li');
@@ -334,8 +331,6 @@ function getBalanceSheetData(symbol) {
     debtToEquityRatioEl.appendChild(debtToEquityRatioData);
     debtToEquityRatioLabel.textContent = 'Debt to Equity: ';
     debtToEquityRatioData.textContent = doeRatio;
-
-    console.log(operatingCashflow);
 
     var operatingCashflowRatio = operatingCashflow / totalCurrentLiabilities;
     var operatingCfRatio = parseFloat(operatingCashflowRatio).toFixed(2);
@@ -402,7 +397,6 @@ function getCashFlowData(symbol) {
   xhrCashFlow.open('GET', `https://www.alphavantage.co/query?function=CASH_FLOW&symbol=${symbol}&apikey=EBZ2O8GQQ9CA3ECX`);
   xhrCashFlow.responseType = 'json';
   xhrCashFlow.addEventListener('load', function () {
-    console.log(xhrCashFlow.response);
     operatingCashflow = xhrCashFlow.response.annualReports[0].operatingCashflow;
     return operatingCashflow;
   });
@@ -436,7 +430,6 @@ function handleTabClick(event) {
 tabContainer.addEventListener('click', handleTabClick);
 
 function handleSelectChange(event) {
-  console.log(event.target.selectedOptions);
 
   var dataViewOption = event.target.selectedOptions[0].getAttribute('data-view');
   changeViews(dataViewOption);
