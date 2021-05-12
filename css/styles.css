@@ -2,6 +2,11 @@ header {
   background-color: navy;
 }
 
+.header-button-container {
+  display: flex;
+  align-items: flex-start;
+}
+
 .header-button {
   background-color: navy;
   color: inherit;
@@ -13,62 +18,32 @@ header {
 }
 
 img {
-  position: fixed;
-  top: 40%;
+  background-color: cornsilk;
+  margin: 0 auto;
+  position: absolute;
+  height: 400px;
+  width: 400px;
   left: 50%;
-  margin-top: -50px;
-  margin-left: -100px;
-  width: 250px;
-  height: 250px;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
-form#stock-symbol-form {
-  position: fixed;
-  bottom: 30%;
-  left: 50%;
-  margin-top: -50px;
-  margin-left: -100px;
-}
-
-input#stock-search-input {
-  text-align: center;
-  width: 200px;
-  height: 30px;
-}
-
-.find-button {
-  position: fixed;
-  bottom: 20%;
-  left: 53.5%;
-  margin-top: -50px;
-  margin-left: -100px;
-  text-align: center;
-  background-color: navy;
-  color: white;
-  width: 100px;
-  height: 30px;
-  cursor: pointer;
-  font-family: Robotp, arial, sans-serif;
-}
-
-.stock-symbol-form {
-  display: flex;
-  flex-flow: wrap;
+h1,
+h2,
+li {
+  font-family: Roboto, arial, sans-serif;
+  font-weight: normal;
 }
 
 h1 {
-  color: white;
-  font-family: Roboto, arial, sans-serif;
-  font-weight: normal;
   margin-left: 10px;
+  color: white;
 }
 
 h2 {
   text-align: center;
-  justify-content: center;
-  display: block;
   margin-top: 40px;
-  font-family: Robotp, arial, sans-serif;
+  font-weight: bolder;
 }
 
 ul {
@@ -78,7 +53,10 @@ ul {
 
 li {
   display: inline;
-  font-family: Roboto, arial, sans-serif;
+}
+
+.chart-buttons {
+  display: inline-block;
 }
 
 .profile-data,
@@ -92,25 +70,67 @@ li {
   margin-right: 40px;
 }
 
-canvas#priceChart {
+.chart-button {
+  color: white;
+  background-color: navy;
+  margin-left: 20px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+input#stock-search-input {
+  text-align: center;
+  width: 200px;
+  height: 30px;
+  position: absolute;
+  left: 50%;
+  bottom: 28%;
+  transform: translate(-50%, -50%);
+}
+
+canvas#dailyPriceChart {
   display: block;
   box-sizing: border-box;
   margin: 0 auto;
   height: 350px;
   width: 350px;
   margin-top: 20px;
+  margin-bottom: 20px;
+  border: solid 1px navy;
+}
+
+canvas#intraDayPriceChart {
+  display: block;
+  box-sizing: border-box;
+  margin: 0 auto;
+  height: 350px;
+  width: 350px;
+}
+
+.find-button {
+  width: 100px;
+  height: 30px;
+  background-color: navy;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  left: 50%;
+  bottom: 20%;
+  transform: translate(-50%, -50%);
 }
 
 .tab {
   padding: 0.75rem 1.5rem 0.5rem;
-  border-right: 1.5px solid;
-  border-left: 1.5px solid;
+
+  /* border-right: 2px solid;
+  border-left: 2px solid; */
   margin-right: 5px;
   margin-left: 5px;
   cursor: pointer;
   font-size: 1.25rem;
   font-family: Roboto, arial, sans-serif;
-  background-color: #b3fc99;
+  background-color: orange;
+  color: white;
 }
 
 .tabbed-views {
@@ -119,6 +139,24 @@ canvas#priceChart {
   margin: 0 auto;
   margin-top: 40px;
   background-color: #b3fc99;
+}
+
+.tab-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 1px;
+  margin: 0 auto;
+  background-color: #b3fc99;
+}
+
+.home-container {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+form#symbol-form {
+  justify-content: center;
 }
 
 @media only screen and (max-width: 805px) {
