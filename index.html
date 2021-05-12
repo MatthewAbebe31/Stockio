@@ -14,8 +14,8 @@
 <body>
 
   <header>
-    <div class="row">
-      <div class="col-full">
+    <div class="col-full">
+      <div class="row">
         <button class="header-button"><h1>Stockio</h1></button>
       </div>
     </div>
@@ -23,61 +23,50 @@
 
   <main>
 
+
     <div class="home-container view" data-view="home">
-      <div class="row">
-        <div class="col-full">
-          <div class="vector-image">
-            <img src="images/threedimensional_arrow_vector_291838.jpg" alt="arrow-vector">
-          </div>
+      <div class="col-full">
+        <div class="row">
+          <img src="images/threedimensional_arrow_vector_291838.jpg" alt="arrow-vector">
         </div>
-        <div class="col-full">
-          <div class="stock-symbol-form">
-            <form id="stock-symbol-form">
-              <input type="text" id="stock-search-input" placeholder="Search for a stock symbol.">
-              <button class="find-button">Find</button>
-            </form>
-          </div>
+      </div>
+      <div class="col-full">
+        <div class="row">
+          <form id="symbol-form">
+            <input type="text" id="stock-search-input" placeholder="Search for a stock by symbol.">
+            <button class="find-button">Find</button>
+          </form>
         </div>
       </div>
     </div>
+
     <div class="chart-container hidden">
+    <div class="col-full">
       <div class="row">
-        <div class="col-full">
-          <div>
-            <canvas id="priceChart" height="400" width="400"></canvas>
+        <div>
+          <canvas id="dailyPriceChart" height="400" width="400"></canvas>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+    <div class="col-full">
+      <div class="row">
+        <div class="tabbed-views">
+          <div class="tab-container hidden">
+            <div class="tab" data-view="profile">Profile</div>
+            <div class="tab" data-view="profitability">Profitability</div>
+            <div class="tab" data-view="liquidity">Liquidity</div>
+            <div class="tab" data-view="solvency">Solvency</div>
+            <div class="tab" data-view="valuation">Valuation</div>
+            <div class="tab" data-view="home">Home</div>
           </div>
         </div>
       </div>
     </div>
-    <div class="choose-views-container hidden">
-      <div class="row">
-        <div class="col-full">
-          <div class="tabbed-views">
-            <div class="tab-container">
-              <div class="tab" data-view="profile">Profile</div>
-              <div class="tab" data-view="profitability">Profitability</div>
-              <div class="tab" data-view="liquidity">Liquidity</div>
-              <div class="tab" data-view="solvency">Solvency</div>
-              <div class="tab" data-view="valuation">Valuation</div>
-            </div>
-        </div>
-        <div class="dropdown-container">
-          <label for="stock-data-select">Choose Stock Data:</label>
-          <select name="stock-data-select" id="stock-data-select">
-            <option value="">--Please choose an option--</option>
-            <option value="profile" class="option" data-view="profile">Profile</option>
-            <option value="profitability" class="option" data-view="profitability">Profitability</option>
-            <option value="liquidity" class="option" data-view="liquidity">Liquidity</option>
-            <option value="solvency" class="option" data-view="solvency">Solvency</option>
-            <option value="valuation" class="option" data-view="valuation">Valuation</option>
-          </select>
-        </div>
 
-      </div>
-      </div>
-    </div>
-
-    <div class= "profile-container view hidden" data-view="profile">
+      <div class= "profile-container view hidden" data-view="profile">
       <div class="col-full">
         <div class="row">
           <h2>Profile</h2>
@@ -89,6 +78,7 @@
         </div>
       </div>
     </div>
+
     <div class="profitability-container view hidden" data-view="profitability">
       <div class="col-full">
         <div class="row">
@@ -101,6 +91,7 @@
         </div>
       </div>
     </div>
+
     <div class="liquidity-container view hidden" data-view="liquidity">
       <div class="col-full">
         <div class="row">
@@ -113,6 +104,7 @@
         </div>
       </div>
     </div>
+
     <div class="solvency-container view hidden" data-view="solvency">
       <div class="col-full">
         <div class="row">
@@ -125,6 +117,7 @@
         </div>
       </div>
     </div>
+
     <div class="valuation-container view hidden" data-view="valuation">
       <div class="col-full">
         <div class="row">
@@ -137,6 +130,7 @@
         </div>
       </div>
     </div>
+
 
   </main>
 

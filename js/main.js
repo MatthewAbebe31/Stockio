@@ -6,7 +6,7 @@ function handleHeaderClick() {
   location.reload();
 }
 
-var stockSearchForm = document.querySelector('#stock-symbol-form');
+var stockSearchForm = document.querySelector('#symbol-form');
 stockSearchForm.addEventListener('submit', handleSubmit);
 
 function handleSubmit(event) {
@@ -404,7 +404,7 @@ function getCashFlowData(symbol) {
 }
 
 var tabContainer = document.querySelector('.tab-container');
-var selectStockDataView = document.querySelector('select');
+var selectStockDataView = document.querySelector('.tab');
 var viewElements = document.querySelectorAll('.view');
 
 function changeViews(viewName) {
