@@ -1,13 +1,56 @@
+html,
+body {
+  height: 100vh;
+}
+
+@media only screen and (min-width: 805px) {
+  html,
+  body {
+    height: 100vh;
+  }
+}
+
 .col-full {
   width: 100%;
-  display: block;
 }
 
 .row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.home-container {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+}
+
+.chart-buttons-container {
+  display: flex;
+  justify-content: center;
+}
+
+.tab-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin: 0 auto;
   width: 100%;
 }
 
-div.profile-container-view {
+.dropdown-container {
   display: flex;
-  flex-flow: column wrap;
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+
+.choose-views-container {
+  width: 100%;
 }

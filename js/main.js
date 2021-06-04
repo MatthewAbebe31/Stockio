@@ -6,23 +6,26 @@ function handleHeaderClick() {
   location.reload();
 }
 
+var symbol;
 var stockSearchForm = document.querySelector('#symbol-form');
 stockSearchForm.addEventListener('submit', handleSubmit);
 
 function handleSubmit(event) {
   event.preventDefault();
-  var symbol = event.target.querySelector('#stock-search-input').value;
+  symbol = event.target.querySelector('#stock-search-input').value;
   getOverviewData(symbol);
   getDailyPrices(symbol);
   getQuoteData(symbol);
   getBalanceSheetData(symbol);
   getIncomeStatementData(symbol);
+  getCashFlowData(symbol);
 }
 
 var homeContainerEl = document.querySelector('.home-container');
 var tabContainerEl = document.querySelector('.tab-container');
 var profileContainerEl = document.querySelector('.profile-container');
-var chartContainerEl = document.querySelector('.chart-container');
+var chartContainerEl = document.querySelector('.daily-chart-container');
+var chartButtonContainerEl = document.querySelector('.chart-buttons-container');
 
 var findButton = document.querySelector('.find-button');
 findButton.addEventListener('click', handleFindClick);
@@ -37,6 +40,8 @@ function handleFindClick(event) {
   profileContainerEl.classList.add('view');
   chartContainerEl.classList.remove('hidden');
   chartContainerEl.classList.add('view');
+  chartButtonContainerEl.classList.remove('hidden');
+  chartButtonContainerEl.classList.add('view');
 }
 
 function getOverviewData(symbol) {
@@ -133,6 +138,56 @@ function getOverviewData(symbol) {
     operatingMarginLabel.textContent = 'Operating Margin (TTM): ';
     operatingMarginData.textContent = omTTM;
 
+    var valuationDataEl = document.querySelector('.valuation-data');
+
+    var priceEarningsRatio = xhrOverview.response.PERatio;
+    var peRatio = parseFloat(priceEarningsRatio).toFixed(2);
+
+    var peRatioEl = document.createElement('li');
+    var peRatioLabel = document.createElement('strong');
+    var peRatioData = document.createElement('span');
+    valuationDataEl.appendChild(peRatioEl);
+    peRatioEl.appendChild(peRatioLabel);
+    peRatioEl.appendChild(peRatioData);
+    peRatioLabel.textContent = 'P/E Ratio: ';
+    peRatioData.textContent = peRatio;
+
+    var priceEarningsToGrowthRatio = xhrOverview.response.PEGRatio;
+    var pegRatio = parseFloat(priceEarningsToGrowthRatio).toFixed(2);
+
+    var pegRatioEl = document.createElement('li');
+    var pegRatioLabel = document.createElement('strong');
+    var pegRatioData = document.createElement('span');
+    valuationDataEl.appendChild(pegRatioEl);
+    pegRatioEl.appendChild(pegRatioLabel);
+    pegRatioEl.appendChild(pegRatioData);
+    pegRatioLabel.textContent = 'PEG Ratio: ';
+    pegRatioData.textContent = pegRatio;
+
+    var priceToBookRatio = xhrOverview.response.PriceToBookRatio;
+    var pbRatio = parseFloat(priceToBookRatio).toFixed(2);
+
+    var pbRatioEl = document.createElement('li');
+    var pbRatioLabel = document.createElement('strong');
+    var pbRatioData = document.createElement('span');
+    valuationDataEl.appendChild(pbRatioEl);
+    pbRatioEl.appendChild(pbRatioLabel);
+    pbRatioEl.appendChild(pbRatioData);
+    pbRatioLabel.textContent = 'P/B Ratio: ';
+    pbRatioData.textContent = pbRatio;
+
+    var priceToSalesRatio = xhrOverview.response.PriceToSalesRatioTTM;
+    var psRatio = parseFloat(priceToSalesRatio).toFixed(2);
+
+    var psRatioEl = document.createElement('li');
+    var psRatioLabel = document.createElement('strong');
+    var psRatioData = document.createElement('span');
+    valuationDataEl.appendChild(psRatioEl);
+    psRatioEl.appendChild(psRatioLabel);
+    psRatioEl.appendChild(psRatioData);
+    psRatioLabel.textContent = 'P/S Ratio: ';
+    psRatioData.textContent = psRatio;
+
     // var peRatio = xhrOverview.response.PERatio;
     // var pegRatio = xhrOverview.response.PEGRatio;
     // var pbRatio = xhrOverview.response.PriceToBookRatio;
@@ -160,6 +215,7 @@ function getQuoteData(symbol) {
   });
   xhrQuote.send();
 }
+/// /////////////////////////////////////////////////////////////////////////////
 
 function getDailyPrices(symbol) {
   var xhrDailyPrices = new XMLHttpRequest();
@@ -173,6 +229,7 @@ function getDailyPrices(symbol) {
     var closePrices = [];
     var chartLabels = [];
     var stockData = dailyPriceData[0];
+
     for (var key in stockData) {
       closePrices.push(stockData[key]['4. close']);
       chartLabels.push(key);
@@ -180,22 +237,214 @@ function getDailyPrices(symbol) {
 
     var chart = document.getElementById('dailyPriceChart');
 
-    var dailyPriceChart = new Chart(chart, {
+    window.myChart = new Chart(chart, {
       type: 'line',
       data: {
-        labels: chartLabels,
+        labels: chartLabels.slice(0, 5).reverse(),
         datasets: [{
           label: 'Close Price by Day' + ' ' + `${symbol}`,
-          data: closePrices,
+          data: closePrices.slice(0, 5),
           backgroundColor: 'rgba(44, 130, 201, 1)',
           borderColor: 'rgba(44, 130, 201, 1)',
           borderWidth: 1
         }]
+      },
+      options: {
+        reversed: true
       }
     });
   });
   xhrDailyPrices.send();
+  // window.dailyPriceChart.destroy();
 }
+/// ////////////////////////////////////////////////////////////////////////////
+
+function getIntraDayPrices(symbol) {
+  var xhrIntraDayPrices = new XMLHttpRequest();
+  xhrIntraDayPrices.open('GET', `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=5min&apikey=EBZ2O8GQQ9CA3ECX`);
+  xhrIntraDayPrices.responseType = 'json';
+  xhrIntraDayPrices.addEventListener('load', function () {
+    var intraDayPrices = xhrIntraDayPrices.response['Time Series (5min)'];
+    var intraDayPriceData = [];
+    intraDayPriceData.push(intraDayPrices);
+
+    var closePrices = [];
+    var chartLabels = [];
+    var stockData = intraDayPriceData[0];
+    for (var key in stockData) {
+      closePrices.push(stockData[key]['4. close']);
+      chartLabels.push(key);
+    }
+
+    var chart = document.getElementById('dailyPriceChart');
+
+    window.myChart = new Chart(chart, {
+      type: 'line',
+      data: {
+        labels: chartLabels.splice(0, 2).reverse(),
+        datasets: [{
+          label: 'Close Price Intraday' + ' ' + `${symbol}`,
+          data: closePrices.splice(0, 2),
+          backgroundColor: 'rgba(44, 130, 201, 1)',
+          borderColor: 'rgba(44, 130, 201, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: false
+      }
+    });
+  });
+  xhrIntraDayPrices.send();
+  // window.intraDayPriceChart.destroy();
+}
+/// /////////////////////////////////////////////////////////////////////////////
+function getWeeklyPrices(symbol) {
+  var xhrWeeklyPrices = new XMLHttpRequest();
+  xhrWeeklyPrices.open('GET', `https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=${symbol}&apikey=EBZ2O8GQQ9CA3ECX`);
+  xhrWeeklyPrices.responseType = 'json';
+  xhrWeeklyPrices.addEventListener('load', function () {
+    var weeklyPrices = xhrWeeklyPrices.response['Weekly Adjusted Time Series'];
+    var weeklyPriceData = [];
+    weeklyPriceData.push(weeklyPrices);
+
+    // date variable hard code?
+
+    var closePrices = [];
+    var chartLabels = [];
+    var stockData = weeklyPriceData[0];
+    for (var key in stockData) {
+      closePrices.push(stockData[key]['4. close']);
+      chartLabels.push(key);
+    }
+
+    var chart = document.getElementById('dailyPriceChart');
+
+    window.myChart = new Chart(chart, {
+      type: 'line',
+      data: {
+        labels: chartLabels.splice(0, 28).reverse(),
+        datasets: [{
+          label: 'Close Price by Week' + ' ' + `${symbol}`,
+          data: closePrices.splice(0, 28),
+          backgroundColor: 'rgba(44, 130, 201, 1)',
+          borderColor: 'rgba(44, 130, 201, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: false
+      }
+    });
+  });
+  xhrWeeklyPrices.send();
+  // window.dailyPriceChart.destroy();
+}
+
+/// ////////////////////////////////////////////////////////////////////////////
+function getMonthlyPrices(symbol) {
+  var xhrMonthlyPrices = new XMLHttpRequest();
+  xhrMonthlyPrices.open('GET', `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=${symbol}&apikey=EBZ2O8GQQ9CA3ECX`);
+  xhrMonthlyPrices.responseType = 'json';
+  xhrMonthlyPrices.addEventListener('load', function () {
+    var monthlyPrices = xhrMonthlyPrices.response['Monthly Adjusted Time Series'];
+    var monthlyPriceData = [];
+    monthlyPriceData.push(monthlyPrices);
+
+    var closePrices = [];
+    var chartLabels = [];
+    var stockData = monthlyPriceData[0];
+    for (var key in stockData) {
+      closePrices.push(stockData[key]['4. close']);
+      chartLabels.push(key);
+    }
+
+    var chart = document.getElementById('dailyPriceChart');
+
+    window.myChart = new Chart(chart, {
+      type: 'line',
+      data: {
+        labels: chartLabels.splice(0, 42).reverse(),
+        datasets: [{
+          label: 'Close Price by Month' + ' ' + `${symbol}`,
+          data: closePrices.splice(0, 42),
+          backgroundColor: 'rgba(44, 130, 201, 1)',
+          borderColor: 'rgba(44, 130, 201, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: false
+      }
+    });
+  });
+  xhrMonthlyPrices.send();
+  // window.monthlyPriceChart.destroy();
+}
+/// /////////////////////////////////////////////////////////////////////////////
+
+var intraDayPriceChartButton = document.querySelector('.intraday-chart-button');
+intraDayPriceChartButton.addEventListener('click', function () {
+
+  // window.dailyPriceChart.destroy();
+  // window.weeklyPriceChart.destroy();
+  // window.monthlyPriceChart.destory();
+
+  if (window.myChart != null) {
+    window.myChart.destroy();
+    window.myChart = null;
+  }
+
+  getIntraDayPrices(symbol);
+});
+
+var dailyPriceChartButton = document.querySelector('.daily-chart-button');
+dailyPriceChartButton.addEventListener('click', function () {
+  console.log('see daily chart');
+  // window.intraDayPriceChart.destroy();
+  // window.weeklyPriceChart.destroy();
+  // window.monthlyPriceChart.destroy();
+
+  if (window.myChart != null) {
+    window.myChart.destroy();
+    window.myChart = null;
+  }
+
+  getDailyPrices(symbol);
+
+});
+
+var weeklyPriceChartButton = document.querySelector('.weekly-chart-button');
+weeklyPriceChartButton.addEventListener('click', function () {
+
+  // window.intraDayPriceChart.destroy();
+  // window.dailyPriceChart.destroy();
+  // window.monthlyPriceChart.destroy();
+
+  if (window.myChart != null) {
+    window.myChart.destroy();
+    window.myChart = null;
+  }
+
+  getWeeklyPrices(symbol);
+});
+
+var monthlyPriceChartButton = document.querySelector('.monthly-chart-button');
+monthlyPriceChartButton.addEventListener('click', function () {
+  console.log('see monthly data');
+
+  // window.intraDayPriceChart.destroy();
+  // window.dailyPriceChart.destroy();
+  // window.weeklyPriceChart.destroy();
+
+  if (window.myChart != null) {
+    window.myChart.destroy();
+    window.myChart = null;
+  }
+
+  getMonthlyPrices(symbol);
+});
+/// /////////////////////////////////////////////////////////////////////////////
 
 function getBalanceSheetData(symbol) {
   var xhrBalanceSheet = new XMLHttpRequest();
@@ -233,6 +482,12 @@ function getBalanceSheetData(symbol) {
     quickRatioEl.appendChild(quickRatioData);
     quickRatioLabel.textContent = 'Quick Ratio: ';
     quickRatioData.textContent = quickRatio;
+
+    if (inventory === 'None') {
+      quickRatioData.textContent = 'N/A';
+    } else {
+      quickRatioData.textContent = quickRatio;
+    }
 
     var cashAndCashEquivalents = xhrBalanceSheet.response.annualReports[0].cashAndCashEquivalentsAtCarryingValue;
     var cashRatioFormula = cashAndCashEquivalents / totalCurrentLiabilities;
@@ -278,8 +533,51 @@ function getBalanceSheetData(symbol) {
     debtToEquityRatioEl.appendChild(debtToEquityRatioData);
     debtToEquityRatioLabel.textContent = 'Debt to Equity: ';
     debtToEquityRatioData.textContent = doeRatio;
+
+    var operatingCashflowRatio = operatingCashflow / totalCurrentLiabilities;
+    var operatingCfRatio = parseFloat(operatingCashflowRatio).toFixed(2);
+
+    var operatingCashflowEl = document.createElement('li');
+    var operatingCashflowLabel = document.createElement('strong');
+    var operatingCashflowData = document.createElement('span');
+    liquidityDataEl.appendChild(operatingCashflowEl);
+    operatingCashflowEl.appendChild(operatingCashflowLabel);
+    operatingCashflowEl.appendChild(operatingCashflowData);
+    operatingCashflowLabel.textContent = 'Operating Cashflow Ratio: ';
+    operatingCashflowData.textContent = operatingCfRatio;
+
+    if (operatingCashflow === undefined) {
+      operatingCashflowData.textContent = 'N/A';
+    } else {
+      operatingCashflowData.textContent = operatingCfRatio;
+    }
+
+    var totalShareholderEquityRatio = totalShareholderEquity / totalAssets;
+    var totalSERatio = parseFloat(totalShareholderEquityRatio).toFixed(2);
+
+    var totalSERatioEl = document.createElement('li');
+    var totalSERatioLabel = document.createElement('strong');
+    var totalSERatioData = document.createElement('span');
+    solvencyDataEl.appendChild(totalSERatioEl);
+    totalSERatioEl.appendChild(totalSERatioLabel);
+    totalSERatioEl.appendChild(totalSERatioData);
+    totalSERatioLabel.textContent = 'Total Shareholder Equity Ratio: ';
+    totalSERatioData.textContent = totalSERatio;
   });
   xhrBalanceSheet.send();
+}
+
+var operatingCashflow;
+
+function getCashFlowData(symbol) {
+  var xhrCashFlow = new XMLHttpRequest();
+  xhrCashFlow.open('GET', `https://www.alphavantage.co/query?function=CASH_FLOW&symbol=${symbol}&apikey=EBZ2O8GQQ9CA3ECX`);
+  xhrCashFlow.responseType = 'json';
+  xhrCashFlow.addEventListener('load', function () {
+    operatingCashflow = xhrCashFlow.response.annualReports[0].operatingCashflow;
+    return operatingCashflow;
+  });
+  xhrCashFlow.send();
 }
 
 function getIncomeStatementData(symbol) {
