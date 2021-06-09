@@ -24,7 +24,7 @@ img {
   height: 400px;
   width: 400px;
   left: 50%;
-  top: 50%;
+  top: 43%;
   transform: translate(-50%, -50%);
 }
 
@@ -84,7 +84,7 @@ input#stock-search-input {
   height: 30px;
   position: absolute;
   left: 50%;
-  bottom: 28%;
+  bottom: 33%;
   transform: translate(-50%, -50%);
 }
 
@@ -115,7 +115,7 @@ canvas#intraDayPriceChart {
   cursor: pointer;
   position: absolute;
   left: 50%;
-  bottom: 20%;
+  bottom: 25%;
   transform: translate(-50%, -50%);
 }
 
