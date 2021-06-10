@@ -1,3 +1,3 @@
 # ajax-project
 
-A dynamic HTML, CSS, and JavaScript solo project.
+A dynamic JavaScript application displays charts and financial ratios of equities from the stock market.
