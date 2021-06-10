@@ -22,7 +22,10 @@ A dynamic JavaScript application that displays charts and financial ratios of eq
 <h4>Installation</h4>
   1. Clone the repository
 
-```git clone https://github.com/Matthew-Abebe/Stockio.git ```
+```
+git clone https://github.com/Matthew-Abebe/Stockio.git
+cd Stockio
+```
 
 <h4>How to Use</h4>
 
