@@ -23,6 +23,7 @@ function handleSubmit(event) {
 
 var homeContainerEl = document.querySelector('.home-container');
 var tabContainerEl = document.querySelector('.tab-container');
+var dropdownContainerEl = document.querySelector('.dropdown-container');
 var profileContainerEl = document.querySelector('.profile-container');
 var chartContainerEl = document.querySelector('.daily-chart-container');
 var chartButtonContainerEl = document.querySelector('.chart-buttons-container');
@@ -36,6 +37,8 @@ function handleFindClick(event) {
   homeContainerEl.classList.add('hidden');
   tabContainerEl.classList.remove('hidden');
   tabContainerEl.classList.add('view');
+  dropdownContainerEl.classList.remove('hidden');
+  dropdownContainerEl.classList.add('view');
   profileContainerEl.classList.remove('hidden');
   profileContainerEl.classList.add('view');
   chartContainerEl.classList.remove('hidden');
@@ -187,11 +190,6 @@ function getOverviewData(symbol) {
     psRatioEl.appendChild(psRatioData);
     psRatioLabel.textContent = 'P/S Ratio: ';
     psRatioData.textContent = psRatio;
-
-    // var peRatio = xhrOverview.response.PERatio;
-    // var pegRatio = xhrOverview.response.PEGRatio;
-    // var pbRatio = xhrOverview.response.PriceToBookRatio;
-    // var psRatio = xhrOverview.response.PriceToSalesRatioTTM;
   });
   xhrOverview.send();
 }
@@ -215,7 +213,6 @@ function getQuoteData(symbol) {
   });
   xhrQuote.send();
 }
-/// /////////////////////////////////////////////////////////////////////////////
 
 function getDailyPrices(symbol) {
   var xhrDailyPrices = new XMLHttpRequest();
@@ -255,9 +252,7 @@ function getDailyPrices(symbol) {
     });
   });
   xhrDailyPrices.send();
-  // window.dailyPriceChart.destroy();
 }
-/// ////////////////////////////////////////////////////////////////////////////
 
 function getIntraDayPrices(symbol) {
   var xhrIntraDayPrices = new XMLHttpRequest();
@@ -296,9 +291,7 @@ function getIntraDayPrices(symbol) {
     });
   });
   xhrIntraDayPrices.send();
-  // window.intraDayPriceChart.destroy();
 }
-/// /////////////////////////////////////////////////////////////////////////////
 function getWeeklyPrices(symbol) {
   var xhrWeeklyPrices = new XMLHttpRequest();
   xhrWeeklyPrices.open('GET', `https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=${symbol}&apikey=EBZ2O8GQQ9CA3ECX`);
@@ -307,8 +300,6 @@ function getWeeklyPrices(symbol) {
     var weeklyPrices = xhrWeeklyPrices.response['Weekly Adjusted Time Series'];
     var weeklyPriceData = [];
     weeklyPriceData.push(weeklyPrices);
-
-    // date variable hard code?
 
     var closePrices = [];
     var chartLabels = [];
@@ -338,10 +329,8 @@ function getWeeklyPrices(symbol) {
     });
   });
   xhrWeeklyPrices.send();
-  // window.dailyPriceChart.destroy();
 }
 
-/// ////////////////////////////////////////////////////////////////////////////
 function getMonthlyPrices(symbol) {
   var xhrMonthlyPrices = new XMLHttpRequest();
   xhrMonthlyPrices.open('GET', `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=${symbol}&apikey=EBZ2O8GQQ9CA3ECX`);
@@ -379,16 +368,10 @@ function getMonthlyPrices(symbol) {
     });
   });
   xhrMonthlyPrices.send();
-  // window.monthlyPriceChart.destroy();
 }
-/// /////////////////////////////////////////////////////////////////////////////
 
 var intraDayPriceChartButton = document.querySelector('.intraday-chart-button');
 intraDayPriceChartButton.addEventListener('click', function () {
-
-  // window.dailyPriceChart.destroy();
-  // window.weeklyPriceChart.destroy();
-  // window.monthlyPriceChart.destory();
 
   if (window.myChart != null) {
     window.myChart.destroy();
@@ -400,10 +383,6 @@ intraDayPriceChartButton.addEventListener('click', function () {
 
 var dailyPriceChartButton = document.querySelector('.daily-chart-button');
 dailyPriceChartButton.addEventListener('click', function () {
-  console.log('see daily chart');
-  // window.intraDayPriceChart.destroy();
-  // window.weeklyPriceChart.destroy();
-  // window.monthlyPriceChart.destroy();
 
   if (window.myChart != null) {
     window.myChart.destroy();
@@ -417,10 +396,6 @@ dailyPriceChartButton.addEventListener('click', function () {
 var weeklyPriceChartButton = document.querySelector('.weekly-chart-button');
 weeklyPriceChartButton.addEventListener('click', function () {
 
-  // window.intraDayPriceChart.destroy();
-  // window.dailyPriceChart.destroy();
-  // window.monthlyPriceChart.destroy();
-
   if (window.myChart != null) {
     window.myChart.destroy();
     window.myChart = null;
@@ -431,11 +406,6 @@ weeklyPriceChartButton.addEventListener('click', function () {
 
 var monthlyPriceChartButton = document.querySelector('.monthly-chart-button');
 monthlyPriceChartButton.addEventListener('click', function () {
-  console.log('see monthly data');
-
-  // window.intraDayPriceChart.destroy();
-  // window.dailyPriceChart.destroy();
-  // window.weeklyPriceChart.destroy();
 
   if (window.myChart != null) {
     window.myChart.destroy();
@@ -444,7 +414,6 @@ monthlyPriceChartButton.addEventListener('click', function () {
 
   getMonthlyPrices(symbol);
 });
-/// /////////////////////////////////////////////////////////////////////////////
 
 function getBalanceSheetData(symbol) {
   var xhrBalanceSheet = new XMLHttpRequest();
@@ -606,7 +575,9 @@ function getIncomeStatementData(symbol) {
 }
 
 var tabContainer = document.querySelector('.tab-container');
+var dropdownContainer = document.querySelector('.dropdown-container');
 var tabElements = document.querySelectorAll('.tab');
+var dropdownOptions = document.querySelector('.option');
 var viewElements = document.querySelectorAll('.view');
 
 tabContainer.addEventListener('click', function () {
@@ -621,6 +592,20 @@ tabContainer.addEventListener('click', function () {
       tabElements[i].className = 'tab';
     }
   }
+
+  dropdownContainer.addEventListener('click', function () {
+    if (!event.target.matches('.option')) {
+      return;
+    }
+
+    for (var i = 0; i < dropdownOptions.length; i++) {
+      if (dropdownOptions[i] === event.target) {
+        dropdownOptions[i].className = 'option active';
+      } else {
+        dropdownOptions[i].className = 'option';
+      }
+    }
+  });
 
   var dataView = event.target.getAttribute('data-view');
 
