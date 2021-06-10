@@ -24,6 +24,7 @@ A dynamic JavaScript application that displays charts and financial ratios of eq
 
 ```
 git clone https://github.com/Matthew-Abebe/Stockio.git
+
 cd Stockio
 ```
 
