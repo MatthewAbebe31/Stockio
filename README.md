@@ -38,5 +38,3 @@ cd Stockio
 * Select which chart timeframe you would like to view.
 * Select which financial ratio you would like to view.
 * Return to the home page by pressing on the logo in the navigation bar.
-
-<h4>License</h4>
