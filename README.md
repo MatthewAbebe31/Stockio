@@ -20,6 +20,9 @@ A dynamic JavaScript application that displays charts and financial ratios of eq
 * Future feature: Search for news concerning the stock market.
 
 <h4>Installation</h4>
+  1. Clone the repository
+
+```git clone https://github.com/Matthew-Abebe/Stockio.git ```
 
 <h4>How to Use</h4>
 
