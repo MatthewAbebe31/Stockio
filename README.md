@@ -16,7 +16,7 @@ A dynamic JavaScript application that displays charts and financial ratios of eq
 * Stockio allows users to search for equities in the stock market and examine multiple charts and financial ratios.
 * Stockio is a useful application for investors that want a quick breakdown of quantitative data.
 * Users can view intraday, daily, weekly, and monthly charts related to the stock that they search.
-* Users can survey profile, profitability, liquidity, valuation, and solvency data.
+* Users can survey profile, profitability, liquidity, valuation, and solvency ratios.
 * Future feature: Search for news concerning the stock market.
 
 <h4>Installation</h4>
