@@ -29,7 +29,7 @@ git clone https://github.com/Matthew-Abebe/Stockio.git
 
 cd Stockio
 ```
-  2. 
+  2. Open ```index.html``` in the browser to view the application.
 
 <h4>How to Use</h4>
 
