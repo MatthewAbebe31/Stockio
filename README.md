@@ -22,3 +22,5 @@ A dynamic JavaScript application that displays charts and financial ratios of eq
 <h4>Installation</h4>
 
 <h4>How to Use</h4>
+
+<h4>License</h4>
