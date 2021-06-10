@@ -1,3 +1,3 @@
 # ajax-project
 
-A dynamic JavaScript application displays charts and financial ratios of equities from the stock market.
+A dynamic JavaScript application that displays charts and financial ratios of equities from the stock market.
