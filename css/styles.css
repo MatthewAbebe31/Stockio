@@ -121,9 +121,6 @@ canvas#intraDayPriceChart {
 
 .tab {
   padding: 0.75rem 1.5rem 0.5rem;
-
-  /* border-right: 2px solid;
-  border-left: 2px solid; */
   margin-right: 5px;
   margin-left: 5px;
   cursor: pointer;
