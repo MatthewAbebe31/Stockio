@@ -34,8 +34,8 @@ header {
 } */
 
 img {
-  height: 250px;
-  width: 200px;
+  height: 200px;
+  width: 150px;
   margin: 0 auto;
   margin-top: 50px;
 }
@@ -90,16 +90,6 @@ li {
   cursor: pointer;
 }
 
-/* input#stock-search-input {
-  text-align: center;
-  width: 200px;
-  height: 30px;
-  position: absolute;
-  left: 50%;
-  bottom: 25%;
-  transform: translate(-50%, -50%);
-} */
-
 #stock-search-input {
   text-align: center;
   width: 200px;
@@ -126,18 +116,6 @@ canvas#intraDayPriceChart {
   height: 350px;
   width: 350px;
 }
-
-/* .find-button {
-  width: 100px;
-  height: 30px;
-  background-color: navy;
-  color: white;
-  cursor: pointer;
-  position: absolute;
-  left: 50%;
-  bottom: 17%;
-  transform: translate(-50%, -50%);
-} */
 
 .find-button {
   width: 100px;
