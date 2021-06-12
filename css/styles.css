@@ -4,6 +4,7 @@ body {
 
 header {
   background-color: navy;
+  margin-bottom: 20px;
 }
 
 .header-button-container {
@@ -21,7 +22,7 @@ header {
   outline: inherit;
 }
 
-img {
+/* img {
   background-color: cornsilk;
   margin: 0 auto;
   position: absolute;
@@ -30,6 +31,13 @@ img {
   left: 50%;
   top: 43%;
   transform: translate(-50%, -50%);
+} */
+
+img {
+  height: 250px;
+  width: 200px;
+  margin: 0 auto;
+  margin-top: 50px;
 }
 
 h1,
@@ -82,7 +90,7 @@ li {
   cursor: pointer;
 }
 
-input#stock-search-input {
+/* input#stock-search-input {
   text-align: center;
   width: 200px;
   height: 30px;
@@ -90,6 +98,14 @@ input#stock-search-input {
   left: 50%;
   bottom: 25%;
   transform: translate(-50%, -50%);
+} */
+
+#stock-search-input {
+  text-align: center;
+  width: 200px;
+  height: 30px;
+  margin: 0 auto;
+  margin-top: 30px;
 }
 
 canvas#dailyPriceChart {
@@ -111,7 +127,7 @@ canvas#intraDayPriceChart {
   width: 350px;
 }
 
-.find-button {
+/* .find-button {
   width: 100px;
   height: 30px;
   background-color: navy;
@@ -121,6 +137,17 @@ canvas#intraDayPriceChart {
   left: 50%;
   bottom: 17%;
   transform: translate(-50%, -50%);
+} */
+
+.find-button {
+  width: 100px;
+  height: 30px;
+  background-color: navy;
+  color: white;
+  cursor: pointer;
+  margin: 0 auto;
+  margin-top: 30px;
+  display: block;
 }
 
 .tab {
