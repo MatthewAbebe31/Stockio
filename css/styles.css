@@ -25,8 +25,8 @@ img {
   background-color: cornsilk;
   margin: 0 auto;
   position: absolute;
-  height: 400px;
-  width: 400px;
+  height: 250px;
+  width: 200px;
   left: 50%;
   top: 43%;
   transform: translate(-50%, -50%);
@@ -88,7 +88,7 @@ input#stock-search-input {
   height: 30px;
   position: absolute;
   left: 50%;
-  bottom: 33%;
+  bottom: 25%;
   transform: translate(-50%, -50%);
 }
 
@@ -119,7 +119,7 @@ canvas#intraDayPriceChart {
   cursor: pointer;
   position: absolute;
   left: 50%;
-  bottom: 25%;
+  bottom: 17%;
   transform: translate(-50%, -50%);
 }
 

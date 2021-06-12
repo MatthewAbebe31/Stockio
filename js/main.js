@@ -420,8 +420,6 @@ function getBalanceSheetData(symbol) {
   xhrBalanceSheet.open('GET', `https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=${symbol}&apikey=EBZ2O8GQQ9CA3ECX`);
   xhrBalanceSheet.responseType = 'json';
   xhrBalanceSheet.addEventListener('load', function () {
-    console.log('xhrBalanceSheet status: ', xhrBalanceSheet.status);
-    console.log('xhrBalanceSheet response: ', xhrBalanceSheet.response);
 
     var liquidityDataEl = document.querySelector('.liquidity-data');
 
@@ -488,8 +486,6 @@ function getBalanceSheetData(symbol) {
     debtToAssetsEl.appendChild(debtToAssetsData);
     debtToAssetsLabel.textContent = 'Debt to Assets: ';
     debtToAssetsData.textContent = doaRatio;
-
-    console.log('Total-Debt-to-Total-Assets: ', DebtToAssests);
 
     var debtToEquityRatio = totalLiabilities / totalShareholderEquity;
     var doeRatio = parseFloat(debtToEquityRatio).toFixed(2);
@@ -575,7 +571,7 @@ function getIncomeStatementData(symbol) {
 }
 
 var tabContainer = document.querySelector('.tab-container');
-var dropdownContainer = document.querySelector('.dropdown-container');
+var selectEl = document.getElementById('stock-data-select');
 var tabElements = document.querySelectorAll('.tab');
 var dropdownOptions = document.querySelector('.option');
 var viewElements = document.querySelectorAll('.view');
@@ -593,8 +589,10 @@ tabContainer.addEventListener('click', function () {
     }
   }
 
-  dropdownContainer.addEventListener('click', function () {
+  selectEl.addEventListener('click', function () {
+    console.log('hi');
     if (!event.target.matches('.option')) {
+      console.log(event.target);
       return;
     }
 
