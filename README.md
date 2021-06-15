@@ -1,9 +1,11 @@
 # Stockio
 
 <h4>Description</h4>
+
 A dynamic JavaScript application that displays charts and financial ratios of equities from the stock market.
 
 <h4>Technologies</h4>
+
 <p float="left">
 <img alt="HTML5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/512px-HTML5_logo_and_wordmark.svg.png" width="100" height="100" />
 <img alt="CSS3" src="https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg" width="100" height="100" />
@@ -20,9 +22,11 @@ A dynamic JavaScript application that displays charts and financial ratios of eq
 * Future feature: Search for news concerning the stock market.
 
 <h4>Live Demo</h4>
+
 Try the application live at https://matthew-abebe.github.io/Stockio/
 
 <h4>Installation</h4>
+
   1. Clone the repository
 
 ```
