@@ -571,12 +571,25 @@ function getIncomeStatementData(symbol) {
 }
 
 var tabContainer = document.querySelector('.tab-container');
-var selectEl = document.getElementById('stock-data-select');
+var selectEl = document.querySelector('#stock-data-select');
 var tabElements = document.querySelectorAll('.tab');
-var dropdownOptions = document.querySelector('.option');
+var dropdownOptions = document.querySelectorAll('.option');
 var viewElements = document.querySelectorAll('.view');
 
-tabContainer.addEventListener('click', function () {
+function handleViewChange(dataView) {
+
+  for (var k = 0; k < viewElements.length; k++) {
+    if (viewElements[k].getAttribute('data-view') === dataView) {
+      viewElements[k].className = 'view';
+    } else if (dataView === 'home') {
+      location.reload();
+    } else {
+      viewElements[k].className = 'view hidden';
+    }
+  }
+}
+
+tabContainer.addEventListener('click', function (event) {
   if (!event.target.matches('.tab')) {
     return;
   }
@@ -588,33 +601,17 @@ tabContainer.addEventListener('click', function () {
       tabElements[i].className = 'tab';
     }
   }
+});
 
-  selectEl.addEventListener('click', function () {
-    console.log('hi');
-    if (!event.target.matches('.option')) {
-      console.log(event.target);
-      return;
-    }
+selectEl.addEventListener('change', function (event) {
 
-    for (var i = 0; i < dropdownOptions.length; i++) {
-      if (dropdownOptions[i] === event.target) {
-        dropdownOptions[i].className = 'option active';
-      } else {
-        dropdownOptions[i].className = 'option';
-      }
-    }
-  });
-
-  var dataView = event.target.getAttribute('data-view');
-
-  for (var k = 0; k < viewElements.length; k++) {
-    if (viewElements[k].getAttribute('data-view') === dataView) {
-      viewElements[k].className = 'view';
-    } else if (dataView === 'home') {
-      location.reload();
-      return false;
+  var dataView = selectEl.value;
+  for (var i = 0; i < dropdownOptions.length; i++) {
+    if (dropdownOptions[i] === event.target) {
+      dropdownOptions[i].className = 'option active';
     } else {
-      viewElements[k].className = 'view hidden';
+      dropdownOptions[i].className = 'option';
     }
   }
+  handleViewChange(dataView);
 });
