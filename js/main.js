@@ -590,6 +590,8 @@ function handleViewChange(dataView) {
 }
 
 tabContainer.addEventListener('click', function (event) {
+
+  var dataView = event.target.getAttribute('data-view');
   if (!event.target.matches('.tab')) {
     return;
   }
@@ -601,6 +603,7 @@ tabContainer.addEventListener('click', function (event) {
       tabElements[i].className = 'tab';
     }
   }
+  handleViewChange(dataView);
 });
 
 selectEl.addEventListener('change', function (event) {
