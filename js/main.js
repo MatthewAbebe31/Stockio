@@ -8,30 +8,36 @@ function handleHeaderClick() {
 
 var symbol;
 var stockSearchForm = document.querySelector('#symbol-form');
-stockSearchForm.addEventListener('submit', handleSubmit);
-
-function handleSubmit(event) {
-  event.preventDefault();
-  symbol = event.target.querySelector('#stock-search-input').value;
-  getOverviewData(symbol);
-  getDailyPrices(symbol);
-  getQuoteData(symbol);
-  getBalanceSheetData(symbol);
-  getIncomeStatementData(symbol);
-  getCashFlowData(symbol);
-}
-
+var stockSearchInput = stockSearchForm.elements.stockName;
+var findButton = document.querySelector('.find-button');
+findButton.setAttribute('disabled', true);
 var homeContainerEl = document.querySelector('.home-container');
 var tabContainerEl = document.querySelector('.tab-container');
 var dropdownContainerEl = document.querySelector('.dropdown-container');
 var profileContainerEl = document.querySelector('.profile-container');
 var chartContainerEl = document.querySelector('.daily-chart-container');
 var chartButtonContainerEl = document.querySelector('.chart-buttons-container');
+stockSearchInput.addEventListener('change', handleInput);
+stockSearchForm.addEventListener('submit', handleSubmit);
 
-var findButton = document.querySelector('.find-button');
-findButton.addEventListener('click', handleFindClick);
+function handleInput(event) {
+  symbol = stockSearchInput.value;
 
-function handleFindClick(event) {
+  if (symbol.length > 0) {
+    findButton.disabled = false;
+  }
+
+}
+
+function handleSubmit(event) {
+  event.preventDefault();
+
+  getOverviewData(symbol);
+  getDailyPrices(symbol);
+  getQuoteData(symbol);
+  getBalanceSheetData(symbol);
+  getIncomeStatementData(symbol);
+  getCashFlowData(symbol);
 
   homeContainerEl.classList.remove('view');
   homeContainerEl.classList.add('hidden');
