@@ -35,7 +35,9 @@
     "stylelint-config-recommended": "^3.0.0",
     "stylelint-config-standard": "^20.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@tarekraafat/autocomplete.js": "^10.2.4"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
