@@ -29,8 +29,6 @@ function handleInput(event) {
   if (keywords.length > 0) {
     findButton.disabled = false;
   }
-
-  getSearch(keywords);
   console.log(keywords);
 }
 
@@ -76,68 +74,58 @@ function handleFindClick(event) {
   chartButtonContainerEl.classList.add('view');
 }
 
-function renderAutoComplete() {
-  const autoCompleteJS = new autoComplete({
-    selector: '#autoComplete',
-    placeHolder: 'Search for company by symbol...',
-    data: {
-      src: function (query) {
-        return fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${keywords}&apikey=EBZ2O8GQQ9CA3ECX`)
-          .then(res => res.json())
-          .then(data => data.bestMatches);
-      },
-      keys: ['1. symbol'],
-      cache: true
+const autoCompleteJS = new autoComplete({
+  selector: '#autoComplete',
+  placeHolder: 'Search for company by symbol...',
+  data: {
+    src: function (query) {
+      return fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${keywords}&apikey=EBZ2O8GQQ9CA3ECX`)
+        .then(res => res.json())
+        .then(data => data.bestMatches)
+        .then(bestMatches => {
+          stocks = bestMatches;
+          for (var i = 0; i < stocks.length; i++) {
+            if (stocks[i]['8. currency'] === 'USD') {
+              bestMatchesArr.push(stocks[i]);
+            }
+          }
+          return bestMatchesArr;
+        });
     },
-    resultsList: {
-      tag: 'ul',
-      id: 'autoComplete_list',
-      class: 'results_list',
-      destination: '#autoComplete',
-      position: 'afterend',
-      maxResults: 5,
-      noResults: true,
-      element: (list, data) => {
-        list.setAttribute('data-parent', 'stock-list');
-        if (!data.results.length) {
-          const message = document.createElement('div');
-          message.setAttribute('class', 'no_result');
-          message.innerHTML = `<span>Found No Results for "${data.query}"</span>`;
-          list.prepend(message);
-        }
-      }
-    },
-    resultItem: {
-      highlight: true
-    },
-    events: {
-      input: {
-        selection: event => {
-          const selection = event.detail.selection.value;
-          autoCompleteJS.input.value = selection;
-        }
+    keys: ['1. symbol']
+  },
+  resultsList: {
+    tag: 'ul',
+    id: 'autoComplete_list',
+    class: 'results_list',
+    destination: '#autoComplete',
+    position: 'afterend',
+    maxResults: 5,
+    noResults: true,
+    element: (list, data) => {
+      list.setAttribute('data-parent', 'stock-list');
+      if (!data.results.length) {
+        const message = document.createElement('div');
+        message.setAttribute('class', 'no_result');
+        message.innerHTML = `<span>Found No Results for "${data.query}"</span>`;
+        list.prepend(message);
       }
     }
-  });
-}
-
-function getSearch(keyword) {
-  var xhrSearch = new XMLHttpRequest();
-  xhrSearch.open('GET', `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${keywords}&apikey=EBZ2O8GQQ9CA3ECX`);
-  xhrSearch.responseType = 'json';
-  xhrSearch.addEventListener('load', function () {
-
-    stocks = xhrSearch.response.bestMatches;
-
-    for (var i = 0; i < xhrSearch.response.bestMatches.length; i++) {
-      if (xhrSearch.response.bestMatches[i]['8. currency'] === 'USD') {
-        bestMatchesArr.push(xhrSearch.response.bestMatches[i]['1. symbol']);
+  },
+  resultItem: {
+    highlight: true
+  },
+  events: {
+    input: {
+      selection: event => {
+        const selection = event.detail.selection.value['1. symbol'];
+        autoCompleteJS.input.value = selection;
+        keywords = selection;
+        console.log(keywords);
       }
     }
-  });
-  xhrSearch.send();
-  return xhrSearch.response;
-}
+  }
+});
 
 function getOverviewData(symbol) {
   var xhrOverview = new XMLHttpRequest();
