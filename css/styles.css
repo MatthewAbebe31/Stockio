@@ -79,10 +79,8 @@ li {
   cursor: pointer;
 }
 
-#stock-search-input {
+#autoComplete {
   text-align: center;
-  width: 200px;
-  height: 30px;
   margin: 0 auto;
   margin-top: 30px;
 }
@@ -124,7 +122,7 @@ canvas#intraDayPriceChart {
   cursor: pointer;
   font-size: 1.25rem;
   font-family: Roboto, arial, sans-serif;
-  background-color: orange;
+  background-color: navy;
   color: white;
 }
 

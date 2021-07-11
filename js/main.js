@@ -29,13 +29,10 @@ function handleInput(event) {
   if (keywords.length > 0) {
     findButton.disabled = false;
   }
-  console.log(keywords);
 }
 
 function handleSubmit(event) {
   event.preventDefault();
-
-  console.log(stocks);
 
   for (var i = 0; i < stocks.length; i++) {
     if (keywords === stocks[i]['1. symbol']) {
@@ -100,7 +97,7 @@ const autoCompleteJS = new autoComplete({
     class: 'results_list',
     destination: '#autoComplete',
     position: 'afterend',
-    maxResults: 5,
+    maxResults: 50,
     noResults: true,
     element: (list, data) => {
       list.setAttribute('data-parent', 'stock-list');
@@ -121,7 +118,6 @@ const autoCompleteJS = new autoComplete({
         const selection = event.detail.selection.value['1. symbol'];
         autoCompleteJS.input.value = selection;
         keywords = selection;
-        console.log(keywords);
       }
     }
   }
