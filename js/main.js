@@ -7,6 +7,9 @@ function handleHeaderClick() {
 }
 
 var symbol;
+var keywords;
+var stocks;
+var bestMatchesArr = [];
 var stockSearchForm = document.querySelector('#symbol-form');
 var stockSearchInput = stockSearchForm.elements.stockName;
 var findButton = document.querySelector('.find-button');
@@ -17,20 +20,30 @@ var dropdownContainerEl = document.querySelector('.dropdown-container');
 var profileContainerEl = document.querySelector('.profile-container');
 var chartContainerEl = document.querySelector('.daily-chart-container');
 var chartButtonContainerEl = document.querySelector('.chart-buttons-container');
-stockSearchInput.addEventListener('change', handleInput);
+stockSearchInput.addEventListener('input', handleInput);
 stockSearchForm.addEventListener('submit', handleSubmit);
 
 function handleInput(event) {
-  symbol = stockSearchInput.value;
+  keywords = stockSearchInput.value.toUpperCase();
 
-  if (symbol.length > 0) {
+  if (keywords.length > 0) {
     findButton.disabled = false;
   }
-
 }
 
 function handleSubmit(event) {
   event.preventDefault();
+
+  for (var i = 0; i < stocks.length; i++) {
+    if (keywords === stocks[i]['1. symbol']) {
+      symbol = stocks[i]['1. symbol'];
+    }
+  }
+
+  if (stocks.length === 0 || symbol === undefined) {
+    location.reload();
+    alert('No matching stock');
+  }
 
   getOverviewData(symbol);
   getDailyPrices(symbol);
@@ -38,6 +51,11 @@ function handleSubmit(event) {
   getBalanceSheetData(symbol);
   getIncomeStatementData(symbol);
   getCashFlowData(symbol);
+}
+
+findButton.addEventListener('click', handleFindClick);
+
+function handleFindClick(event) {
 
   homeContainerEl.classList.remove('view');
   homeContainerEl.classList.add('hidden');
@@ -52,6 +70,58 @@ function handleSubmit(event) {
   chartButtonContainerEl.classList.remove('hidden');
   chartButtonContainerEl.classList.add('view');
 }
+
+const autoCompleteJS = new autoComplete({
+  selector: '#autoComplete',
+  placeHolder: 'Search for company by symbol...',
+  data: {
+    src: function (query) {
+      return fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${keywords}&apikey=EBZ2O8GQQ9CA3ECX`)
+        .then(res => res.json())
+        .then(data => data.bestMatches)
+        .then(bestMatches => {
+          stocks = bestMatches;
+          for (var i = 0; i < stocks.length; i++) {
+            if (stocks[i]['8. currency'] === 'USD') {
+              bestMatchesArr.push(stocks[i]);
+            }
+          }
+          return bestMatchesArr;
+        });
+    },
+    keys: ['1. symbol']
+  },
+  resultsList: {
+    tag: 'ul',
+    id: 'autoComplete_list',
+    class: 'results_list',
+    destination: '#autoComplete',
+    position: 'afterend',
+    maxResults: 50,
+    noResults: true,
+    element: (list, data) => {
+      list.setAttribute('data-parent', 'stock-list');
+      if (!data.results.length) {
+        const message = document.createElement('div');
+        message.setAttribute('class', 'no_result');
+        message.innerHTML = `<span>Found No Results for "${data.query}"</span>`;
+        list.prepend(message);
+      }
+    }
+  },
+  resultItem: {
+    highlight: true
+  },
+  events: {
+    input: {
+      selection: event => {
+        const selection = event.detail.selection.value['1. symbol'];
+        autoCompleteJS.input.value = selection;
+        keywords = selection;
+      }
+    }
+  }
+});
 
 function getOverviewData(symbol) {
   var xhrOverview = new XMLHttpRequest();
