@@ -59,7 +59,7 @@ function handleFindClick(event) {
 
   var showAlert = true;
   for (let i = 0; i < stocks.length; i++) {
-    if (stocks[i]['3. type'] !== 'Equity' && stocks[i]['4. region'] !== 'United States') {
+    if (stocks[i]['3. type'] !== 'Equity' || stocks[i]['4. region'] !== 'United States') {
       alert('Sorry, no data is available for this stock. Please enter another symbol.');
       showAlert = false;
     } if (showAlert === false) {
