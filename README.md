@@ -38,7 +38,7 @@ cd Stockio
 
 <h4>How to Use</h4>
 
-* Type a stock symbol into the search box and click find.
+* Type the symbol of an equity into the search box and click find.
 * Select which chart timeframe you would like to view.
 * Select which type of financial ratios you would like to view.
 * Return to the home page by pressing on the logo in the navigation bar.
