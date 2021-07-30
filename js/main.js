@@ -149,7 +149,6 @@ function getOverviewData(symbol) {
     symbolEl.appendChild(symbolLabel);
     symbolEl.appendChild(symbolData);
     symbolLabel.textContent = 'Symbol: ';
-    // symbolData.textContent = xhrOverview.response.Symbol;
 
     if (xhrOverview.response.Symbol === undefined || xhrOverview.response.Symbol === 'None') {
       symbolData.textContent = 'N/A';
@@ -164,7 +163,6 @@ function getOverviewData(symbol) {
     stockNameEl.appendChild(stockNameLabel);
     stockNameEl.appendChild(stockNameData);
     stockNameLabel.textContent = 'Name: ';
-    // stockNameData.textContent = xhrOverview.response.Name;
 
     if (xhrOverview.response.Name === undefined || xhrOverview.response.Name === 'None') {
       stockNameData.textContent = 'N/A';
@@ -179,7 +177,6 @@ function getOverviewData(symbol) {
     exchangeNameEl.appendChild(exchangeNameLabel);
     exchangeNameEl.appendChild(exchangeNameData);
     exchangeNameLabel.textContent = 'Exchange: ';
-    // exchangeNameData.textContent = xhrOverview.response.Exchange;
 
     if (xhrOverview.response.Exchange === undefined || xhrOverview.response.Exchange === 'None') {
       exchangeNameData.textContent = 'N/A';
@@ -194,7 +191,6 @@ function getOverviewData(symbol) {
     sectorNameEl.appendChild(sectorNameLabel);
     sectorNameEl.appendChild(sectorNameData);
     sectorNameLabel.textContent = 'Sector: ';
-    // sectorNameData.textContent = xhrOverview.response.Sector;
 
     if (xhrOverview.response.Sector === undefined || xhrOverview.response.Sector === 'None') {
       sectorNameData.textContent = 'N/A';
@@ -214,7 +210,6 @@ function getOverviewData(symbol) {
     profitMarginEl.appendChild(profitMarginLabel);
     profitMarginEl.appendChild(profitMarginData);
     profitMarginLabel.textContent = 'Profit Margin: ';
-    // profitMarginData.textContent = prftMargin;
 
     if (prftMargin === undefined) {
       profitMarginData.textContent = 'N/A';
@@ -232,7 +227,6 @@ function getOverviewData(symbol) {
     returnOnAssetsEl.appendChild(returnOnAssetsLabel);
     returnOnAssetsEl.appendChild(returnOnAssetsData);
     returnOnAssetsLabel.textContent = 'Return On Assets (TTM): ';
-    // returnOnAssetsData.textContent = roaTTM;
 
     if (roaTTM === undefined) {
       returnOnAssetsData.textContent = 'N/A';
@@ -250,7 +244,6 @@ function getOverviewData(symbol) {
     returnOnEquityEl.appendChild(returnOnEquityLabel);
     returnOnEquityEl.appendChild(returnOnEquityData);
     returnOnEquityLabel.textContent = 'Return on Equity (TTM): ';
-    // returnOnEquityData.textContent = roeTTM;
 
     if (roeTTM === undefined) {
       returnOnEquityData.textContent = 'N/A';
@@ -268,7 +261,6 @@ function getOverviewData(symbol) {
     operatingMarginEl.appendChild(operatingMarginLabel);
     operatingMarginEl.appendChild(operatingMarginData);
     operatingMarginLabel.textContent = 'Operating Margin (TTM): ';
-    // operatingMarginData.textContent = omTTM;
 
     if (omTTM === undefined) {
       operatingMarginData.textContent = 'N/A';
@@ -288,7 +280,6 @@ function getOverviewData(symbol) {
     peRatioEl.appendChild(peRatioLabel);
     peRatioEl.appendChild(peRatioData);
     peRatioLabel.textContent = 'P/E Ratio: ';
-    // peRatioData.textContent = peRatio;
 
     if (peRatio === undefined) {
       peRatioData.textContent = 'N/A';
@@ -306,7 +297,6 @@ function getOverviewData(symbol) {
     pegRatioEl.appendChild(pegRatioLabel);
     pegRatioEl.appendChild(pegRatioData);
     pegRatioLabel.textContent = 'PEG Ratio: ';
-    // pegRatioData.textContent = pegRatio;
 
     if (pegRatio === undefined) {
       pegRatioData.textContent = 'N/A';
@@ -342,7 +332,6 @@ function getOverviewData(symbol) {
     psRatioEl.appendChild(psRatioLabel);
     psRatioEl.appendChild(psRatioData);
     psRatioLabel.textContent = 'P/S Ratio: ';
-    // psRatioData.textContent = psRatio;
 
     if (psRatio === undefined) {
       psRatioData.textContent = 'N/A';
@@ -368,7 +357,6 @@ function getQuoteData(symbol) {
     quoteEl.appendChild(quoteLabel);
     quoteEl.appendChild(quoteData);
     quoteLabel.textContent = 'Quote: ';
-    // quoteData.textContent = `$${xhrQuote.response['Global Quote']['05. price'].slice(0, -2)}`;
 
     if (xhrQuote.response['Global Quote']['05. price'] === undefined || xhrQuote.response['Global Quote']['05. price'] === 'None') {
       quoteData.textContent = 'N/A';
@@ -600,7 +588,6 @@ function getBalanceSheetData(symbol) {
     currentRatioEl.appendChild(currentRatioLabel);
     currentRatioEl.appendChild(currentRatioData);
     currentRatioLabel.textContent = 'Current Ratio: ';
-    // currentRatioData.textContent = currentRatio;
 
     if (totalCurrentAssests === undefined || totalCurrentAssests === 'None' || totalCurrentLiabilities === undefined || totalCurrentLiabilities === 'None') {
       currentRatioData.textContent = 'N/A';
@@ -619,7 +606,6 @@ function getBalanceSheetData(symbol) {
     quickRatioEl.appendChild(quickRatioLabel);
     quickRatioEl.appendChild(quickRatioData);
     quickRatioLabel.textContent = 'Quick Ratio: ';
-    // quickRatioData.textContent = quickRatio;
 
     if (totalCurrentAssests === undefined || totalCurrentAssests === 'None' || inventory === undefined || inventory === 'None' || totalCurrentLiabilities === undefined || totalCurrentLiabilities === 'None') {
       quickRatioData.textContent = 'N/A';
@@ -638,7 +624,6 @@ function getBalanceSheetData(symbol) {
     cashRatioEl.appendChild(cashRatioLabel);
     cashRatioEl.appendChild(cashRatioData);
     cashRatioLabel.textContent = 'Cash Ratio: ';
-    // cashRatioData.textContent = cashRatio;
 
     if (cashAndCashEquivalents === undefined || cashAndCashEquivalents === 'None' || totalCurrentLiabilities === undefined || totalCurrentLiabilities === 'None') {
       cashRatioData.textContent = 'N/A';
@@ -662,7 +647,6 @@ function getBalanceSheetData(symbol) {
     debtToAssetsEl.appendChild(debtToAssetsLabel);
     debtToAssetsEl.appendChild(debtToAssetsData);
     debtToAssetsLabel.textContent = 'Debt to Assets: ';
-    // debtToAssetsData.textContent = doaRatio;
 
     if (totalLiabilities === undefined || totalLiabilities === 'None' || totalAssets === undefined || totalAssets === 'None') {
       debtToAssetsData.textContent = 'N/A';
@@ -680,7 +664,6 @@ function getBalanceSheetData(symbol) {
     debtToEquityRatioEl.appendChild(debtToEquityRatioLabel);
     debtToEquityRatioEl.appendChild(debtToEquityRatioData);
     debtToEquityRatioLabel.textContent = 'Debt to Equity: ';
-    // debtToEquityRatioData.textContent = doeRatio;
 
     if (totalLiabilities === undefined || totalLiabilities === 'None' || totalShareholderEquity === undefined || totalShareholderEquity === 'None') {
       debtToEquityRatioData.textContent = 'N/A';
@@ -698,7 +681,6 @@ function getBalanceSheetData(symbol) {
     operatingCashflowEl.appendChild(operatingCashflowLabel);
     operatingCashflowEl.appendChild(operatingCashflowData);
     operatingCashflowLabel.textContent = 'Operating Cashflow Ratio: ';
-    // operatingCashflowData.textContent = operatingCfRatio;
 
     if (operatingCashflow === undefined || operatingCashflow === 'None' || totalCurrentLiabilities === undefined || totalCurrentLiabilities === 'None') {
       operatingCashflowData.textContent = 'N/A';
@@ -716,7 +698,6 @@ function getBalanceSheetData(symbol) {
     totalSERatioEl.appendChild(totalSERatioLabel);
     totalSERatioEl.appendChild(totalSERatioData);
     totalSERatioLabel.textContent = 'Total Shareholder Equity Ratio: ';
-    // totalSERatioData.textContent = totalSERatio;
 
     if (totalShareholderEquity === undefined || totalShareholderEquity === 'None' || totalAssets === undefined || totalAssets === 'None') {
       totalSERatioData.textContent = 'N/A';
@@ -760,7 +741,6 @@ function getIncomeStatementData(symbol) {
     interestCoverageRatioEl.appendChild(interestCoverageRatioLabel);
     interestCoverageRatioEl.appendChild(interestCoverageRatioData);
     interestCoverageRatioLabel.textContent = 'Interest Coverage Ratio: ';
-    // interestCoverageRatioData.textContent = interestCoverageRatio;
 
     if (ebit === undefined || ebit === 'None' || interestExpense === undefined || interestExpense === 'None') {
       interestCoverageRatioData.textContent = 'N/A';
