@@ -148,6 +148,10 @@ canvas#intraDayPriceChart {
   flex-flow: column nowrap;
 }
 
+#autoComplete_list > li {
+  display: block;
+}
+
 form#symbol-form {
   justify-content: center;
 }

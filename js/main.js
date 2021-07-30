@@ -31,24 +31,8 @@ function handleInput(event) {
   }
 }
 
-function handleEquitiesOnly() {
-
-  var showAlert = true;
-  for (let i = 0; i < stocks.length; i++) {
-    if (stocks[i]['3. type'] === 'ETF' && stocks[i]['4. region'] !== 'United States') {
-      alert('Sorry, no data is available for this stock. Please enter another symbol.');
-      showAlert = false;
-    } if (showAlert === false) {
-      window.location.reload();
-      return;
-    }
-  }
-}
-
 function handleSubmit(event) {
   event.preventDefault();
-
-  handleEquitiesOnly();
 
   for (var i = 0; i < stocks.length; i++) {
     if (keywords === stocks[i]['1. symbol']) {
@@ -72,6 +56,17 @@ function handleSubmit(event) {
 findButton.addEventListener('click', handleFindClick);
 
 function handleFindClick(event) {
+
+  var showAlert = true;
+  for (let i = 0; i < stocks.length; i++) {
+    if (stocks[i]['3. type'] !== 'Equity' && stocks[i]['4. region'] !== 'United States') {
+      alert('Sorry, no data is available for this stock. Please enter another symbol.');
+      showAlert = false;
+    } if (showAlert === false) {
+      window.location.reload();
+      return;
+    }
+  }
 
   homeContainerEl.classList.remove('view');
   homeContainerEl.classList.add('hidden');
