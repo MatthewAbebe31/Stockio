@@ -149,7 +149,13 @@ function getOverviewData(symbol) {
     symbolEl.appendChild(symbolLabel);
     symbolEl.appendChild(symbolData);
     symbolLabel.textContent = 'Symbol: ';
-    symbolData.textContent = xhrOverview.response.Symbol;
+    // symbolData.textContent = xhrOverview.response.Symbol;
+
+    if (xhrOverview.response.Symbol === undefined || xhrOverview.response.Symbol === 'None') {
+      symbolData.textContent = 'N/A';
+    } else {
+      symbolData.textContent = xhrOverview.response.Symbol;
+    }
 
     var stockNameEl = document.createElement('li');
     var stockNameLabel = document.createElement('strong');
@@ -158,7 +164,13 @@ function getOverviewData(symbol) {
     stockNameEl.appendChild(stockNameLabel);
     stockNameEl.appendChild(stockNameData);
     stockNameLabel.textContent = 'Name: ';
-    stockNameData.textContent = xhrOverview.response.Name;
+    // stockNameData.textContent = xhrOverview.response.Name;
+
+    if (xhrOverview.response.Name === undefined || xhrOverview.response.Name === 'None') {
+      stockNameData.textContent = 'N/A';
+    } else {
+      stockNameData.textContent = xhrOverview.response.Name;
+    }
 
     var exchangeNameEl = document.createElement('li');
     var exchangeNameLabel = document.createElement('strong');
@@ -167,7 +179,13 @@ function getOverviewData(symbol) {
     exchangeNameEl.appendChild(exchangeNameLabel);
     exchangeNameEl.appendChild(exchangeNameData);
     exchangeNameLabel.textContent = 'Exchange: ';
-    exchangeNameData.textContent = xhrOverview.response.Exchange;
+    // exchangeNameData.textContent = xhrOverview.response.Exchange;
+
+    if (xhrOverview.response.Exchange === undefined || xhrOverview.response.Exchange === 'None') {
+      exchangeNameData.textContent = 'N/A';
+    } else {
+      exchangeNameData.textContent = xhrOverview.response.Exchange;
+    }
 
     var sectorNameEl = document.createElement('li');
     var sectorNameLabel = document.createElement('strong');
@@ -176,7 +194,13 @@ function getOverviewData(symbol) {
     sectorNameEl.appendChild(sectorNameLabel);
     sectorNameEl.appendChild(sectorNameData);
     sectorNameLabel.textContent = 'Sector: ';
-    sectorNameData.textContent = xhrOverview.response.Sector;
+    // sectorNameData.textContent = xhrOverview.response.Sector;
+
+    if (xhrOverview.response.Sector === undefined || xhrOverview.response.Sector === 'None') {
+      sectorNameData.textContent = 'N/A';
+    } else {
+      sectorNameData.textContent = xhrOverview.response.Sector;
+    }
 
     var profitabilityDataEl = document.querySelector('.profitability-data');
 
@@ -190,7 +214,13 @@ function getOverviewData(symbol) {
     profitMarginEl.appendChild(profitMarginLabel);
     profitMarginEl.appendChild(profitMarginData);
     profitMarginLabel.textContent = 'Profit Margin: ';
-    profitMarginData.textContent = prftMargin;
+    // profitMarginData.textContent = prftMargin;
+
+    if (prftMargin === undefined) {
+      profitMarginData.textContent = 'N/A';
+    } else {
+      profitMarginData.textContent = prftMargin;
+    }
 
     var returnOnAssetsTTM = xhrOverview.response.ReturnOnAssetsTTM;
     var roaTTM = parseFloat(returnOnAssetsTTM).toFixed(2);
@@ -202,7 +232,13 @@ function getOverviewData(symbol) {
     returnOnAssetsEl.appendChild(returnOnAssetsLabel);
     returnOnAssetsEl.appendChild(returnOnAssetsData);
     returnOnAssetsLabel.textContent = 'Return On Assets (TTM): ';
-    returnOnAssetsData.textContent = roaTTM;
+    // returnOnAssetsData.textContent = roaTTM;
+
+    if (roaTTM === undefined) {
+      returnOnAssetsData.textContent = 'N/A';
+    } else {
+      returnOnAssetsData.textContent = roaTTM;
+    }
 
     var returnOnEquityTTM = xhrOverview.response.ReturnOnEquityTTM;
     var roeTTM = parseFloat(returnOnEquityTTM).toFixed(2);
@@ -214,7 +250,13 @@ function getOverviewData(symbol) {
     returnOnEquityEl.appendChild(returnOnEquityLabel);
     returnOnEquityEl.appendChild(returnOnEquityData);
     returnOnEquityLabel.textContent = 'Return on Equity (TTM): ';
-    returnOnEquityData.textContent = roeTTM;
+    // returnOnEquityData.textContent = roeTTM;
+
+    if (roeTTM === undefined) {
+      returnOnEquityData.textContent = 'N/A';
+    } else {
+      returnOnEquityData.textContent = roeTTM;
+    }
 
     var operatingMarginTTM = xhrOverview.response.OperatingMarginTTM;
     var omTTM = parseFloat(operatingMarginTTM).toFixed(2);
@@ -226,7 +268,13 @@ function getOverviewData(symbol) {
     operatingMarginEl.appendChild(operatingMarginLabel);
     operatingMarginEl.appendChild(operatingMarginData);
     operatingMarginLabel.textContent = 'Operating Margin (TTM): ';
-    operatingMarginData.textContent = omTTM;
+    // operatingMarginData.textContent = omTTM;
+
+    if (omTTM === undefined) {
+      operatingMarginData.textContent = 'N/A';
+    } else {
+      operatingMarginData.textContent = omTTM;
+    }
 
     var valuationDataEl = document.querySelector('.valuation-data');
 
@@ -240,7 +288,13 @@ function getOverviewData(symbol) {
     peRatioEl.appendChild(peRatioLabel);
     peRatioEl.appendChild(peRatioData);
     peRatioLabel.textContent = 'P/E Ratio: ';
-    peRatioData.textContent = peRatio;
+    // peRatioData.textContent = peRatio;
+
+    if (peRatio === undefined) {
+      peRatioData.textContent = 'N/A';
+    } else {
+      peRatioData.textContent = peRatio;
+    }
 
     var priceEarningsToGrowthRatio = xhrOverview.response.PEGRatio;
     var pegRatio = parseFloat(priceEarningsToGrowthRatio).toFixed(2);
@@ -252,7 +306,13 @@ function getOverviewData(symbol) {
     pegRatioEl.appendChild(pegRatioLabel);
     pegRatioEl.appendChild(pegRatioData);
     pegRatioLabel.textContent = 'PEG Ratio: ';
-    pegRatioData.textContent = pegRatio;
+    // pegRatioData.textContent = pegRatio;
+
+    if (pegRatio === undefined) {
+      pegRatioData.textContent = 'N/A';
+    } else {
+      pegRatioData.textContent = pegRatio;
+    }
 
     var priceToBookRatio = xhrOverview.response.PriceToBookRatio;
     var pbRatio = parseFloat(priceToBookRatio).toFixed(2);
@@ -266,6 +326,12 @@ function getOverviewData(symbol) {
     pbRatioLabel.textContent = 'P/B Ratio: ';
     pbRatioData.textContent = pbRatio;
 
+    if (pbRatio === undefined) {
+      pbRatioData.textContent = 'N/A';
+    } else {
+      pbRatioData.textContent = pbRatio;
+    }
+
     var priceToSalesRatio = xhrOverview.response.PriceToSalesRatioTTM;
     var psRatio = parseFloat(priceToSalesRatio).toFixed(2);
 
@@ -276,7 +342,13 @@ function getOverviewData(symbol) {
     psRatioEl.appendChild(psRatioLabel);
     psRatioEl.appendChild(psRatioData);
     psRatioLabel.textContent = 'P/S Ratio: ';
-    psRatioData.textContent = psRatio;
+    // psRatioData.textContent = psRatio;
+
+    if (psRatio === undefined) {
+      psRatioData.textContent = 'N/A';
+    } else {
+      psRatioData.textContent = psRatio;
+    }
   });
   xhrOverview.send();
 }
@@ -296,7 +368,13 @@ function getQuoteData(symbol) {
     quoteEl.appendChild(quoteLabel);
     quoteEl.appendChild(quoteData);
     quoteLabel.textContent = 'Quote: ';
-    quoteData.textContent = xhrQuote.response['Global Quote']['05. price'];
+    // quoteData.textContent = `$${xhrQuote.response['Global Quote']['05. price'].slice(0, -2)}`;
+
+    if (xhrQuote.response['Global Quote']['05. price'] === undefined || xhrQuote.response['Global Quote']['05. price'] === 'None') {
+      quoteData.textContent = 'N/A';
+    } else {
+      quoteData.textContent = `$${xhrQuote.response['Global Quote']['05. price'].slice(0, -2)}`;
+    }
   });
   xhrQuote.send();
 }
@@ -522,7 +600,13 @@ function getBalanceSheetData(symbol) {
     currentRatioEl.appendChild(currentRatioLabel);
     currentRatioEl.appendChild(currentRatioData);
     currentRatioLabel.textContent = 'Current Ratio: ';
-    currentRatioData.textContent = currentRatio;
+    // currentRatioData.textContent = currentRatio;
+
+    if (totalCurrentAssests === undefined || totalCurrentAssests === 'None' || totalCurrentLiabilities === undefined || totalCurrentLiabilities === 'None') {
+      currentRatioData.textContent = 'N/A';
+    } else {
+      currentRatioData.textContent = currentRatio;
+    }
 
     var inventory = xhrBalanceSheet.response.annualReports[0].inventory;
     var quickRatioFormula = (totalCurrentAssests - inventory) / totalCurrentLiabilities;
@@ -535,9 +619,9 @@ function getBalanceSheetData(symbol) {
     quickRatioEl.appendChild(quickRatioLabel);
     quickRatioEl.appendChild(quickRatioData);
     quickRatioLabel.textContent = 'Quick Ratio: ';
-    quickRatioData.textContent = quickRatio;
+    // quickRatioData.textContent = quickRatio;
 
-    if (inventory === 'None') {
+    if (totalCurrentAssests === undefined || totalCurrentAssests === 'None' || inventory === undefined || inventory === 'None' || totalCurrentLiabilities === undefined || totalCurrentLiabilities === 'None') {
       quickRatioData.textContent = 'N/A';
     } else {
       quickRatioData.textContent = quickRatio;
@@ -554,7 +638,13 @@ function getBalanceSheetData(symbol) {
     cashRatioEl.appendChild(cashRatioLabel);
     cashRatioEl.appendChild(cashRatioData);
     cashRatioLabel.textContent = 'Cash Ratio: ';
-    cashRatioData.textContent = cashRatio;
+    // cashRatioData.textContent = cashRatio;
+
+    if (cashAndCashEquivalents === undefined || cashAndCashEquivalents === 'None' || totalCurrentLiabilities === undefined || totalCurrentLiabilities === 'None') {
+      cashRatioData.textContent = 'N/A';
+    } else {
+      cashRatioData.textContent = cashRatio;
+    }
 
     var solvencyDataEl = document.querySelector('.solvency-data');
 
@@ -572,7 +662,13 @@ function getBalanceSheetData(symbol) {
     debtToAssetsEl.appendChild(debtToAssetsLabel);
     debtToAssetsEl.appendChild(debtToAssetsData);
     debtToAssetsLabel.textContent = 'Debt to Assets: ';
-    debtToAssetsData.textContent = doaRatio;
+    // debtToAssetsData.textContent = doaRatio;
+
+    if (totalLiabilities === undefined || totalLiabilities === 'None' || totalAssets === undefined || totalAssets === 'None') {
+      debtToAssetsData.textContent = 'N/A';
+    } else {
+      debtToAssetsData.textContent = doaRatio;
+    }
 
     var debtToEquityRatio = totalLiabilities / totalShareholderEquity;
     var doeRatio = parseFloat(debtToEquityRatio).toFixed(2);
@@ -584,7 +680,13 @@ function getBalanceSheetData(symbol) {
     debtToEquityRatioEl.appendChild(debtToEquityRatioLabel);
     debtToEquityRatioEl.appendChild(debtToEquityRatioData);
     debtToEquityRatioLabel.textContent = 'Debt to Equity: ';
-    debtToEquityRatioData.textContent = doeRatio;
+    // debtToEquityRatioData.textContent = doeRatio;
+
+    if (totalLiabilities === undefined || totalLiabilities === 'None' || totalShareholderEquity === undefined || totalShareholderEquity === 'None') {
+      debtToEquityRatioData.textContent = 'N/A';
+    } else {
+      debtToEquityRatioData.textContent = doeRatio;
+    }
 
     var operatingCashflowRatio = operatingCashflow / totalCurrentLiabilities;
     var operatingCfRatio = parseFloat(operatingCashflowRatio).toFixed(2);
@@ -596,9 +698,9 @@ function getBalanceSheetData(symbol) {
     operatingCashflowEl.appendChild(operatingCashflowLabel);
     operatingCashflowEl.appendChild(operatingCashflowData);
     operatingCashflowLabel.textContent = 'Operating Cashflow Ratio: ';
-    operatingCashflowData.textContent = operatingCfRatio;
+    // operatingCashflowData.textContent = operatingCfRatio;
 
-    if (operatingCashflow === undefined) {
+    if (operatingCashflow === undefined || operatingCashflow === 'None' || totalCurrentLiabilities === undefined || totalCurrentLiabilities === 'None') {
       operatingCashflowData.textContent = 'N/A';
     } else {
       operatingCashflowData.textContent = operatingCfRatio;
@@ -614,7 +716,13 @@ function getBalanceSheetData(symbol) {
     totalSERatioEl.appendChild(totalSERatioLabel);
     totalSERatioEl.appendChild(totalSERatioData);
     totalSERatioLabel.textContent = 'Total Shareholder Equity Ratio: ';
-    totalSERatioData.textContent = totalSERatio;
+    // totalSERatioData.textContent = totalSERatio;
+
+    if (totalShareholderEquity === undefined || totalShareholderEquity === 'None' || totalAssets === undefined || totalAssets === 'None') {
+      totalSERatioData.textContent = 'N/A';
+    } else {
+      totalSERatioData.textContent = totalSERatio;
+    }
   });
   xhrBalanceSheet.send();
 }
@@ -652,8 +760,15 @@ function getIncomeStatementData(symbol) {
     interestCoverageRatioEl.appendChild(interestCoverageRatioLabel);
     interestCoverageRatioEl.appendChild(interestCoverageRatioData);
     interestCoverageRatioLabel.textContent = 'Interest Coverage Ratio: ';
-    interestCoverageRatioData.textContent = interestCoverageRatio;
+    // interestCoverageRatioData.textContent = interestCoverageRatio;
+
+    if (ebit === undefined || ebit === 'None' || interestExpense === undefined || interestExpense === 'None') {
+      interestCoverageRatioData.textContent = 'N/A';
+    } else {
+      interestCoverageRatioData.textContent = interestCoverageRatio;
+    }
   });
+
   xhrIncomeStatement.send();
 }
 
