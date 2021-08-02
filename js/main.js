@@ -57,17 +57,6 @@ findButton.addEventListener('click', handleFindClick);
 
 function handleFindClick(event) {
 
-  var showAlert = true;
-  for (let i = 0; i < stocks.length; i++) {
-    if (stocks[i]['3. type'] === 'ETF' || stocks[i]['4. region'] !== 'United States') {
-      alert('Sorry, no data is available for this stock. Please enter another symbol.');
-      showAlert = false;
-    } if (showAlert === false) {
-      window.location.reload();
-      return;
-    }
-  }
-
   homeContainerEl.classList.remove('view');
   homeContainerEl.classList.add('hidden');
   tabContainerEl.classList.remove('hidden');
@@ -93,7 +82,7 @@ const autoCompleteJS = new autoComplete({
         .then(bestMatches => {
           stocks = bestMatches;
           for (var i = 0; i < stocks.length; i++) {
-            if (stocks[i]['8. currency'] === 'USD') {
+            if (stocks[i]['8. currency'] === 'USD' && stocks[i]['3. type'] === 'Equity') {
               bestMatchesArr.push(stocks[i]);
             }
           }
