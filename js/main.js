@@ -188,12 +188,11 @@ function getOverviewData(symbol) {
     }
 
     var profitabilityDataEl = document.querySelector('.profitability-data');
-
     var prftMargin;
 
-    if (xhrOverview.response.annualReports === undefined) {
+    if (xhrOverview.response.ProfitMargin === undefined) {
       prftMargin = null;
-    } else if (xhrOverview.response.annualReports !== undefined) {
+    } else if (xhrOverview.response.ProfitMargin !== undefined) {
       var profitMargin = xhrOverview.response.ProfitMargin;
       prftMargin = parseFloat(profitMargin).toFixed(2);
     }
@@ -214,9 +213,9 @@ function getOverviewData(symbol) {
 
     var roaTTM;
 
-    if (xhrOverview.response.annualReports === undefined) {
+    if (xhrOverview.response.ReturnOnAssetsTTM === undefined) {
       roaTTM = null;
-    } else if (xhrOverview.response.annualReports !== undefined) {
+    } else if (xhrOverview.response.ReturnOnAssetsTTM !== undefined) {
       var returnOnAssetsTTM = xhrOverview.response.ReturnOnAssetsTTM;
       roaTTM = parseFloat(returnOnAssetsTTM).toFixed(2);
     }
@@ -237,9 +236,9 @@ function getOverviewData(symbol) {
 
     var roeTTM;
 
-    if (xhrOverview.response.annualReports === undefined) {
+    if (xhrOverview.response.ReturnOnEquityTTM === undefined) {
       roeTTM = null;
-    } else if (xhrOverview.response.annualReports !== undefined) {
+    } else if (xhrOverview.response.ReturnOnEquityTTM !== undefined) {
       var returnOnEquityTTM = xhrOverview.response.ReturnOnEquityTTM;
       roeTTM = parseFloat(returnOnEquityTTM).toFixed(2);
     }
@@ -260,9 +259,9 @@ function getOverviewData(symbol) {
 
     var omTTM;
 
-    if (xhrOverview.response.annualReports === undefined) {
+    if (xhrOverview.response.OperatingMarginTTM === undefined) {
       omTTM = null;
-    } else if (xhrOverview.response.annualReports !== undefined) {
+    } else if (xhrOverview.response.OperatingMarginTTM !== undefined) {
       var operatingMarginTTM = xhrOverview.response.OperatingMarginTTM;
       omTTM = parseFloat(operatingMarginTTM).toFixed(2);
     }
@@ -285,9 +284,9 @@ function getOverviewData(symbol) {
 
     var peRatio;
 
-    if (xhrOverview.response.annualReports === undefined) {
+    if (xhrOverview.response.PERatio === undefined) {
       peRatio = null;
-    } else if (xhrOverview.response.annualReports !== undefined) {
+    } else if (xhrOverview.response.PERatio !== undefined) {
       var priceEarningsRatio = xhrOverview.response.PERatio;
       peRatio = parseFloat(priceEarningsRatio).toFixed(2);
     }
@@ -308,9 +307,9 @@ function getOverviewData(symbol) {
 
     var pegRatio;
 
-    if (xhrOverview.response.annualReports === undefined) {
+    if (xhrOverview.response.PEGRatio === undefined) {
       pegRatio = null;
-    } else if (xhrOverview.response.annualReports !== undefined) {
+    } else if (xhrOverview.response.PEGRatio !== undefined) {
       var priceEarningsToGrowthRatio = xhrOverview.response.PEGRatio;
       pegRatio = parseFloat(priceEarningsToGrowthRatio).toFixed(2);
     }
@@ -331,9 +330,9 @@ function getOverviewData(symbol) {
 
     var pbRatio;
 
-    if (xhrOverview.response.annualReports === undefined) {
+    if (xhrOverview.response.PriceToBookRatio === undefined) {
       pbRatio = null;
-    } else if (xhrOverview.response.annualReports !== undefined) {
+    } else if (xhrOverview.response.PriceToBookRatio !== undefined) {
       var priceToBookRatio = xhrOverview.response.PriceToBookRatio;
       pbRatio = parseFloat(priceToBookRatio).toFixed(2);
     }
@@ -355,9 +354,9 @@ function getOverviewData(symbol) {
 
     var psRatio;
 
-    if (xhrOverview.response.annualReports === undefined) {
+    if (xhrOverview.response.PriceToSalesRatioTTM === undefined) {
       psRatio = null;
-    } else if (xhrOverview.response.annualReports !== undefined) {
+    } else if (xhrOverview.response.PriceToSalesRatioTTM !== undefined) {
       var priceToSalesRatio = xhrOverview.response.PriceToSalesRatioTTM;
       psRatio = parseFloat(priceToSalesRatio).toFixed(2);
     }
