@@ -189,8 +189,14 @@ function getOverviewData(symbol) {
 
     var profitabilityDataEl = document.querySelector('.profitability-data');
 
-    var profitMargin = xhrOverview.response.ProfitMargin;
-    var prftMargin = parseFloat(profitMargin).toFixed(2);
+    var prftMargin;
+
+    if (xhrOverview.response.annualReports === undefined) {
+      prftMargin = null;
+    } else if (xhrOverview.response.annualReports !== undefined) {
+      var profitMargin = xhrOverview.response.ProfitMargin;
+      prftMargin = parseFloat(profitMargin).toFixed(2);
+    }
 
     var profitMarginEl = document.createElement('li');
     var profitMarginLabel = document.createElement('strong');
@@ -200,14 +206,20 @@ function getOverviewData(symbol) {
     profitMarginEl.appendChild(profitMarginData);
     profitMarginLabel.textContent = 'Profit Margin: ';
 
-    if (prftMargin === undefined) {
+    if (prftMargin === null || profitMargin === undefined) {
       profitMarginData.textContent = 'N/A';
     } else {
       profitMarginData.textContent = prftMargin;
     }
 
-    var returnOnAssetsTTM = xhrOverview.response.ReturnOnAssetsTTM;
-    var roaTTM = parseFloat(returnOnAssetsTTM).toFixed(2);
+    var roaTTM;
+
+    if (xhrOverview.response.annualReports === undefined) {
+      roaTTM = null;
+    } else if (xhrOverview.response.annualReports !== undefined) {
+      var returnOnAssetsTTM = xhrOverview.response.ReturnOnAssetsTTM;
+      roaTTM = parseFloat(returnOnAssetsTTM).toFixed(2);
+    }
 
     var returnOnAssetsEl = document.createElement('li');
     var returnOnAssetsLabel = document.createElement('strong');
@@ -217,14 +229,20 @@ function getOverviewData(symbol) {
     returnOnAssetsEl.appendChild(returnOnAssetsData);
     returnOnAssetsLabel.textContent = 'Return On Assets (TTM): ';
 
-    if (roaTTM === undefined) {
+    if (roaTTM === null || roaTTM === undefined) {
       returnOnAssetsData.textContent = 'N/A';
     } else {
       returnOnAssetsData.textContent = roaTTM;
     }
 
-    var returnOnEquityTTM = xhrOverview.response.ReturnOnEquityTTM;
-    var roeTTM = parseFloat(returnOnEquityTTM).toFixed(2);
+    var roeTTM;
+
+    if (xhrOverview.response.annualReports === undefined) {
+      roeTTM = null;
+    } else if (xhrOverview.response.annualReports !== undefined) {
+      var returnOnEquityTTM = xhrOverview.response.ReturnOnEquityTTM;
+      roeTTM = parseFloat(returnOnEquityTTM).toFixed(2);
+    }
 
     var returnOnEquityEl = document.createElement('li');
     var returnOnEquityLabel = document.createElement('strong');
@@ -234,14 +252,20 @@ function getOverviewData(symbol) {
     returnOnEquityEl.appendChild(returnOnEquityData);
     returnOnEquityLabel.textContent = 'Return on Equity (TTM): ';
 
-    if (roeTTM === undefined) {
+    if (roeTTM === null || roeTTM === undefined) {
       returnOnEquityData.textContent = 'N/A';
     } else {
       returnOnEquityData.textContent = roeTTM;
     }
 
-    var operatingMarginTTM = xhrOverview.response.OperatingMarginTTM;
-    var omTTM = parseFloat(operatingMarginTTM).toFixed(2);
+    var omTTM;
+
+    if (xhrOverview.response.annualReports === undefined) {
+      omTTM = null;
+    } else if (xhrOverview.response.annualReports !== undefined) {
+      var operatingMarginTTM = xhrOverview.response.OperatingMarginTTM;
+      omTTM = parseFloat(operatingMarginTTM).toFixed(2);
+    }
 
     var operatingMarginEl = document.createElement('li');
     var operatingMarginLabel = document.createElement('strong');
@@ -251,7 +275,7 @@ function getOverviewData(symbol) {
     operatingMarginEl.appendChild(operatingMarginData);
     operatingMarginLabel.textContent = 'Operating Margin (TTM): ';
 
-    if (omTTM === undefined) {
+    if (omTTM === null || omTTM === undefined) {
       operatingMarginData.textContent = 'N/A';
     } else {
       operatingMarginData.textContent = omTTM;
@@ -259,8 +283,14 @@ function getOverviewData(symbol) {
 
     var valuationDataEl = document.querySelector('.valuation-data');
 
-    var priceEarningsRatio = xhrOverview.response.PERatio;
-    var peRatio = parseFloat(priceEarningsRatio).toFixed(2);
+    var peRatio;
+
+    if (xhrOverview.response.annualReports === undefined) {
+      peRatio = null;
+    } else if (xhrOverview.response.annualReports !== undefined) {
+      var priceEarningsRatio = xhrOverview.response.PERatio;
+      peRatio = parseFloat(priceEarningsRatio).toFixed(2);
+    }
 
     var peRatioEl = document.createElement('li');
     var peRatioLabel = document.createElement('strong');
@@ -270,14 +300,20 @@ function getOverviewData(symbol) {
     peRatioEl.appendChild(peRatioData);
     peRatioLabel.textContent = 'P/E Ratio: ';
 
-    if (peRatio === undefined) {
+    if (peRatio === null || peRatio === undefined) {
       peRatioData.textContent = 'N/A';
     } else {
       peRatioData.textContent = peRatio;
     }
 
-    var priceEarningsToGrowthRatio = xhrOverview.response.PEGRatio;
-    var pegRatio = parseFloat(priceEarningsToGrowthRatio).toFixed(2);
+    var pegRatio;
+
+    if (xhrOverview.response.annualReports === undefined) {
+      pegRatio = null;
+    } else if (xhrOverview.response.annualReports !== undefined) {
+      var priceEarningsToGrowthRatio = xhrOverview.response.PEGRatio;
+      pegRatio = parseFloat(priceEarningsToGrowthRatio).toFixed(2);
+    }
 
     var pegRatioEl = document.createElement('li');
     var pegRatioLabel = document.createElement('strong');
@@ -287,14 +323,20 @@ function getOverviewData(symbol) {
     pegRatioEl.appendChild(pegRatioData);
     pegRatioLabel.textContent = 'PEG Ratio: ';
 
-    if (pegRatio === undefined) {
+    if (pegRatio === null || pegRatio === undefined) {
       pegRatioData.textContent = 'N/A';
     } else {
       pegRatioData.textContent = pegRatio;
     }
 
-    var priceToBookRatio = xhrOverview.response.PriceToBookRatio;
-    var pbRatio = parseFloat(priceToBookRatio).toFixed(2);
+    var pbRatio;
+
+    if (xhrOverview.response.annualReports === undefined) {
+      pbRatio = null;
+    } else if (xhrOverview.response.annualReports !== undefined) {
+      var priceToBookRatio = xhrOverview.response.PriceToBookRatio;
+      pbRatio = parseFloat(priceToBookRatio).toFixed(2);
+    }
 
     var pbRatioEl = document.createElement('li');
     var pbRatioLabel = document.createElement('strong');
@@ -305,14 +347,20 @@ function getOverviewData(symbol) {
     pbRatioLabel.textContent = 'P/B Ratio: ';
     pbRatioData.textContent = pbRatio;
 
-    if (pbRatio === undefined) {
+    if (pbRatio === null || pbRatio === undefined) {
       pbRatioData.textContent = 'N/A';
     } else {
       pbRatioData.textContent = pbRatio;
     }
 
-    var priceToSalesRatio = xhrOverview.response.PriceToSalesRatioTTM;
-    var psRatio = parseFloat(priceToSalesRatio).toFixed(2);
+    var psRatio;
+
+    if (xhrOverview.response.annualReports === undefined) {
+      psRatio = null;
+    } else if (xhrOverview.response.annualReports !== undefined) {
+      var priceToSalesRatio = xhrOverview.response.PriceToSalesRatioTTM;
+      psRatio = parseFloat(priceToSalesRatio).toFixed(2);
+    }
 
     var psRatioEl = document.createElement('li');
     var psRatioLabel = document.createElement('strong');
@@ -322,7 +370,7 @@ function getOverviewData(symbol) {
     psRatioEl.appendChild(psRatioData);
     psRatioLabel.textContent = 'P/S Ratio: ';
 
-    if (psRatio === undefined) {
+    if (psRatio === null || psRatio === undefined) {
       psRatioData.textContent = 'N/A';
     } else {
       psRatioData.textContent = psRatio;
@@ -376,6 +424,11 @@ function getDailyPrices(symbol) {
 
     var chart = document.getElementById('dailyPriceChart');
 
+    if (closePrices.length === 0) {
+      alert('Sorry, there is no data available for this chart.');
+      return;
+    }
+
     window.myChart = new Chart(chart, {
       type: 'line',
       data: {
@@ -415,6 +468,11 @@ function getIntraDayPrices(symbol) {
 
     var chart = document.getElementById('dailyPriceChart');
 
+    if (closePrices.length === 0) {
+      alert('Sorry, there is no data available for this chart.');
+      return;
+    }
+
     window.myChart = new Chart(chart, {
       type: 'line',
       data: {
@@ -452,6 +510,11 @@ function getWeeklyPrices(symbol) {
     }
 
     var chart = document.getElementById('dailyPriceChart');
+
+    if (closePrices.length === 0) {
+      alert('Sorry, there is no data available for this chart.');
+      return;
+    }
 
     window.myChart = new Chart(chart, {
       type: 'line',
@@ -491,6 +554,11 @@ function getMonthlyPrices(symbol) {
     }
 
     var chart = document.getElementById('dailyPriceChart');
+
+    if (closePrices.length === 0) {
+      alert('Sorry, there is no data available for this chart.');
+      return;
+    }
 
     window.myChart = new Chart(chart, {
       type: 'line',
@@ -565,10 +633,16 @@ function getBalanceSheetData(symbol) {
 
     var liquidityDataEl = document.querySelector('.liquidity-data');
 
-    var totalCurrentAssests = xhrBalanceSheet.response.annualReports[0].totalCurrentAssets;
-    var totalCurrentLiabilities = xhrBalanceSheet.response.annualReports[0].totalCurrentLiabilities;
-    var currentRatioFormula = totalCurrentAssests / totalCurrentLiabilities;
-    var currentRatio = currentRatioFormula.toFixed(2);
+    var currentRatio;
+
+    if (xhrBalanceSheet.response.annualReports === undefined) {
+      currentRatio = null;
+    } else if (xhrBalanceSheet.response.annualReports !== undefined) {
+      var totalCurrentAssests = xhrBalanceSheet.response.annualReports[0].totalCurrentAssets;
+      var totalCurrentLiabilities = xhrBalanceSheet.response.annualReports[0].totalCurrentLiabilities;
+      var currentRatioFormula = totalCurrentAssests / totalCurrentLiabilities;
+      currentRatio = currentRatioFormula.toFixed(2);
+    }
 
     var currentRatioEl = document.createElement('li');
     var currentRatioLabel = document.createElement('strong');
@@ -578,15 +652,21 @@ function getBalanceSheetData(symbol) {
     currentRatioEl.appendChild(currentRatioData);
     currentRatioLabel.textContent = 'Current Ratio: ';
 
-    if (totalCurrentAssests === undefined || totalCurrentAssests === 'None' || totalCurrentLiabilities === undefined || totalCurrentLiabilities === 'None') {
+    if (currentRatio === null || totalCurrentAssests === null || totalCurrentAssests === undefined || totalCurrentAssests === 'None' || totalCurrentLiabilities === null || totalCurrentLiabilities === undefined || totalCurrentLiabilities === 'None') {
       currentRatioData.textContent = 'N/A';
     } else {
       currentRatioData.textContent = currentRatio;
     }
 
-    var inventory = xhrBalanceSheet.response.annualReports[0].inventory;
-    var quickRatioFormula = (totalCurrentAssests - inventory) / totalCurrentLiabilities;
-    var quickRatio = quickRatioFormula.toFixed(2);
+    var quickRatio;
+
+    if (xhrBalanceSheet.response.annualReports === undefined) {
+      quickRatio = null;
+    } else if (xhrBalanceSheet.response.annualReports !== undefined) {
+      var inventory = xhrBalanceSheet.response.annualReports[0].inventory;
+      var quickRatioFormula = (totalCurrentAssests - inventory) / totalCurrentLiabilities;
+      quickRatio = quickRatioFormula.toFixed(2);
+    }
 
     var quickRatioEl = document.createElement('li');
     var quickRatioLabel = document.createElement('strong');
@@ -596,15 +676,21 @@ function getBalanceSheetData(symbol) {
     quickRatioEl.appendChild(quickRatioData);
     quickRatioLabel.textContent = 'Quick Ratio: ';
 
-    if (totalCurrentAssests === undefined || totalCurrentAssests === 'None' || inventory === undefined || inventory === 'None' || totalCurrentLiabilities === undefined || totalCurrentLiabilities === 'None') {
+    if (quickRatio === null || totalCurrentAssests === undefined || totalCurrentAssests === 'None' || inventory === undefined || inventory === 'None' || totalCurrentLiabilities === undefined || totalCurrentLiabilities === 'None') {
       quickRatioData.textContent = 'N/A';
     } else {
       quickRatioData.textContent = quickRatio;
     }
 
-    var cashAndCashEquivalents = xhrBalanceSheet.response.annualReports[0].cashAndCashEquivalentsAtCarryingValue;
-    var cashRatioFormula = cashAndCashEquivalents / totalCurrentLiabilities;
-    var cashRatio = cashRatioFormula.toFixed(2);
+    var cashRatio;
+
+    if (xhrBalanceSheet.response.annualReports === undefined) {
+      cashRatio = null;
+    } else if (xhrBalanceSheet.response.annualReports !== undefined) {
+      var cashAndCashEquivalents = xhrBalanceSheet.response.annualReports[0].cashAndCashEquivalentsAtCarryingValue;
+      var cashRatioFormula = cashAndCashEquivalents / totalCurrentLiabilities;
+      cashRatio = cashRatioFormula.toFixed(2);
+    }
 
     var cashRatioEl = document.createElement('li');
     var cashRatioLabel = document.createElement('strong');
@@ -614,7 +700,7 @@ function getBalanceSheetData(symbol) {
     cashRatioEl.appendChild(cashRatioData);
     cashRatioLabel.textContent = 'Cash Ratio: ';
 
-    if (cashAndCashEquivalents === undefined || cashAndCashEquivalents === 'None' || totalCurrentLiabilities === undefined || totalCurrentLiabilities === 'None') {
+    if (cashRatio === null || cashAndCashEquivalents === undefined || cashAndCashEquivalents === 'None' || totalCurrentLiabilities === undefined || totalCurrentLiabilities === 'None') {
       cashRatioData.textContent = 'N/A';
     } else {
       cashRatioData.textContent = cashRatio;
@@ -622,12 +708,18 @@ function getBalanceSheetData(symbol) {
 
     var solvencyDataEl = document.querySelector('.solvency-data');
 
-    var totalAssets = xhrBalanceSheet.response.annualReports[0].totalAssets;
-    var totalLiabilities = xhrBalanceSheet.response.annualReports[0].totalLiabilities;
-    var totalShareholderEquity = xhrBalanceSheet.response.annualReports[0].totalShareholderEquity;
+    var doaRatio;
+
+    if (xhrBalanceSheet.response.annualReports === undefined) {
+      doaRatio = null;
+    } else if (xhrBalanceSheet.response.annualReports !== undefined) {
+      var totalAssets = xhrBalanceSheet.response.annualReports[0].totalAssets;
+      var totalLiabilities = xhrBalanceSheet.response.annualReports[0].totalLiabilities;
+      var totalShareholderEquity = xhrBalanceSheet.response.annualReports[0].totalShareholderEquity;
+    }
 
     var DebtToAssests = totalLiabilities / totalAssets;
-    var doaRatio = parseFloat(DebtToAssests).toFixed(2);
+    doaRatio = parseFloat(DebtToAssests).toFixed(2);
 
     var debtToAssetsEl = document.createElement('li');
     var debtToAssetsLabel = document.createElement('strong');
@@ -637,7 +729,7 @@ function getBalanceSheetData(symbol) {
     debtToAssetsEl.appendChild(debtToAssetsData);
     debtToAssetsLabel.textContent = 'Debt to Assets: ';
 
-    if (totalLiabilities === undefined || totalLiabilities === 'None' || totalAssets === undefined || totalAssets === 'None') {
+    if (doaRatio === null || totalLiabilities === undefined || totalLiabilities === 'None' || totalAssets === undefined || totalAssets === 'None') {
       debtToAssetsData.textContent = 'N/A';
     } else {
       debtToAssetsData.textContent = doaRatio;
@@ -660,8 +752,10 @@ function getBalanceSheetData(symbol) {
       debtToEquityRatioData.textContent = doeRatio;
     }
 
+    var operatingCfRatio;
+
     var operatingCashflowRatio = operatingCashflow / totalCurrentLiabilities;
-    var operatingCfRatio = parseFloat(operatingCashflowRatio).toFixed(2);
+    operatingCfRatio = parseFloat(operatingCashflowRatio).toFixed(2);
 
     var operatingCashflowEl = document.createElement('li');
     var operatingCashflowLabel = document.createElement('strong');
@@ -671,7 +765,7 @@ function getBalanceSheetData(symbol) {
     operatingCashflowEl.appendChild(operatingCashflowData);
     operatingCashflowLabel.textContent = 'Operating Cashflow Ratio: ';
 
-    if (operatingCashflow === undefined || operatingCashflow === 'None' || totalCurrentLiabilities === undefined || totalCurrentLiabilities === 'None') {
+    if (operatingCashflow === null || operatingCashflow === undefined || operatingCashflow === 'None' || totalCurrentLiabilities === undefined || totalCurrentLiabilities === 'None') {
       operatingCashflowData.textContent = 'N/A';
     } else {
       operatingCashflowData.textContent = operatingCfRatio;
@@ -704,7 +798,11 @@ function getCashFlowData(symbol) {
   xhrCashFlow.open('GET', `https://www.alphavantage.co/query?function=CASH_FLOW&symbol=${symbol}&apikey=EBZ2O8GQQ9CA3ECX`);
   xhrCashFlow.responseType = 'json';
   xhrCashFlow.addEventListener('load', function () {
-    operatingCashflow = xhrCashFlow.response.annualReports[0].operatingCashflow;
+    if (xhrCashFlow.response.annualReports === undefined) {
+      operatingCashflow = null;
+    } else if (xhrCashFlow.response.annualReports !== undefined) {
+      operatingCashflow = xhrCashFlow.response.annualReports[0].operatingCashflow;
+    }
     return operatingCashflow;
   });
   xhrCashFlow.send();
@@ -718,10 +816,16 @@ function getIncomeStatementData(symbol) {
 
     var solvencyDataEl = document.querySelector('.solvency-data');
 
-    var ebit = xhrIncomeStatement.response.annualReports[0].ebit;
-    var interestExpense = xhrIncomeStatement.response.annualReports[0].interestExpense;
-    var interestCoverageRatioFormula = ebit / interestExpense;
-    var interestCoverageRatio = interestCoverageRatioFormula.toFixed(2);
+    var interestCoverageRatio;
+
+    if (xhrIncomeStatement.response.annualReports === undefined) {
+      interestCoverageRatio = null;
+    } else if (xhrIncomeStatement.response.annualReports !== undefined) {
+      var ebit = xhrIncomeStatement.response.annualReports[0].ebit;
+      var interestExpense = xhrIncomeStatement.response.annualReports[0].interestExpense;
+      var interestCoverageRatioFormula = ebit / interestExpense;
+      interestCoverageRatio = interestCoverageRatioFormula.toFixed(2);
+    }
 
     var interestCoverageRatioEl = document.createElement('li');
     var interestCoverageRatioLabel = document.createElement('strong');
@@ -731,7 +835,7 @@ function getIncomeStatementData(symbol) {
     interestCoverageRatioEl.appendChild(interestCoverageRatioData);
     interestCoverageRatioLabel.textContent = 'Interest Coverage Ratio: ';
 
-    if (ebit === undefined || ebit === 'None' || interestExpense === undefined || interestExpense === 'None') {
+    if (interestCoverageRatio === null || ebit === undefined || ebit === 'None' || interestExpense === undefined || interestExpense === 'None') {
       interestCoverageRatioData.textContent = 'N/A';
     } else {
       interestCoverageRatioData.textContent = interestCoverageRatio;
