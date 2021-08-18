@@ -34,9 +34,12 @@ function handleInput(event) {
 function handleSubmit(event) {
   event.preventDefault();
 
+
   for (var i = 0; i < stocks.length; i++) {
-    if (keywords === stocks[i]['1. symbol']) {
-      symbol = stocks[i]['1. symbol'];
+    for (var m = 0; m < bestMatchesArr.length; m++) {
+      if (keywords === stocks[i]['1. symbol'] && stocks[i]['1. symbol'] === bestMatchesArr[m]['1. symbol']) {
+        symbol = stocks[i]['1. symbol'];
+      }
     }
   }
 
